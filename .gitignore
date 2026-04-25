@@ -42,3 +42,12 @@ next-env.d.ts
 .dev.log
 .scripts/
 .snapshots/
+
+# AI / editor scratch — never commit
+.claude/
+.cursor/
+.aider*
+.continue/
+CLAUDE.md
+*.chat.md
+*.transcript.md
