@@ -123,7 +123,7 @@ export function Nav() {
               }}
             />
 
-            <div className="relative flex h-full flex-col justify-between px-4 pt-10 pb-12">
+            <div className="relative flex h-full flex-col justify-between px-4 pt-[120px] pb-12">
               <nav className="flex flex-col items-start gap-6">
                 <a
                   href="#top"
