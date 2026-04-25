@@ -9,6 +9,12 @@ import { SocialIcons } from "./SocialIcons";
 
 const EMAIL = "joegentleman2002@gmail.com";
 
+type MobileLink = { label: string; href: string; icon?: string };
+const MOBILE_LINKS: MobileLink[] = [
+  { label: "Home", href: "#top" },
+  { label: "Resume", href: "/resume.pdf", icon: "/figma/icon-download.svg" },
+];
+
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -129,67 +135,70 @@ export function Nav() {
               }}
             />
 
-            <div className="relative flex h-full flex-col justify-between px-4 pt-10 pb-12">
-              <nav className="flex flex-col items-start gap-6">
-                <a
-                  href="#top"
-                  onClick={() => setOpen(false)}
-                  className={`text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink underline underline-offset-4 w-fit transition-all duration-500 ease-out ${
-                    open
-                      ? "translate-x-0 opacity-100"
-                      : "translate-x-6 opacity-0"
-                  }`}
-                  style={{ transitionDelay: open ? "120ms" : "0ms" }}
-                >
-                  Home
-                </a>
-                <a
-                  href="/resume.pdf"
-                  onClick={() => setOpen(false)}
-                  className={`inline-flex items-center gap-1 text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink w-fit transition-all duration-500 ease-out ${
-                    open
-                      ? "translate-x-0 opacity-100"
-                      : "translate-x-6 opacity-0"
-                  }`}
-                  style={{ transitionDelay: open ? "200ms" : "0ms" }}
-                >
-                  Resume
-                  <Image
-                    src="/figma/icon-download.svg"
-                    alt=""
-                    width={24}
-                    height={24}
-                    aria-hidden
-                  />
-                </a>
-                <div
-                  className={`transition-all duration-500 ease-out ${
-                    open
-                      ? "translate-x-0 opacity-100"
-                      : "translate-x-6 opacity-0"
-                  }`}
-                  style={{ transitionDelay: open ? "280ms" : "0ms" }}
-                >
-                  <PrimaryButton
-                    onClick={() => {
-                      setOpen(false);
-                      window.location.href = `mailto:${EMAIL}`;
-                    }}
-                    className="w-[118px]"
+            <div className="relative flex h-full flex-col justify-between px-6 pt-32 pb-12">
+              <nav className="flex flex-col items-start gap-1">
+                {MOBILE_LINKS.map((item, i) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className={`group inline-flex items-center gap-3 py-3 text-ink text-[44px] font-medium leading-[1.05] tracking-[-1.5px] transition-all duration-500 ease-out ${
+                      open
+                        ? "translate-x-0 opacity-100"
+                        : "translate-x-6 opacity-0"
+                    }`}
+                    style={{ transitionDelay: open ? `${120 + i * 80}ms` : "0ms" }}
                   >
-                    Contact
-                  </PrimaryButton>
-                </div>
+                    <span className="relative">
+                      {item.label}
+                      <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-brand transition-all duration-300 group-hover:w-full" />
+                    </span>
+                    {item.icon && (
+                      <Image
+                        src={item.icon}
+                        alt=""
+                        width={28}
+                        height={28}
+                        aria-hidden
+                        className="opacity-70"
+                      />
+                    )}
+                  </a>
+                ))}
+
+                <a
+                  href={`mailto:${EMAIL}`}
+                  onClick={() => setOpen(false)}
+                  className={`mt-2 inline-flex items-center gap-3 py-3 text-brand-text text-[44px] font-medium leading-[1.05] tracking-[-1.5px] transition-all duration-500 ease-out ${
+                    open
+                      ? "translate-x-0 opacity-100"
+                      : "translate-x-6 opacity-0"
+                  }`}
+                  style={{
+                    transitionDelay: open
+                      ? `${120 + MOBILE_LINKS.length * 80}ms`
+                      : "0ms",
+                  }}
+                >
+                  Contact
+                </a>
               </nav>
 
               <div
-                className={`transition-all duration-500 ease-out ${
+                className={`flex flex-col gap-6 transition-all duration-500 ease-out ${
                   open
                     ? "translate-y-0 opacity-100"
                     : "translate-y-3 opacity-0"
                 }`}
-                style={{ transitionDelay: open ? "360ms" : "0ms" }}
+                style={{
+                  transitionDelay: open
+                    ? `${120 + (MOBILE_LINKS.length + 1) * 80}ms`
+                    : "0ms",
+                }}
               >
+                <p className="text-ink-muted text-[14px] tracking-[-0.3px]">
+                  Available for product design roles and freelance work.
+                </p>
                 <SocialIcons />
               </div>
             </div>
