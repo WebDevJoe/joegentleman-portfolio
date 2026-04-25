@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import Image from "next/image";
 import { LogoTile } from "./Logo";
 import { PrimaryButton } from "./Buttons";
 import { SocialIcons } from "./SocialIcons";
+import { DownloadIcon } from "./icons/DownloadIcon";
 
 const EMAIL = "joegentleman2002@gmail.com";
 
@@ -51,13 +51,7 @@ export function Nav() {
                 className="inline-flex items-center gap-1 text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink hover:opacity-70 transition"
               >
                 Resume
-                <Image
-                  src="/figma/icon-download.svg"
-                  alt=""
-                  width={20}
-                  height={20}
-                  aria-hidden
-                />
+                <DownloadIcon size={20} />
               </a>
             </div>
             <PrimaryButton
@@ -154,13 +148,7 @@ export function Nav() {
                   style={{ transitionDelay: open ? "200ms" : "0ms" }}
                 >
                   Resume
-                  <Image
-                    src="/figma/icon-download.svg"
-                    alt=""
-                    width={20}
-                    height={20}
-                    aria-hidden
-                  />
+                  <DownloadIcon size={20} />
                 </a>
                 <div
                   className={`transition-all duration-500 ease-out ${
