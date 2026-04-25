@@ -8,11 +8,11 @@ import { Marquee } from "./Marquee";
 import { HeroHeadline } from "./HeroHeadline";
 
 const showcaseImages = [
-  "/figma/hero-card.png",
-  "/figma/hero-card.png",
-  "/figma/hero-card.png",
-  "/figma/hero-card.png",
-  "/figma/hero-card.png",
+  "https://placedog.net/760/570?id=10",
+  "https://placedog.net/760/570?id=20",
+  "https://placedog.net/760/570?id=30",
+  "https://placedog.net/760/570?id=40",
+  "https://placedog.net/760/570?id=50",
 ];
 
 export function Hero() {

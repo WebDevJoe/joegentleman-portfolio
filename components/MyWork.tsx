@@ -15,7 +15,7 @@ const projects: (Project & { category: Category })[] = [
     title: "E-Commerce Platform Redesign",
     description:
       "Complete overhaul of a retail platform, focusing on user journey optimization and conversion rate improvements through intuitive design patterns.",
-    image: "/figma/project-1.jpg",
+    image: "https://placedog.net/610/480?id=101",
   },
   {
     category: "Product Design",
@@ -23,7 +23,7 @@ const projects: (Project & { category: Category })[] = [
     title: "E-Commerce Platform Redesign",
     description:
       "Complete overhaul of a retail platform, focusing on user journey optimization and conversion rate improvements through intuitive design patterns.",
-    image: "/figma/project-2.jpg",
+    image: "https://placedog.net/610/480?id=102",
   },
   {
     category: "Product Design",
@@ -31,7 +31,7 @@ const projects: (Project & { category: Category })[] = [
     title: "E-Commerce Platform Redesign",
     description:
       "Complete overhaul of a retail platform, focusing on user journey optimization and conversion rate improvements through intuitive design patterns.",
-    image: "/figma/project-1.jpg",
+    image: "https://placedog.net/610/480?id=103",
   },
   {
     category: "Game UI/UX",
@@ -39,7 +39,7 @@ const projects: (Project & { category: Category })[] = [
     title: "Adventure Quest HUD",
     description:
       "Designed an immersive heads-up display system for a fantasy RPG, balancing visual hierarchy with gameplay readability across multiple resolutions.",
-    image: "/figma/project-2.jpg",
+    image: "https://placedog.net/610/480?id=201",
   },
   {
     category: "Game UI/UX",
@@ -47,7 +47,7 @@ const projects: (Project & { category: Category })[] = [
     title: "Tactical Strategy Menu System",
     description:
       "Reworked the front-end menu flows for a competitive strategy title, cutting time-to-match and improving discoverability of late-game features.",
-    image: "/figma/project-1.jpg",
+    image: "https://placedog.net/610/480?id=202",
   },
   {
     category: "Game UI/UX",
@@ -55,7 +55,7 @@ const projects: (Project & { category: Category })[] = [
     title: "Open-World Inventory Overhaul",
     description:
       "Redesigned the inventory, crafting, and loot screens for an open-world RPG, focusing on controller-first ergonomics and clear item hierarchy.",
-    image: "/figma/project-2.jpg",
+    image: "https://placedog.net/610/480?id=203",
   },
   {
     category: "Web Design",
@@ -63,7 +63,7 @@ const projects: (Project & { category: Category })[] = [
     title: "Studio Marketing Site",
     description:
       "Created a content-rich marketing site with motion-driven storytelling, optimized for performance and accessibility on all devices.",
-    image: "/figma/project-1.jpg",
+    image: "https://placedog.net/610/480?id=301",
   },
   {
     category: "Web Design",
@@ -71,7 +71,7 @@ const projects: (Project & { category: Category })[] = [
     title: "SaaS Onboarding Flow",
     description:
       "Designed a guided onboarding experience for a B2B SaaS, lifting activation rates with progressive disclosure and contextual education.",
-    image: "/figma/project-2.jpg",
+    image: "https://placedog.net/610/480?id=302",
   },
   {
     category: "Web Design",
@@ -79,7 +79,7 @@ const projects: (Project & { category: Category })[] = [
     title: "Editorial Long-Form Template",
     description:
       "Built a flexible long-form article template for a publishing client, balancing typography, embedded media, and reading-progress indicators.",
-    image: "/figma/project-1.jpg",
+    image: "https://placedog.net/610/480?id=303",
   },
 ];
 
