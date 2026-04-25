@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 const socials = [
-  { name: "Dribbble", href: "https://dribbble.com", icon: "/figma/icon-dribbble.svg" },
+  { name: "Dribbble", href: "https://dribbble.com/Joegentleman", icon: "/figma/icon-dribbble.svg" },
   { name: "X", href: "https://x.com", icon: "/figma/icon-x.svg" },
   { name: "LinkedIn", href: "https://linkedin.com", icon: "/figma/icon-linkedin.svg" },
 ];
