@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-rethink-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #252525;
+  --color-ink-muted: #666666;
+  --color-ink-faint: #999999;
+  --color-line: #f2f2f2;
+  --color-chip-bg: #e3e3e3;
+  --color-brand: #2756e8;
+  --color-brand-deep: #022aa9;
+  --color-brand-text: #133fc8;
+  --color-brand-text-strong: #0064b6;
+  --color-chip-blue-tint: rgba(49, 141, 217, 0.2);
+  --color-card-tint: #e0f1fe;
+
+  --shadow-pill: 0 0 0 1px rgba(13, 13, 13, 0.16), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --shadow-dark-pill: 0 0 0 1px #0d0d0d, 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --shadow-blue-pill: 0 0 0 1px #1742cc, 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --shadow-card-image: 0 33px 9px 0 rgba(0, 0, 0, 0), 0 21px 8px 0 rgba(0, 0, 0, 0.01),
+    0 12px 7px 0 rgba(0, 0, 0, 0.05), 0 5px 5px 0 rgba(0, 0, 0, 0.09),
+    0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+html,
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utility: gradient backgrounds matching the design's logo + buttons */
+.bg-logo-tile {
+  background-image: linear-gradient(to bottom, #201e25, #323137);
+}
+.bg-cta {
+  background-image: linear-gradient(to bottom, #2756e8, #022aa9);
+}
+
+/* Card decorative inner highlight (top-edge bright line) */
+.card-inset {
+  box-shadow: inset 0 3px 0 0 #ffffff;
+}
+
+/* Pixel-grid background pattern (matches Figma's hero grid) */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(13, 13, 13, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(13, 13, 13, 0.06) 1px, transparent 1px);
+  background-size: 84px 75px;
+  background-position: 0 0;
+}
+
+/* Auto-scrolling marquee for the hero showcase — rightward conveyor belt.
+   Translation accounts for the inter-copy gap so the loop is seamless. */
+@keyframes marquee-right {
+  from { transform: translate3d(calc(-50% - var(--marquee-gap, 32px) / 2), 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-right 25s linear infinite;
+  will-change: transform;
+}
+/* Pause on mouse hover — desktop only (touch devices have no hover) */
+@media (hover: hover) and (pointer: fine) {
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* Hide native scrollbars (used by carousel container if scrolling fallback) */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
