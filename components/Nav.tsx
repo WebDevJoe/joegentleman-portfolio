@@ -128,7 +128,7 @@ export function Nav() {
                 <a
                   href="#top"
                   onClick={() => setOpen(false)}
-                  className={`text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink underline underline-offset-4 w-fit transition-all duration-500 ease-out ${
+                  className={`text-[18px] font-medium leading-[0.95] tracking-[-0.54px] text-ink underline underline-offset-4 w-fit transition-all duration-500 ease-out ${
                     open
                       ? "translate-x-0 opacity-100"
                       : "translate-x-6 opacity-0"
@@ -140,7 +140,7 @@ export function Nav() {
                 <a
                   href="/resume.pdf"
                   onClick={() => setOpen(false)}
-                  className={`inline-flex items-center gap-1 text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink w-fit transition-all duration-500 ease-out ${
+                  className={`inline-flex items-center gap-1 text-[18px] font-medium leading-[0.95] tracking-[-0.54px] text-ink w-fit transition-all duration-500 ease-out ${
                     open
                       ? "translate-x-0 opacity-100"
                       : "translate-x-6 opacity-0"
@@ -171,13 +171,16 @@ export function Nav() {
               </nav>
 
               <div
-                className={`transition-all duration-500 ease-out ${
+                className={`flex flex-col gap-6 transition-all duration-500 ease-out ${
                   open
                     ? "translate-y-0 opacity-100"
                     : "translate-y-3 opacity-0"
                 }`}
                 style={{ transitionDelay: open ? "360ms" : "0ms" }}
               >
+                <p className="text-ink-muted text-[14px] tracking-[-0.3px]">
+                  Available for product design roles and freelance work.
+                </p>
                 <SocialIcons />
               </div>
             </div>
