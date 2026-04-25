@@ -56,6 +56,15 @@ body {
   background-size: 84px 75px;
   background-position: 0 0;
 }
+/* Softer grid on mobile so it doesn't compete with content */
+@media (max-width: 768px) {
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(13, 13, 13, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(13, 13, 13, 0.03) 1px, transparent 1px);
+    background-size: 56px 50px;
+  }
+}
 
 /* Auto-scrolling marquee for the hero showcase — rightward conveyor belt.
    Translation accounts for the inter-copy gap so the loop is seamless. */
