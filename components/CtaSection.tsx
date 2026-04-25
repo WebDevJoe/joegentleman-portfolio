@@ -10,7 +10,7 @@ export function CtaSection() {
       {/* pixel grid background, faded out at top and bottom */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-grid"
+        className="pointer-events-none absolute inset-0 bg-grid opacity-50"
         style={{
           maskImage:
             "linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)",
