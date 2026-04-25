@@ -42,7 +42,7 @@ export function CtaSection() {
             if (target) {
               target.scrollIntoView({ behavior: "smooth" });
             } else {
-              window.location.href = "mailto:joegentleman2002@gmail.com";
+              window.location.href = "mailto:joegentlemanux@gmail.com";
             }
           }}
           className="w-[132px]"

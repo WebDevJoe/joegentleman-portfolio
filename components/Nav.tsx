@@ -7,7 +7,7 @@ import { PrimaryButton } from "./Buttons";
 import { SocialIcons } from "./SocialIcons";
 import { DownloadIcon } from "./icons/DownloadIcon";
 
-const EMAIL = "joegentleman2002@gmail.com";
+const EMAIL = "joegentlemanux@gmail.com";
 
 export function Nav() {
   const [open, setOpen] = useState(false);
