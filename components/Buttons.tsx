@@ -31,7 +31,7 @@ export function ChipPill({
     return (
       <button
         type="button"
-        className={`bg-logo-tile inline-flex h-[40px] items-center justify-center rounded-[12px] px-3 font-medium text-[16px] leading-[0.9] text-white shadow-[0_0_0_1px_#0d0d0d,0_2px_4px_0_rgba(0,0,0,0.1)] border border-[rgba(49,48,54,0)] cursor-pointer ${className}`}
+        className={`bg-logo-tile inline-flex h-[40px] shrink-0 items-center justify-center whitespace-nowrap rounded-[12px] px-3 font-medium text-[16px] leading-[0.9] text-white shadow-[0_0_0_1px_#0d0d0d,0_2px_4px_0_rgba(0,0,0,0.1)] border border-[rgba(49,48,54,0)] cursor-pointer ${className}`}
         {...rest}
       >
         {children}
@@ -41,7 +41,7 @@ export function ChipPill({
   return (
     <button
       type="button"
-      className={`inline-flex h-[40px] items-center justify-center rounded-[12px] bg-[#e3e3e3] px-3 font-medium text-[16px] leading-[0.9] text-ink shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_2px_4px_0_rgba(0,0,0,0.1)] border border-[rgba(241,241,241,0)] cursor-pointer hover:brightness-95 transition ${className}`}
+      className={`inline-flex h-[40px] shrink-0 items-center justify-center whitespace-nowrap rounded-[12px] bg-[#e3e3e3] px-3 font-medium text-[16px] leading-[0.9] text-ink shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_2px_4px_0_rgba(0,0,0,0.1)] border border-[rgba(241,241,241,0)] cursor-pointer hover:brightness-95 transition ${className}`}
       {...rest}
     >
       {children}
