@@ -94,7 +94,7 @@ export function MyWork() {
           <h2 className="text-ink text-[48px] font-medium leading-[0.95] tracking-[-1.44px]">
             My work
           </h2>
-          <p className="text-ink text-[16px] md:text-[18px] font-normal leading-[0.95] tracking-[-0.48px] md:tracking-[-0.54px]">
+          <p className="text-ink-muted text-[16px] md:text-[18px] font-normal leading-[0.95] tracking-[-0.48px] md:tracking-[-0.54px]">
             A game UI/UX designer with a web development background.
           </p>
         </ScrollReveal>
