@@ -333,7 +333,7 @@ function ImagePlaceholder({ height = "h-[320px]" }: { height?: string }) {
 
 function PhoneMock() {
   return (
-    <div className="w-full md:w-[280px] h-[480px] md:h-[580px] rounded-[36px] border-[1.5px] border-line bg-card-tint relative overflow-hidden flex items-center justify-center shrink-0">
+    <div className="w-full max-w-[280px] aspect-[280/580] mx-auto md:max-w-none md:w-[280px] md:aspect-auto md:h-[580px] md:mx-0 rounded-[36px] border-[1.5px] border-line bg-card-tint relative overflow-hidden flex items-center justify-center shrink-0">
       <span
         aria-hidden
         className="absolute -translate-x-1/2 left-1/2 top-3 h-1.5 w-20 rounded-full bg-ink-faint/40"
