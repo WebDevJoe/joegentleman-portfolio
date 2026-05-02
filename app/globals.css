@@ -48,20 +48,24 @@ body {
   box-shadow: inset 0 3px 0 0 #ffffff;
 }
 
-/* Pixel-grid background pattern (matches Figma's hero grid) */
+/* Pixel-grid background pattern (matches Figma's hero grid).
+   Horizontal stops use a slightly higher alpha than verticals to compensate
+   for sub-pixel rendering — at most DPRs the y-axis line ends up split
+   across two device pixels and reads fainter than the x-axis. */
 .bg-grid {
   background-image:
-    linear-gradient(to right, rgba(13, 13, 13, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(13, 13, 13, 0.06) 1px, transparent 1px);
+    linear-gradient(to right, rgba(13, 13, 13, 0.07) 0 1px, transparent 1px 100%),
+    linear-gradient(to bottom, rgba(13, 13, 13, 0.10) 0 1px, transparent 1px 100%);
   background-size: 84px 75px;
   background-position: 0 0;
+  background-repeat: repeat;
 }
 /* Softer grid on mobile so it doesn't compete with content */
 @media (max-width: 768px) {
   .bg-grid {
     background-image:
-      linear-gradient(to right, rgba(13, 13, 13, 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(13, 13, 13, 0.03) 1px, transparent 1px);
+      linear-gradient(to right, rgba(13, 13, 13, 0.04) 0 1px, transparent 1px 100%),
+      linear-gradient(to bottom, rgba(13, 13, 13, 0.06) 0 1px, transparent 1px 100%);
     background-size: 56px 50px;
   }
 }
@@ -88,3 +92,11 @@ body {
 /* Hide native scrollbars (used by carousel container if scrolling fallback) */
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Wrong-password shake — used by PasswordModal */
+@keyframes modal-shake {
+  10%, 90%  { transform: translate3d(-1px, 0, 0); }
+  20%, 80%  { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60%  { transform: translate3d(4px, 0, 0); }
+}

@@ -1,12 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { ChipPill } from "./Buttons";
 import { ProjectCard, type Project } from "./ProjectCard";
 import { ScrollReveal } from "./ScrollReveal";
+import { PasswordModal } from "./PasswordModal";
+import { checkUnlock } from "@/lib/unlock-action";
 
 const categories = ["Product Design", "Game UI/UX", "Web Design"] as const;
 type Category = (typeof categories)[number];
+
+const BATTLE_PASS_LOCK = "battle-pass-c-and-c";
+const UNLOCK_STORAGE_KEY = "jg.unlocked-projects";
 
 const projects: (Project & { category: Category })[] = [
   {
@@ -32,6 +38,16 @@ const projects: (Project & { category: Category })[] = [
     description:
       "Complete overhaul of a retail platform, focusing on user journey optimization and conversion rate improvements through intuitive design patterns.",
     image: "https://placedog.net/610/480?id=103",
+  },
+  {
+    category: "Game UI/UX",
+    role: "UI/UX Designer",
+    title: "Battle Pass Chaos & Conquest",
+    description:
+      "Designing a battle pass that fit naturally into a 5-year-old mobile RTS HUD. Restructured screen flows, added a HUD slot, and turned a static claim banner into a smart dropdown.",
+    image: "/figma/battle-pass/hero.png",
+    href: "/work/battle-pass",
+    lockId: BATTLE_PASS_LOCK,
   },
   {
     category: "Game UI/UX",
@@ -83,9 +99,47 @@ const projects: (Project & { category: Category })[] = [
   },
 ];
 
+function readUnlocked(): Set<string> {
+  if (typeof window === "undefined") return new Set();
+  try {
+    const raw = window.localStorage.getItem(UNLOCK_STORAGE_KEY);
+    if (!raw) return new Set();
+    const parsed = JSON.parse(raw);
+    return new Set(Array.isArray(parsed) ? parsed : []);
+  } catch {
+    return new Set();
+  }
+}
+
 export function MyWork() {
+  const router = useRouter();
   const [active, setActive] = useState<Category>("Product Design");
+  const [unlocked, setUnlocked] = useState<Set<string>>(new Set());
+  const [activeLockId, setActiveLockId] = useState<string | null>(null);
+
+  // Hydrate unlock state from localStorage after mount.
+  useEffect(() => {
+    setUnlocked(readUnlocked());
+  }, []);
+
   const filtered = projects.filter((p) => p.category === active);
+
+  const unlock = (id: string) => {
+    setUnlocked((prev) => {
+      const next = new Set(prev);
+      next.add(id);
+      try {
+        window.localStorage.setItem(
+          UNLOCK_STORAGE_KEY,
+          JSON.stringify([...next]),
+        );
+      } catch {
+        // localStorage may be unavailable (private mode); unlock state will
+        // simply not persist across sessions.
+      }
+      return next;
+    });
+  };
 
   return (
     <section className="w-full px-4 md:px-12 lg:px-16 pb-12 md:pb-12 lg:pb-16">
@@ -123,12 +177,42 @@ export function MyWork() {
             stagger={0.12}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full"
           >
-            {filtered.map((p, i) => (
-              <ProjectCard key={`${p.title}-${i}`} project={p} />
-            ))}
+            {filtered.map((p, i) => {
+              const isLocked = !!p.lockId && !unlocked.has(p.lockId);
+              return (
+                <ProjectCard
+                  key={`${p.title}-${i}`}
+                  project={p}
+                  locked={isLocked}
+                  onLockClick={
+                    p.lockId ? () => setActiveLockId(p.lockId!) : undefined
+                  }
+                />
+              );
+            })}
           </ScrollReveal>
         </div>
       </div>
+
+      <PasswordModal
+        open={activeLockId !== null}
+        validate={(attempt) =>
+          activeLockId
+            ? checkUnlock(activeLockId, attempt)
+            : Promise.resolve(false)
+        }
+        onClose={() => setActiveLockId(null)}
+        onSuccess={() => {
+          if (!activeLockId) return;
+          unlock(activeLockId);
+          const project = projects.find((p) => p.lockId === activeLockId);
+          if (project?.href && project.href !== "#") {
+            router.push(project.href);
+          }
+        }}
+        title="Locked case study"
+        description="This project is private. Enter the password to view it."
+      />
     </section>
   );
 }

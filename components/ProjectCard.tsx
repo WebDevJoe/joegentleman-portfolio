@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ArrowRight, Lock } from "@phosphor-icons/react/dist/ssr";
 
 export type Project = {
   role: string;
@@ -6,6 +7,7 @@ export type Project = {
   description: string;
   image: string;
   href?: string;
+  lockId?: string;
 };
 
 const CORNER_POSITIONS = [
@@ -18,9 +20,13 @@ const CORNER_POSITIONS = [
 export function ProjectCard({
   project,
   variant = "tinted",
+  locked = false,
+  onLockClick,
 }: {
   project: Project;
   variant?: "tinted" | "plain";
+  locked?: boolean;
+  onLockClick?: () => void;
 }) {
   return (
     <article className="project-card group relative flex flex-col gap-[33px] items-start p-6 w-full transition-transform duration-300 ease-out will-change-transform hover:-translate-y-1">
@@ -47,7 +53,7 @@ export function ProjectCard({
         ))}
       </div>
 
-      {/* Image */}
+      {/* Image — preview is shown even when locked, with a small lock badge */}
       <div className="relative h-[240px] w-full rounded-[10px] overflow-hidden shadow-card-image">
         <Image
           src={project.image}
@@ -56,9 +62,15 @@ export function ProjectCard({
           sizes="(max-width: 768px) 100vw, 400px"
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
         />
+        {locked && (
+          <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full bg-white/95 text-ink shadow-[0_0_0_1px_rgba(13,13,13,0.10),0_2px_6px_0_rgba(0,0,0,0.12)] text-[12px] font-medium leading-none tracking-[-0.24px] backdrop-blur-[2px]">
+            <Lock size={12} weight="regular" />
+            Locked
+          </div>
+        )}
       </div>
 
-      {/* Text */}
+      {/* Text — same layout in both states; description truncates via line-clamp */}
       <div className="relative flex flex-col gap-2 items-start w-full">
         <p className="text-[14px] font-medium leading-[21px] tracking-[-0.42px] text-[#133fc8]">
           {project.role}
@@ -71,21 +83,33 @@ export function ProjectCard({
         </p>
       </div>
 
-      {/* View link */}
-      <a
-        href={project.href ?? "#"}
-        className="relative inline-flex items-center gap-2 text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink transition-opacity hover:opacity-70"
-      >
-        View
-        <Image
-          src="/figma/arrow-right.svg"
-          alt=""
-          width={14}
-          height={12}
-          aria-hidden
-          className="transition-transform duration-300 ease-out group-hover:translate-x-1"
-        />
-      </a>
+      {/* Action — Unlock matches View styling so the row aligns across cards */}
+      {locked ? (
+        <button
+          type="button"
+          onClick={onLockClick}
+          className="relative inline-flex items-center gap-2 text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink transition-opacity hover:opacity-70 cursor-pointer"
+        >
+          Unlock
+          <ArrowRight
+            size={14}
+            weight="regular"
+            className="transition-transform duration-300 ease-out group-hover:translate-x-1"
+          />
+        </button>
+      ) : (
+        <a
+          href={project.href ?? "#"}
+          className="relative inline-flex items-center gap-2 text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink transition-opacity hover:opacity-70"
+        >
+          View
+          <ArrowRight
+            size={14}
+            weight="regular"
+            className="transition-transform duration-300 ease-out group-hover:translate-x-1"
+          />
+        </a>
+      )}
     </article>
   );
 }

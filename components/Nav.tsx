@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { DownloadSimple } from "@phosphor-icons/react";
 import { LogoTile } from "./Logo";
 import { PrimaryButton } from "./Buttons";
 import { SocialIcons } from "./SocialIcons";
-import { DownloadIcon } from "./icons/DownloadIcon";
 
 const EMAIL = "joegentlemanux@gmail.com";
 
@@ -51,7 +51,7 @@ export function Nav() {
                 className="inline-flex items-center gap-1 text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink hover:opacity-70 transition"
               >
                 Resume
-                <DownloadIcon size={20} />
+                <DownloadSimple size={20} weight="regular" />
               </a>
             </div>
             <PrimaryButton
@@ -148,7 +148,7 @@ export function Nav() {
                   style={{ transitionDelay: open ? "200ms" : "0ms" }}
                 >
                   Resume
-                  <DownloadIcon size={20} />
+                  <DownloadSimple size={20} weight="regular" />
                 </a>
                 <div
                   className={`transition-all duration-500 ease-out ${
