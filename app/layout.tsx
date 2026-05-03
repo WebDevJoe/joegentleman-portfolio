@@ -90,6 +90,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     sameAs: [
       "https://dribbble.com/Joegentleman",
       "https://github.com/WebDevJoe",
+      "https://x.com/joegentsui",
+      "https://www.linkedin.com/in/joe-gentleman-48a648244",
     ],
   };
 
