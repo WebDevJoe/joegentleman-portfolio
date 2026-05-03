@@ -12,6 +12,7 @@ const categories = ["Product Design", "Game UI/UX", "Web Design"] as const;
 type Category = (typeof categories)[number];
 
 const BATTLE_PASS_LOCK = "battle-pass-c-and-c";
+const FS2_LOCK = "fs2";
 const UNLOCK_STORAGE_KEY = "jg.unlocked-projects";
 
 const projects: (Project & { category: Category })[] = [
@@ -72,6 +73,16 @@ const projects: (Project & { category: Category })[] = [
     description:
       "Redesigned the inventory, crafting, and loot screens for an open-world RPG, focusing on controller-first ergonomics and clear item hierarchy.",
     image: "https://placedog.net/610/480?id=203",
+  },
+  {
+    category: "Web Design",
+    role: "Lead Designer",
+    title: "Fallen Sword II — Wishlist landing page",
+    description:
+      "Designed the launch landing page for Fallen Sword II. Built around wishlisting, press kit downloads, name reservation, and pre-launch hype across Steam, App Store, and Google Play.",
+    image: "https://placedog.net/610/480?id=304",
+    href: "/work/fs2",
+    lockId: FS2_LOCK,
   },
   {
     category: "Web Design",

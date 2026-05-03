@@ -5,6 +5,7 @@
 // ends up in the browser bundle or the public GitHub source.
 const PASSWORDS: Record<string, string | undefined> = {
   "battle-pass-c-and-c": process.env.BATTLE_PASS_PASSWORD,
+  "fs2": process.env.BATTLE_PASS_PASSWORD,
 };
 
 export async function checkUnlock(
