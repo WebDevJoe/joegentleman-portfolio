@@ -36,6 +36,7 @@ export function Footer() {
             width={6}
             height={6}
             aria-hidden
+            className="animate-pulse"
           />
           <p className="text-[14px] font-medium text-ink-muted">Available for work</p>
         </div>

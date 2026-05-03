@@ -10,8 +10,8 @@ const socials = [
     href: "https://dribbble.com/Joegentleman",
     Icon: DribbbleLogo,
   },
-  { name: "X", href: "https://x.com", Icon: XLogo },
-  { name: "LinkedIn", href: "https://linkedin.com", Icon: LinkedinLogo },
+  { name: "X", href: "https://x.com/joegentsui", Icon: XLogo },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/joe-gentleman-48a648244", Icon: LinkedinLogo },
 ];
 
 export function SocialIcons({ className = "" }: { className?: string }) {
