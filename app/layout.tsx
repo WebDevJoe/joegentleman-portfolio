@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Rethink_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { cookies } from "next/headers";
+import { SiteGate } from "@/components/SiteGate";
+import { SITE_UNLOCK_COOKIE } from "@/lib/unlock-action";
 import "./globals.css";
 
 const rethinkSans = Rethink_Sans({
@@ -66,7 +69,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies();
+  const unlocked = cookieStore.get(SITE_UNLOCK_COOKIE)?.value === "1";
+
   const personLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -95,14 +101,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={rethinkSans.variable}>
       <body>
-        {children}
-        <Analytics />
-        <SpeedInsights />
-        <script
-          type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }}
-        />
+        {unlocked ? (
+          <>
+            {children}
+            <Analytics />
+            <SpeedInsights />
+            <script
+              type="application/ld+json"
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }}
+            />
+          </>
+        ) : (
+          <SiteGate />
+        )}
       </body>
     </html>
   );

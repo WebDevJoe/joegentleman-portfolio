@@ -16,6 +16,12 @@ type Props = {
   validate: (attempt: string) => Promise<boolean>;
   title?: string;
   description?: string;
+  /**
+   * When false, the modal cannot be dismissed (no close button, no escape, no
+   * backdrop click). Used for the site-wide entry gate where bypassing the
+   * password should not be possible.
+   */
+  dismissable?: boolean;
 };
 
 export function PasswordModal({
@@ -25,6 +31,7 @@ export function PasswordModal({
   validate,
   title = "Locked project",
   description = "This case study is private. Enter the password to view it.",
+  dismissable = true,
 }: Props) {
   const [mounted, setMounted] = useState(false);
   const [value, setValue] = useState("");
@@ -41,7 +48,7 @@ export function PasswordModal({
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape" && dismissable) onClose();
     };
     window.addEventListener("keydown", onKey);
     const t = window.setTimeout(() => inputRef.current?.focus(), 60);
@@ -50,7 +57,7 @@ export function PasswordModal({
       window.removeEventListener("keydown", onKey);
       window.clearTimeout(t);
     };
-  }, [open, onClose]);
+  }, [open, onClose, dismissable]);
 
   // Reset transient state when the modal closes.
   useEffect(() => {
@@ -94,13 +101,20 @@ export function PasswordModal({
           : "opacity-0 pointer-events-none"
       }`}
     >
-      <button
-        type="button"
-        aria-label="Close"
-        tabIndex={-1}
-        onClick={onClose}
-        className="absolute inset-0 bg-black/45 backdrop-blur-[2px] cursor-default"
-      />
+      {dismissable ? (
+        <button
+          type="button"
+          aria-label="Close"
+          tabIndex={-1}
+          onClick={onClose}
+          className="absolute inset-0 bg-black/45 backdrop-blur-[2px] cursor-default"
+        />
+      ) : (
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-black/45 backdrop-blur-[2px]"
+        />
+      )}
       <div
         role="dialog"
         aria-modal="true"
@@ -114,14 +128,16 @@ export function PasswordModal({
           className="absolute inset-0 rounded-[inherit] card-inset pointer-events-none"
         />
 
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close"
-          className="absolute top-3 right-3 inline-flex h-9 w-9 items-center justify-center rounded-full text-ink-faint hover:text-ink hover:bg-line/60 transition cursor-pointer"
-        >
-          <X size={16} weight="bold" aria-hidden />
-        </button>
+        {dismissable && (
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="absolute top-3 right-3 inline-flex h-9 w-9 items-center justify-center rounded-full text-ink-faint hover:text-ink hover:bg-line/60 transition cursor-pointer"
+          >
+            <X size={16} weight="bold" aria-hidden />
+          </button>
+        )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5 p-8">
           <div className="flex h-12 w-12 items-center justify-center rounded-[12px] bg-card-tint text-[#133fc8]">
@@ -173,13 +189,15 @@ export function PasswordModal({
           </div>
 
           <div className="flex items-center justify-end gap-3 pt-1">
-            <button
-              type="button"
-              onClick={onClose}
-              className="inline-flex h-12 items-center justify-center rounded-[12px] px-4 text-[16px] font-medium tracking-[-0.48px] text-ink-muted hover:text-ink transition cursor-pointer"
-            >
-              Cancel
-            </button>
+            {dismissable && (
+              <button
+                type="button"
+                onClick={onClose}
+                className="inline-flex h-12 items-center justify-center rounded-[12px] px-4 text-[16px] font-medium tracking-[-0.48px] text-ink-muted hover:text-ink transition cursor-pointer"
+              >
+                Cancel
+              </button>
+            )}
             <PrimaryButton type="submit" className="px-5" disabled={submitting}>
               {submitting ? "Checking…" : "Unlock"}
             </PrimaryButton>
