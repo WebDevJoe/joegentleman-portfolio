@@ -8,7 +8,7 @@ import { Marquee } from "./Marquee";
 import { HeroHeadline } from "./HeroHeadline";
 
 const showcaseImages = [
-  "https://placedog.net/760/570?id=10",
+  "/showcase/tactical.png",
   "https://placedog.net/760/570?id=20",
   "https://placedog.net/760/570?id=30",
   "https://placedog.net/760/570?id=40",
