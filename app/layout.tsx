@@ -4,7 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { cookies } from "next/headers";
 import { SiteGate } from "@/components/SiteGate";
-import { SITE_UNLOCK_COOKIE } from "@/lib/unlock-action";
+import { SITE_UNLOCK_COOKIE } from "@/lib/site-unlock-constants";
 import "./globals.css";
 
 const rethinkSans = Rethink_Sans({

@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { SITE_UNLOCK_COOKIE } from "./site-unlock-constants";
 
 // Each lockId maps to a server-only env var. Without the env var the lock
 // can never be opened. There is no client fallback, so the password never
@@ -9,8 +10,6 @@ const PASSWORDS: Record<string, string | undefined> = {
   "battle-pass-c-and-c": process.env.BATTLE_PASS_PASSWORD,
   "fs2": process.env.BATTLE_PASS_PASSWORD,
 };
-
-export const SITE_UNLOCK_COOKIE = "site-unlocked";
 
 function constantTimeEqual(a: string, b: string): boolean {
   if (a.length !== b.length) return false;
