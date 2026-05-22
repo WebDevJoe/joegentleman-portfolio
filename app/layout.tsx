@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s — Joe Gentleman",
   },
   description:
-    "Joe Gentleman is a product designer and game UI/UX designer with a web development background. Available for product design roles and freelance work.",
+    "Joe Gentleman is a product designer working in Game UI. Available for roles and freelance work.",
   applicationName: "Joe Gentleman",
   authors: [{ name: "Joe Gentleman", url: SITE_URL }],
   creator: "Joe Gentleman",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     siteName: "Joe Gentleman",
     title: "Joe Gentleman — Product & Game UI/UX Designer",
     description:
-      "Product designer and game UI/UX designer with a web development background. Available for product design roles and freelance work.",
+      "A product designer working in Game UI. Available for roles and freelance work.",
     url: SITE_URL,
     locale: "en_GB",
   },
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Joe Gentleman — Product & Game UI/UX Designer",
     description:
-      "Product designer and game UI/UX designer with a web development background. Available for product design roles and freelance work.",
+      "A product designer working in Game UI. Available for roles and freelance work.",
   },
   robots: {
     index: true,
@@ -85,7 +85,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     url: SITE_URL,
     jobTitle: "Product & Game UI/UX Designer",
     description:
-      "Product designer and game UI/UX designer with a web development background, based in the UK.",
+      "A product designer working in Game UI, based in the UK.",
     knowsAbout: [
       "Product Design",
       "Game UI",
