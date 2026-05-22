@@ -71,7 +71,11 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = await cookies();
-  const unlocked = cookieStore.get(SITE_UNLOCK_COOKIE)?.value === "1";
+  // Skip the site gate during local development so the password modal
+  // doesn't block work. Production still requires the cookie.
+  const unlocked =
+    process.env.NODE_ENV === "development" ||
+    cookieStore.get(SITE_UNLOCK_COOKIE)?.value === "1";
 
   const personLd = {
     "@context": "https://schema.org",

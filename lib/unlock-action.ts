@@ -8,7 +8,6 @@ import { SITE_UNLOCK_COOKIE } from "./site-unlock-constants";
 // ends up in the browser bundle or the public GitHub source.
 const PASSWORDS: Record<string, string | undefined> = {
   "battle-pass-c-and-c": process.env.BATTLE_PASS_PASSWORD,
-  "fs2": process.env.BATTLE_PASS_PASSWORD,
 };
 
 function constantTimeEqual(a: string, b: string): boolean {

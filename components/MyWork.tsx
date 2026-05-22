@@ -75,11 +75,12 @@ const projects: (Project & { category: Category })[] = [
   },
   {
     category: "Web Design",
-    role: "Lead Designer",
-    title: "Studio Marketing Site",
+    role: "Designer",
+    title: "Fallen Sword II Landing page",
     description:
-      "Created a content-rich marketing site with motion-driven storytelling, optimized for performance and accessibility on all devices.",
-    image: "https://placedog.net/610/480?id=301",
+      "Pre-launch landing page for Fallen Sword II. Two weeks, one page, no real game assets yet.",
+    image: "/figma/fs2/cover.png",
+    href: "/work/fs2",
   },
   {
     category: "Web Design",

@@ -9,7 +9,7 @@ import { HeroHeadline } from "./HeroHeadline";
 
 const showcaseImages = [
   "/showcase/tactical.png",
-  "https://placedog.net/760/570?id=20",
+  "/figma/fs2/cover.png",
   "https://placedog.net/760/570?id=30",
   "https://placedog.net/760/570?id=40",
   "https://placedog.net/760/570?id=50",
