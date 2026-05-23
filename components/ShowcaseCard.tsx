@@ -39,11 +39,11 @@ export function ShowcaseCard({
         />
       ))}
       {/* image */}
-      <div className="relative h-[285px] w-[380px] rounded-[10px] overflow-hidden shadow-card-image">
+      <div className="relative h-[285px] w-[402px] rounded-[10px] overflow-hidden shadow-card-image">
         <img
           src={src}
           alt={alt}
-          width={380}
+          width={402}
           height={285}
           className="block h-full w-full object-cover"
           loading="eager"
