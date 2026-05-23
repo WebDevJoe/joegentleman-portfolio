@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
+import Image from "next/image";
+
 const CORNER_POSITIONS = [
   "top-[12.5px] left-[12.5px]",
   "top-[12.5px] right-[12.5px]",
@@ -40,14 +42,14 @@ export function ShowcaseCard({
       ))}
       {/* image */}
       <div className="relative h-[285px] w-[402px] rounded-[10px] overflow-hidden shadow-card-image">
-        <img
+        <Image
           src={src}
           alt={alt}
-          width={402}
-          height={285}
-          className="block h-full w-full object-cover"
-          loading="eager"
-          decoding="async"
+          fill
+          sizes="402px"
+          quality={90}
+          priority
+          className="object-cover"
         />
       </div>
     </div>
