@@ -51,11 +51,12 @@ const projects: (Project & { category: Category })[] = [
   },
   {
     category: "Game UI/UX",
-    role: "Game UI Designer",
-    title: "Adventure Quest HUD",
+    role: "UI/UX Designer",
+    title: "Growth Fund and Store Bundles",
     description:
-      "Designed an immersive heads-up display system for a fantasy RPG, balancing visual hierarchy with gameplay readability across multiple resolutions.",
-    image: "https://placedog.net/610/480?id=201",
+      "Designed a growth fund monetisation feature for two live App Store games, fitting each into its own store and design system, and redesigning Operation New Earth's loyalty level into a header to make room.",
+    image: "/figma/growth-fund-store/gxk-webshop.png",
+    href: "/work/growth-fund-store",
   },
   {
     category: "Game UI/UX",
