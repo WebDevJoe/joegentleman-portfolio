@@ -55,7 +55,7 @@ const projects: (Project & { category: Category })[] = [
     title: "Growth Fund and Store Bundles",
     description:
       "Designed a growth fund monetisation feature for two live App Store games, fitting each into its own store and design system, and redesigning Operation New Earth's loyalty level into a header to make room.",
-    image: "/figma/growth-fund-store/gxk-webshop.png",
+    image: "/figma/growth-fund-store/cover.png",
     href: "/work/growth-fund-store",
   },
   {

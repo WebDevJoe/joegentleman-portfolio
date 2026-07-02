@@ -326,14 +326,34 @@ function Figure({
 function CoverPlaceholder() {
   return (
     <div
-      className="relative w-full h-[280px] md:h-[495px] rounded-[20px] border-[1.5px] border-dashed border-line overflow-hidden mt-6 flex items-center justify-center bg-card-tint"
+      className="relative w-full h-[280px] md:h-[495px] rounded-[20px] border-[1.5px] border-line overflow-hidden mt-6"
       style={{
         background: "linear-gradient(to top, #e0f1fe 0%, rgba(246,251,255,0) 60%)",
       }}
     >
-      <p className="text-ink-faint text-[14px]">
-        Cover image goes here · /figma/growth-fund-store/cover.png
-      </p>
+      <div
+        aria-hidden
+        className="absolute inset-0 rounded-[inherit] card-inset pointer-events-none z-[1]"
+      />
+      {["top-3 left-3", "top-3 right-3", "bottom-3 left-3", "bottom-3 right-3"].map(
+        (pos) => (
+          <span
+            key={pos}
+            aria-hidden
+            className={`absolute ${pos} h-1.5 w-1.5 rounded-full bg-ink-faint/40 z-[2]`}
+          />
+        ),
+      )}
+      <div className="absolute inset-6 rounded-[10px] overflow-hidden">
+        <Image
+          src="/figma/growth-fund-store/cover.png"
+          alt="Godzilla x Kong: Titan Chasers growth fund webshop, with milestone reward cards and a near unlock callout."
+          fill
+          sizes="(max-width: 880px) 100vw, 832px"
+          priority
+          className="object-cover"
+        />
+      </div>
     </div>
   );
 }
