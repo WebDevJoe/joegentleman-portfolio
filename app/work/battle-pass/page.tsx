@@ -49,21 +49,36 @@ const DECISIONS = [
     "01",
     "Moved Daily Trials into the Battle Pass",
     "Daily Trials already lived as their own screen. They were also the only way to earn battle pass points, which meant the activity sat in one place and the progression sat in another. I moved them inside the Battle Pass as a tab so both lived in the same screen. Complete trials, earn points, unlock rewards. One loop, one place.",
+    "/figma/battle-pass/decision-01-daily-trials-tab.png",
+    "The Spoils of Conquest screen with Daily Trials as a tab inside the battle pass, listing each trial, its points, and its rewards.",
   ],
   [
     "02",
     "Turned a fixed claim banner into a dropdown",
     "The “Claim 15 Daily Trials” panel used to sit as a permanent header at the top of the screen. It mattered for ten seconds a day and stole space the rest of the time. I collapsed it into a dropdown that auto-expands the moment a claim is ready. The prominence shows up when it matters and disappears when it doesn't.",
+    "/figma/battle-pass/decision-02-claim-dropdown.png",
+    "The Claim 15 Daily Trials dropdown expanded to reveal the rewards it grants on completion.",
   ],
   [
     "03",
     "Added a HUD button without taking from the game",
     "Mobile RTS HUDs are full. Every pixel already has a job. Adding a battle pass entry meant finding a slot that felt obvious without making players relearn the interface they already knew.",
+    "/figma/battle-pass/decision-03-hud-button.png",
+    "The world map HUD, with the battle pass entry button sitting among the existing controls without crowding them.",
   ],
   [
     "04",
     "Made progress easy to find in a long list",
-    "A battle pass is a long, vertical list. Without help, players open it at the top and scroll to find where they are. The screen now opens scrolled to the player's current tier, so the answer to “where am I?” is the first thing you see. The chest button in the header acts as a smart jump: tap it once to skip to the final reward, tap again to come back. Two taps to see the full arc instead of a thumb workout.",
+    "A battle pass is a long, vertical list. Without help, players open it at the top and scroll to find where they are. Instead, the pass opens already scrolled to the tier you're on, so the answer to “where am I?” is the first thing you see. The chest button in the header acts as a smart jump: tap it once to skip to the final reward, tap again to drop back to your tier. Two taps to see the full arc instead of a thumb workout.",
+    "/figma/battle-pass/decision-04-reward-track.png",
+    "The Spoils of Conquest reward track, a long vertical list of free and exalted rewards across each tier.",
+  ],
+  [
+    "05",
+    "Gave the feature one place to explain itself",
+    "New players needed to understand what the battle pass was and what premium unlocked without leaving the screen. I laid out an info popup that leads with the value up top, follows with a short progression explainer, and ends on two clear actions: view the daily trials or unlock premium. One tap from anywhere the feature appears.",
+    "/figma/battle-pass/decision-05-info-popup.png",
+    "The Spoils of Conquest info popup, explaining the tiers and progression above a pair of actions to view daily trials or unlock premium.",
   ],
 ] as const;
 
@@ -144,18 +159,14 @@ export default function BattlePassPage() {
               </div>
             ))}
           </div>
-          <div className="not-prose grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-            <ImagePlaceholder height="h-[240px] md:h-[320px]" />
-            <ImagePlaceholder height="h-[240px] md:h-[320px]" />
-          </div>
         </Section>
 
         <Section
           eyebrow="Key decisions"
-          title="Three calls that fit the battle pass into the game"
+          title="Five calls that fit the battle pass into the game"
         >
           <div className="not-prose flex flex-col gap-12 pt-2">
-            {DECISIONS.map(([num, title, copy], i) => (
+            {DECISIONS.map(([num, title, copy, img, imgAlt], i) => (
               <div
                 key={num}
                 className={`flex flex-col md:flex-row gap-8 md:gap-16 items-start ${
@@ -171,7 +182,7 @@ export default function BattlePassPage() {
                   </p>
                   <p className="text-ink-muted text-[15px] leading-[1.65]">{copy}</p>
                 </div>
-                <PhoneMock />
+                <PhoneMock src={img} alt={imgAlt} />
               </div>
             ))}
           </div>
@@ -306,38 +317,26 @@ function HeroImageCard() {
   );
 }
 
-function ImagePlaceholder({ height = "h-[320px]" }: { height?: string }) {
-  return (
-    <div
-      className={`relative w-full ${height} rounded-[16px] border-[1.5px] border-line bg-card-tint overflow-hidden`}
-    >
-      <div
-        aria-hidden
-        className="absolute inset-0 rounded-[inherit] card-inset pointer-events-none"
-      />
-      {[
-        "top-3 left-3",
-        "top-3 right-3",
-        "bottom-3 left-3",
-        "bottom-3 right-3",
-      ].map((pos) => (
-        <span
-          key={pos}
-          aria-hidden
-          className={`absolute ${pos} h-1.5 w-1.5 rounded-full bg-ink-faint/40`}
-        />
-      ))}
-    </div>
-  );
-}
+function PhoneMock({ src, alt }: { src?: string; alt?: string }) {
+  const frame =
+    "w-full max-w-[280px] aspect-[280/580] mx-auto md:max-w-none md:w-[280px] md:aspect-auto md:h-[580px] md:mx-0 rounded-[36px] border-[1.5px] border-line bg-card-tint relative overflow-hidden shrink-0";
 
-function PhoneMock() {
+  if (src) {
+    return (
+      <div className={frame}>
+        <Image
+          src={src}
+          alt={alt ?? ""}
+          fill
+          sizes="280px"
+          className="object-cover object-top"
+        />
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full max-w-[280px] aspect-[280/580] mx-auto md:max-w-none md:w-[280px] md:aspect-auto md:h-[580px] md:mx-0 rounded-[36px] border-[1.5px] border-line bg-card-tint relative overflow-hidden flex items-center justify-center shrink-0">
-      <span
-        aria-hidden
-        className="absolute -translate-x-1/2 left-1/2 top-3 h-1.5 w-20 rounded-full bg-ink-faint/40"
-      />
+    <div className={`${frame} flex items-center justify-center`}>
       <p className="text-ink-faint text-[14px]">Phone mockup</p>
     </div>
   );
