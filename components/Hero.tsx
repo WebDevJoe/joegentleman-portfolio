@@ -21,8 +21,6 @@ export function Hero() {
   useLayoutEffect(() => {
     const root = sectionRef.current;
     if (!root) return;
-    // Reduced-motion users skip the staged intro; content renders in place.
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = gsap.context(() => {
       // Hide pre-paint so nothing flashes before the timeline runs.

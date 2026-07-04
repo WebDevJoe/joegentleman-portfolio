@@ -35,9 +35,6 @@ export function ScrollReveal({
     const targets = Array.from(root.children) as HTMLElement[];
     if (targets.length === 0) return;
 
-    // Reduced-motion users see content immediately, no reveal.
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
     // Hide synchronously before paint so there is no FOUC flash.
     gsap.set(targets, { y, opacity: 0, force3D: true });
 
