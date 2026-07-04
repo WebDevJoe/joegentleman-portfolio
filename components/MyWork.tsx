@@ -89,7 +89,7 @@ const projects: (Project & { category: Category })[] = [
     title: "SaaS Onboarding Flow",
     description:
       "Designed a guided onboarding experience for a B2B SaaS, lifting activation rates with progressive disclosure and contextual education.",
-    image: "https://placedog.net/610/480?id=302",
+    image: "https://placedog.net/610/480?id=204",
   },
   {
     category: "Web Design",
@@ -97,7 +97,7 @@ const projects: (Project & { category: Category })[] = [
     title: "Editorial Long-Form Template",
     description:
       "Built a flexible long-form article template for a publishing client, balancing typography, embedded media, and reading-progress indicators.",
-    image: "https://placedog.net/610/480?id=303",
+    image: "https://placedog.net/610/480?id=205",
   },
 ];
 
@@ -159,7 +159,7 @@ export function MyWork() {
           <div
             role="tablist"
             aria-label="Filter projects"
-            className="flex gap-4 items-center w-full overflow-x-auto py-2 -my-2 no-scrollbar"
+            className="flex gap-4 items-center w-full overflow-x-auto px-2 -mx-2 py-2 -my-2 no-scrollbar"
           >
             {categories.map((c) => (
               <ChipPill

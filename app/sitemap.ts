@@ -4,6 +4,8 @@ const SITE_URL = "https://joegentleman.co.uk";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
+  // Note: /work/battle-pass is intentionally excluded — it is a private,
+  // password-gated case study and is marked noindex.
   return [
     {
       url: SITE_URL,
@@ -12,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${SITE_URL}/work/battle-pass`,
+      url: `${SITE_URL}/work/growth-fund-store`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,

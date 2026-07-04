@@ -105,16 +105,23 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" className={rethinkSans.variable}>
       <body>
+        {/* Structured data renders regardless of the gate so name-based
+            search results stay rich. */}
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }}
+        />
         {unlocked ? (
           <>
-            {children}
+            <a href="#main-content" className="skip-link">
+              Skip to content
+            </a>
+            <div id="main-content" tabIndex={-1}>
+              {children}
+            </div>
             <Analytics />
             <SpeedInsights />
-            <script
-              type="application/ld+json"
-              // eslint-disable-next-line react/no-danger
-              dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }}
-            />
           </>
         ) : (
           <SiteGate />

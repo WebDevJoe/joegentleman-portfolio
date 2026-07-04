@@ -69,6 +69,7 @@ export function Nav() {
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
+            aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
             className="md:hidden relative h-12 w-12 -mr-2 inline-flex items-center justify-center"
           >
@@ -102,7 +103,8 @@ export function Nav() {
       {mounted &&
         createPortal(
           <div
-            aria-hidden={!open}
+            id="mobile-menu"
+            inert={!open}
             className={`md:hidden fixed inset-0 z-40 transition-opacity duration-300 ease-out ${
               open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
             }`}

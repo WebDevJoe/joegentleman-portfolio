@@ -5,7 +5,8 @@
 
   --color-ink: #252525;
   --color-ink-muted: #666666;
-  --color-ink-faint: #999999;
+  /* #767676 clears WCAG AA (4.5:1) on white; #999 did not. */
+  --color-ink-faint: #767676;
   --color-line: #f2f2f2;
   --color-chip-bg: #e3e3e3;
   --color-brand: #2756e8;
@@ -99,4 +100,47 @@ body {
   20%, 80%  { transform: translate3d(2px, 0, 0); }
   30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
   40%, 60%  { transform: translate3d(4px, 0, 0); }
+}
+
+/* Consistent, visible keyboard focus ring across all interactive elements.
+   Only shows for keyboard users (:focus-visible), not on mouse click. */
+:focus-visible {
+  outline: 3px solid #133fc8;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip-to-content link — hidden until focused, then pinned top-left. */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: #133fc8;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  transition: top 0.15s ease-out;
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+/* Respect users who ask for reduced motion: cut CSS animation/transition.
+   JS-driven animations (GSAP intro, reveals) also short-circuit in their
+   components via a matchMedia check. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
 }
