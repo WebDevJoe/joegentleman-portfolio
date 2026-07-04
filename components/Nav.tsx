@@ -58,9 +58,9 @@ export function Nav() {
               onClick={() => {
                 window.location.href = `mailto:${EMAIL}`;
               }}
-              className="w-[118px]"
+              className="w-[132px]"
             >
-              Contact
+              Get in touch
             </PrimaryButton>
           </nav>
 
@@ -165,9 +165,9 @@ export function Nav() {
                       setOpen(false);
                       window.location.href = `mailto:${EMAIL}`;
                     }}
-                    className="w-[118px]"
+                    className="w-[132px]"
                   >
-                    Contact
+                    Get in touch
                   </PrimaryButton>
                 </div>
               </nav>
