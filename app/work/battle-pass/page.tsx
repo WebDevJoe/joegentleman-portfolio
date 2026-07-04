@@ -12,6 +12,8 @@ export const metadata = {
   title: "Battle pass — Chaos & Conquest",
   description:
     "Designing a battle pass that fit naturally into a 5-year-old mobile RTS HUD.",
+  // Private, password-gated case study — keep it out of search results.
+  robots: { index: false, follow: false },
 };
 
 const META = [
@@ -225,7 +227,7 @@ function NextProjectCta() {
     <section className="flex flex-col items-center px-4 md:px-12 lg:px-16 pt-16 pb-24">
       <div className="w-full max-w-[880px]">
         <Link
-          href="/#top"
+          href="/work/growth-fund-store"
           className="group block bg-[#fafafa] rounded-[20px] px-8 py-12 hover:bg-[#f5f5f5] transition-colors"
         >
           <div className="flex flex-col items-center gap-2 text-center">
@@ -233,10 +235,10 @@ function NextProjectCta() {
               Next project
             </p>
             <p className="text-ink text-[28px] font-medium leading-tight tracking-[-0.84px]">
-              Project name — short hook
+              Growth Fund and Store Bundles
             </p>
             <p className="text-ink-muted text-[14px] leading-tight">
-              A one-line teaser describing the next project.
+              A growth fund monetisation feature, shipped inside two live App Store games.
             </p>
             <span className="inline-flex items-center gap-2 mt-2 h-11 px-5 rounded-[12px] bg-[#133fc8] text-white text-[14px] font-medium tracking-[-0.42px] shadow-[0_0_0_1px_#1742cc,0_2px_4px_0_rgba(0,0,0,0.1)] transition-transform duration-300 ease-out group-hover:-translate-y-0.5">
               View project

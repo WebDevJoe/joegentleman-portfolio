@@ -23,6 +23,12 @@ export function HeroHeadline() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    // Reduced-motion users get the full headline at once, no typewriter.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setCount(CHARS.length);
+      return;
+    }
+
     let raf = 0;
     let cancelled = false;
     const start = performance.now() + START_DELAY_MS;

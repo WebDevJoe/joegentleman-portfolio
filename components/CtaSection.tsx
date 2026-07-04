@@ -24,14 +24,14 @@ export function CtaSection() {
         className="relative flex flex-col items-center justify-center gap-8 px-4 md:px-16 py-12 md:py-24 text-center"
       >
         <AvailableChip />
-        <div className="text-ink leading-none tracking-[-1.44px] md:tracking-[-2.4px]">
-          <p className="text-[48px] md:text-[64px] lg:text-[80px] font-normal">
+        <h2 className="text-ink leading-none tracking-[-1.44px] md:tracking-[-2.4px]">
+          <span className="block text-[48px] md:text-[64px] lg:text-[80px] font-normal">
             Got an idea?
-          </p>
-          <p className="text-[48px] md:text-[64px] lg:text-[80px] font-medium">
+          </span>
+          <span className="block text-[48px] md:text-[64px] lg:text-[80px] font-medium">
             Let&apos;s make it real.
-          </p>
-        </div>
+          </span>
+        </h2>
         <p className="max-w-[448px] text-[18px] font-normal leading-[1.5] text-ink-muted">
           Open to product design roles and freelance work. Reply guaranteed within 48
           hours.
