@@ -36,7 +36,7 @@ const PROCESS = [
   [
     "02",
     "Looked at existing examples",
-    "Studied how other live games present growth funds and milestone rewards, then kept the patterns that fit each game and left the ones that did not.",
+    "Studied how other live games present growth funds and milestone rewards, then kept the patterns that fit each game.",
   ],
   [
     "03",
@@ -78,8 +78,8 @@ export default function GrowthFundStorePage() {
               <p className="text-ink-muted text-[16px] md:text-[18px] leading-[1.5]">
                 A growth fund is a paid progression track: players upgrade naturally, hit
                 milestones, and claim rewards along the way. I designed one for two live App Store
-                games, Godzilla x Kong: Titan Chasers and Operation New Earth, fitting each into a
-                store and a design system that already existed.
+                games, Godzilla x Kong: Titan Chasers and Operation New Earth, working inside the
+                store and design system each game already had.
               </p>
             </div>
 
@@ -113,7 +113,7 @@ export default function GrowthFundStorePage() {
             scrolling tabs or a rethink of what earned its space.
           </p>
           <blockquote className="border-l-[3px] border-brand-text pl-5 py-2 text-ink text-[20px] font-medium leading-[1.5]">
-            Same feature, two games. The hard part was making each one feel native.
+            Same feature, two games, each with its own store and design system to build inside.
           </blockquote>
         </Section>
 
@@ -145,11 +145,6 @@ export default function GrowthFundStorePage() {
             buying shards and claimed bonus rewards at each milestone. It worked, but it owned an
             entire screen for something players checked for a few seconds at a time.
           </p>
-          <Figure
-            src="/figma/growth-fund-store/one-loyalty-before.png"
-            alt="Operation New Earth loyalty level as a full screen, with a how it works panel, a reward list, and a claim button."
-            caption="Before: the loyalty level took up a full screen of its own."
-          />
           <p>
             To make space for the growth fund, I moved the loyalty level out of its own screen and
             into a header that sits on top of the shop. It shows the current level, progress to the
@@ -167,6 +162,11 @@ export default function GrowthFundStorePage() {
               src="/figma/growth-fund-store/one-loyalty-after-claim.png"
               alt="The shop loyalty header in its ready to claim state, highlighted green with a claim control."
               caption="After: the same header shifts to a claim state when a reward is ready."
+            />
+            <Figure
+              src="/figma/growth-fund-store/one-loyalty-before.png"
+              alt="The full loyalty detail, with a how it works panel, a reward list, and a claim button."
+              caption="Tapping the header opens the full loyalty detail."
             />
           </div>
           <p>
@@ -194,9 +194,8 @@ export default function GrowthFundStorePage() {
           title="A fresh growth fund built to nudge"
         >
           <p>
-            Godzilla x Kong was a clean design rather than a rescue. I built the growth fund into the
-            game&apos;s webshop, using its blue crystal economy and its flatter interface style so it
-            read as part of the game from the first glance.
+            Godzilla x Kong was a fresh start. I built the growth fund into the game&apos;s webshop
+            and matched its flatter, cleaner look, so it felt like part of the game right away.
           </p>
           <Figure
             src="/figma/growth-fund-store/gxk-hud.png"
@@ -204,11 +203,10 @@ export default function GrowthFundStorePage() {
             caption="The game's base view, where players reach the store."
           />
           <p>
-            The detail I am happiest with is the near unlock state. When a player is one step away
-            from a reward, the card calls it out. It is a small nudge, but it gives players a reason
-            to keep going and a clear next target to aim for. I had also designed the webshop entry
-            button earlier in my time on the game, so the growth fund slotted in behind an entry
-            point players already recognised.
+            I added a near unlock state to the cards. When a player is one step away from a reward,
+            the card calls it out, so they have a reason to keep going and a clear next target to aim
+            for. I had also designed the webshop entry button earlier in my time on the game, so the
+            growth fund slotted in behind it.
           </p>
           <div className="not-prose flex flex-col gap-4">
             <Figure
@@ -219,7 +217,7 @@ export default function GrowthFundStorePage() {
             <Figure
               src="/figma/growth-fund-store/gxk-growth-fund-popup.png"
               alt="The Godzilla x Kong growth fund purchase popup offering up to 100k crystals."
-              caption="The growth fund offer in the game's crystal economy."
+              caption="The growth fund offer, built in the game's webshop style."
             />
           </div>
         </Section>
