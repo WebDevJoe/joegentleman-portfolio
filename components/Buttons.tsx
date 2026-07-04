@@ -31,7 +31,7 @@ export function ChipPill({
     return (
       <button
         type="button"
-        className={`bg-logo-tile inline-flex h-[40px] shrink-0 items-center justify-center whitespace-nowrap rounded-[12px] px-3 font-medium text-[16px] leading-[0.9] text-white shadow-[0_0_0_1px_#0d0d0d,0_2px_4px_0_rgba(0,0,0,0.1)] cursor-pointer ${className}`}
+        className={`bg-logo-tile inline-flex h-[40px] shrink-0 items-center justify-center whitespace-nowrap rounded-[12px] px-3 font-medium text-[16px] leading-[0.9] text-white shadow-[0_0_0_1px_#201e25,0_2px_4px_0_rgba(0,0,0,0.1)] cursor-pointer ${className}`}
         {...rest}
       >
         {children}
