@@ -261,7 +261,7 @@ function NextProjectCta() {
               Fallen Sword II Landing page
             </p>
             <p className="text-ink-muted text-[14px] leading-tight">
-              A pre-launch landing page built in two weeks, before any real game assets existed.
+              A pre-launch landing page built in two weeks to drive wishlists and name reservations.
             </p>
             <span className="inline-flex items-center gap-2 mt-2 h-11 px-5 rounded-[12px] bg-[#133fc8] text-white text-[14px] font-medium tracking-[-0.42px] shadow-[0_0_0_1px_#1742cc,0_2px_4px_0_rgba(0,0,0,0.1)] transition-transform duration-300 ease-out group-hover:-translate-y-0.5">
               View project

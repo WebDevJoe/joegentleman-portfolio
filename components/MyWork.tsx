@@ -79,7 +79,7 @@ const projects: (Project & { category: Category })[] = [
     role: "Designer",
     title: "Fallen Sword II Landing page",
     description:
-      "Pre-launch landing page for Fallen Sword II. Two weeks, one page, no real game assets yet.",
+      "Pre-launch landing page for Fallen Sword II. Two weeks, one page, built to drive wishlists and name reservations.",
     image: "/figma/fs2/cover.png",
     href: "/work/fs2",
   },

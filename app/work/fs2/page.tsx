@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
@@ -24,7 +25,7 @@ export const metadata = {
 
 const META = [
   ["Role", "Designer"],
-  ["Timeline", "4 weeks · 2025"],
+  ["Timeline", "2 weeks · 2025"],
   ["Tools", "Figma"],
   ["Status", "Live at fs2.game"],
 ] as const;
@@ -46,7 +47,8 @@ const SECTIONS: WalkthroughSection[] = [
     height: 495,
     title: "Hero",
     paragraphs: [
-      "Two column layout. Brand and conversion on the left, key art on the right. Designed before final game art existed, so a single illustration carries the world.",
+      "Two column layout. Brand and the primary actions on the left, key art on the right. A single illustration sets the tone for the whole world, so it takes the larger half of the fold.",
+      "The left column stays on the job: logo, one line on what the game is, and the wishlist and reservation actions within reach before anyone scrolls.",
     ],
   },
   {
@@ -56,7 +58,8 @@ const SECTIONS: WalkthroughSection[] = [
     height: 1941,
     title: "About",
     paragraphs: [
-      "Six feature blocks, alternating sides. Each block is the same template: art, tagline, description. Identical slots for the copy team to fill, so the section stays coherent however the words land.",
+      "Six feature blocks, alternating sides. Each block is the same template: art, tagline, description. Identical slots for the copy team to fill, so the section stays coherent however the words land and however many features make the final cut.",
+      "Flipping the art from side to side keeps a long section from reading as a flat list, and gives each feature its own moment as you scroll past.",
     ],
   },
   {
@@ -66,7 +69,8 @@ const SECTIONS: WalkthroughSection[] = [
     height: 246,
     title: "Secure it early",
     paragraphs: [
-      "Username reservation gets its own block. Scoped to returning Fallen Sword players, so the rest of the page does not have to carry that audience.",
+      "Username reservation gets its own block. It speaks only to returning Fallen Sword players, the ones who care about keeping their old name, so it sits apart and talks to them directly.",
+      "Scoping it this way keeps the promise out of the main flow, where it would only confuse a new player who has no name to protect.",
     ],
   },
   {
@@ -76,7 +80,8 @@ const SECTIONS: WalkthroughSection[] = [
     height: 1535,
     title: "The bottom of the page",
     paragraphs: [
-      "Media carousel, wishlist callback, community and newsletter, then footer. One continuous scroll, each section its own block.",
+      "Media carousel, a second wishlist callback, community and newsletter, then the footer. The page is one long scroll, so the closing stretch repeats the main action for anyone who read all the way down before deciding.",
+      "Each block is self contained, which let the page ship in pieces and made it easy to reorder as priorities moved.",
     ],
   },
 ];
@@ -107,8 +112,9 @@ export default function Fs2Page() {
                 Fallen Sword II Landing page
               </h1>
               <p className="text-ink-muted text-[16px] md:text-[18px] leading-[1.5]">
-                Pre-launch landing page for Fallen Sword II. Two weeks, one page, no real game
-                assets yet.
+                Fallen Sword II is the sequel to a long running browser RPG. This was its first
+                public page, built in two weeks to introduce the world and drive three actions:
+                wishlist on Steam, reserve a name, and download the press kit.
               </p>
             </div>
 
@@ -135,14 +141,71 @@ export default function Fs2Page() {
           </div>
         </section>
 
+        {/* The brief */}
+        <Section eyebrow="The brief" title="One page, three actions to drive">
+          <p>
+            This was the game&apos;s first public presence, so the page had to introduce the world
+            and give people a way to commit in the same scroll. I built it around three actions:
+            wishlist on Steam, reserve a name, and download the press kit. Everything else on the
+            page exists to support one of those.
+          </p>
+          <blockquote className="border-l-[3px] border-brand-text pl-5 py-2 text-ink text-[20px] font-medium leading-[1.5]">
+            Introduce the world and give people a reason to commit, in a single scroll.
+          </blockquote>
+        </Section>
+
+        {/* Walkthrough intro */}
+        <Section eyebrow="The page" title="A walk through, top to bottom">
+          <p>
+            One continuous scroll, each part its own block so it could ship in pieces and be
+            reordered as priorities moved. Here is how it reads from the top.
+          </p>
+        </Section>
+
         {SECTIONS.map((s) => (
           <SectionWalkthrough key={s.src} section={s} />
         ))}
+
+        {/* Outcome */}
+        <Section eyebrow="Outcome" title="What I took from it">
+          <p>The page is live at fs2.game as the game&apos;s first public presence.</p>
+          <p>
+            The interesting part was holding a whole world together on one page while keeping three
+            separate actions clear. Leaning on one strong illustration and a tight set of actions
+            mattered more than filling the page with content.
+          </p>
+        </Section>
       </article>
 
       <NextProjectCta />
       <Footer />
     </main>
+  );
+}
+
+function Section({
+  eyebrow,
+  title,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <section className="border-b border-line flex flex-col items-center px-4 md:px-12 lg:px-16 py-16">
+      <div className="flex flex-col gap-4 w-full max-w-[880px]">
+        <p className="text-ink-faint text-[12px] font-medium tracking-[0.5px] uppercase">
+          {eyebrow}
+        </p>
+        <h2 className="text-ink text-[28px] font-medium leading-[1.15] tracking-[-0.84px]">
+          {title}
+        </h2>
+        <div className="flex flex-col gap-4 text-ink-muted text-[16px] leading-[1.65] mt-2">
+          {children}
+        </div>
+      </div>
+    </section>
   );
 }
 
