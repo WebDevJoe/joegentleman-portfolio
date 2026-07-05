@@ -3,19 +3,19 @@
 import { AvailableChip } from "./AvailableChip";
 import { PrimaryButton } from "./Buttons";
 import { ScrollReveal } from "./ScrollReveal";
+import { GridBackground } from "./GridBackground";
 
 export function CtaSection() {
   return (
     <section className="relative w-full overflow-hidden py-12 md:py-16">
       {/* pixel grid background, faded out at top and bottom */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-grid opacity-50"
+      <GridBackground
+        className="absolute inset-0 opacity-50"
         style={{
           maskImage:
-            "linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)",
+            "radial-gradient(ellipse farthest-side at 50% 60%, black 0%, black 38%, transparent 100%)",
           WebkitMaskImage:
-            "linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)",
+            "radial-gradient(ellipse farthest-side at 50% 60%, black 0%, black 38%, transparent 100%)",
         }}
       />
 

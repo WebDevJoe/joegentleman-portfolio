@@ -6,6 +6,7 @@ import { AvailableChip } from "./AvailableChip";
 import { ShowcaseCard } from "./ShowcaseCard";
 import { Marquee } from "./Marquee";
 import { HeroHeadline } from "./HeroHeadline";
+import { GridBackground } from "./GridBackground";
 
 const showcaseImages = [
   "/showcase/tactical.png",
@@ -52,14 +53,13 @@ export function Hero() {
       className="relative w-full overflow-hidden"
     >
       {/* pixel grid background, masked to fade out at the bottom */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-[244px] md:h-[522px] lg:h-[900px] bg-grid"
+      <GridBackground
+        className="absolute inset-x-0 top-0 h-[244px] md:h-[522px] lg:h-[900px]"
         style={{
           maskImage:
-            "linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.4) 60%, transparent)",
+            "radial-gradient(ellipse farthest-side at 50% 42%, black 0%, black 38%, transparent 100%)",
           WebkitMaskImage:
-            "linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.4) 60%, transparent)",
+            "radial-gradient(ellipse farthest-side at 50% 42%, black 0%, black 38%, transparent 100%)",
         }}
       />
 

@@ -2,8 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { DownloadSimple } from "@phosphor-icons/react";
 import { LogoTile } from "./Logo";
+import { GridBackground } from "./GridBackground";
 import { PrimaryButton } from "./Buttons";
 import { SocialIcons } from "./SocialIcons";
 
@@ -12,6 +15,8 @@ const EMAIL = "joegentlemanux@gmail.com";
 export function Nav() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => setMounted(true), []);
 
@@ -33,21 +38,24 @@ export function Nav() {
     <>
       <header className="sticky top-0 z-50 w-full backdrop-blur-[24px] bg-white/60">
         <div className="flex items-center justify-between px-4 py-6 md:px-12 lg:px-16">
-          <a href="#top" aria-label="Home" className="flex items-center">
+          <Link href="/#top" aria-label="Home" className="flex items-center">
             <LogoTile />
-          </a>
+          </Link>
 
           {/* Desktop / tablet links */}
           <nav className="hidden md:flex flex-1 items-center justify-between pl-[107px]">
             <div className="flex flex-1 items-center justify-center gap-6">
-              <a
-                href="#top"
-                className="text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink underline underline-offset-4"
+              <Link
+                href="/#top"
+                className={`text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink transition ${
+                  isHome ? "underline underline-offset-4" : "hover:opacity-70"
+                }`}
               >
                 Home
-              </a>
+              </Link>
               <a
                 href="/resume.pdf"
+                download
                 className="inline-flex items-center gap-1 text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink hover:opacity-70 transition"
               >
                 Resume
@@ -114,9 +122,8 @@ export function Nav() {
             }}
           >
             {/* subtle grid texture */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 bg-grid opacity-40"
+            <GridBackground
+              className="absolute inset-0 opacity-40"
               style={{
                 maskImage:
                   "linear-gradient(to bottom, black, transparent 80%)",
@@ -127,10 +134,12 @@ export function Nav() {
 
             <div className="relative flex h-full flex-col justify-between px-4 pt-[120px] pb-12">
               <nav className="flex flex-col items-start gap-6">
-                <a
-                  href="#top"
+                <Link
+                  href="/#top"
                   onClick={() => setOpen(false)}
-                  className={`text-[18px] font-medium leading-[0.95] tracking-[-0.54px] text-ink underline underline-offset-4 w-fit transition-all duration-500 ease-out ${
+                  className={`text-[18px] font-medium leading-[0.95] tracking-[-0.54px] text-ink w-fit transition-all duration-500 ease-out ${
+                    isHome ? "underline underline-offset-4" : ""
+                  } ${
                     open
                       ? "translate-x-0 opacity-100"
                       : "translate-x-6 opacity-0"
@@ -138,9 +147,10 @@ export function Nav() {
                   style={{ transitionDelay: open ? "120ms" : "0ms" }}
                 >
                   Home
-                </a>
+                </Link>
                 <a
                   href="/resume.pdf"
+                  download
                   onClick={() => setOpen(false)}
                   className={`inline-flex items-center gap-1 text-[18px] font-medium leading-[0.95] tracking-[-0.54px] text-ink w-fit transition-all duration-500 ease-out ${
                     open
