@@ -9,7 +9,8 @@ import { HeroHeadline } from "./HeroHeadline";
 import { GridBackground } from "./GridBackground";
 
 const showcaseImages = [
-  "/showcase/tactical.png",
+  "/showcase/worksheets-dashboard.png",
+  "https://placedog.net/760/570?id=60",
   "/figma/fs2/cover.png",
   "https://placedog.net/760/570?id=30",
   "https://placedog.net/760/570?id=40",
@@ -73,11 +74,11 @@ export function Hero() {
             data-anim="subtitle"
             className="text-center text-[16px] md:text-[18px] font-normal leading-[0.95] tracking-[-0.48px] md:tracking-[-0.54px] text-ink-muted max-w-[284px] md:max-w-none"
           >
-            A game UI/UX designer with a web development background.
+            A UX designer from the north east of Scotland, currently working as a game UI artist.
           </p>
         </div>
 
-        {/* showcase row — auto-scrolling marquee, no scrollbar */}
+        {/* showcase row: auto-scrolling marquee, no scrollbar */}
         <div
           data-anim="cards"
           className="w-full -mx-4 md:-mx-12 lg:-mx-16"

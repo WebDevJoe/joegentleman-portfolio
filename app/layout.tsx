@@ -19,11 +19,11 @@ const SITE_URL = "https://joegentleman.co.uk";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Joe Gentleman — Product & Game UI/UX Designer",
-    template: "%s — Joe Gentleman",
+    default: "Joe Gentleman | UX Designer & Game UI Artist",
+    template: "%s | Joe Gentleman",
   },
   description:
-    "Joe Gentleman is a product designer working in Game UI. Available for roles and freelance work.",
+    "Joe Gentleman is a UX designer from the north east of Scotland, currently working as a game UI artist. Available for roles and freelance work.",
   applicationName: "Joe Gentleman",
   authors: [{ name: "Joe Gentleman", url: SITE_URL }],
   creator: "Joe Gentleman",
@@ -31,11 +31,13 @@ export const metadata: Metadata = {
   keywords: [
     "Joe Gentleman",
     "Joegentleman",
-    "product designer",
+    "UX designer",
+    "game UI artist",
     "game UI designer",
     "UI/UX designer",
     "freelance designer",
-    "UK product designer",
+    "UX designer Scotland",
+    "north east Scotland",
     "game UX",
     "portfolio",
   ],
@@ -45,17 +47,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Joe Gentleman",
-    title: "Joe Gentleman — Product & Game UI/UX Designer",
+    title: "Joe Gentleman | UX Designer & Game UI Artist",
     description:
-      "A product designer working in Game UI. Available for roles and freelance work.",
+      "A UX designer from the north east of Scotland, currently working as a game UI artist.",
     url: SITE_URL,
     locale: "en_GB",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Joe Gentleman — Product & Game UI/UX Designer",
+    title: "Joe Gentleman | UX Designer & Game UI Artist",
     description:
-      "A product designer working in Game UI. Available for roles and freelance work.",
+      "A UX designer from the north east of Scotland, currently working as a game UI artist.",
   },
   robots: {
     index: true,
@@ -83,17 +85,22 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     name: "Joe Gentleman",
     alternateName: "Joegentleman",
     url: SITE_URL,
-    jobTitle: "Product & Game UI/UX Designer",
+    jobTitle: "UX Designer & Game UI Artist",
     description:
-      "A product designer working in Game UI, based in the UK.",
+      "A UX designer from the north east of Scotland, currently working as a game UI artist.",
     knowsAbout: [
-      "Product Design",
+      "User Experience Design",
+      "Game UI Art",
       "Game UI",
       "Game UX",
       "User Experience",
       "User Interface Design",
       "Web Design",
     ],
+    homeLocation: {
+      "@type": "Place",
+      name: "North East Scotland",
+    },
     sameAs: [
       "https://dribbble.com/Joegentleman",
       "https://github.com/WebDevJoe",

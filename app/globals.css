@@ -3,6 +3,9 @@
 @theme {
   --font-sans: var(--font-rethink-sans), ui-sans-serif, system-ui, sans-serif;
 
+  /* One deceleration curve for every hover/press in the site. */
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+
   --color-ink: #252525;
   --color-ink-muted: #666666;
   /* #767676 clears WCAG AA (4.5:1) on white; #999 did not. */
@@ -50,9 +53,9 @@ body {
 }
 
 /* Pixel-grid background is drawn by the GridBackground component (explicit
-   SVG lines), not a tiled CSS background — see that component for why. */
+   SVG lines), not a tiled CSS background. See that component for why. */
 
-/* Auto-scrolling marquee for the hero showcase — rightward conveyor belt.
+/* Auto-scrolling marquee for the hero showcase: rightward conveyor belt.
    Translation accounts for the inter-copy gap so the loop is seamless. */
 @keyframes marquee-right {
   from { transform: translate3d(calc(-50% - var(--marquee-gap, 32px) / 2), 0, 0); }
@@ -64,7 +67,7 @@ body {
   animation: marquee-right 25s linear infinite;
   will-change: transform;
 }
-/* Pause on mouse hover — desktop only (touch devices have no hover) */
+/* Pause on mouse hover, desktop only (touch devices have no hover) */
 @media (hover: hover) and (pointer: fine) {
   .marquee-track:hover {
     animation-play-state: paused;
@@ -75,7 +78,7 @@ body {
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 
-/* Wrong-password shake — used by PasswordModal */
+/* Wrong-password shake, used by PasswordModal */
 @keyframes modal-shake {
   10%, 90%  { transform: translate3d(-1px, 0, 0); }
   20%, 80%  { transform: translate3d(2px, 0, 0); }
@@ -91,7 +94,7 @@ body {
   border-radius: 4px;
 }
 
-/* Skip-to-content link — hidden until focused, then pinned top-left. */
+/* Skip-to-content link, hidden until focused, then pinned top-left. */
 .skip-link {
   position: absolute;
   left: 16px;

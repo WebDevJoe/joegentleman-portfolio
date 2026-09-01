@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 
 const PARTS = [
-  { text: "Designing things people ", weight: "font-normal" },
-  { text: "actually", weight: "font-medium" },
-  { text: " want to use.", weight: "font-normal" },
+  { text: "Design that ", weight: "font-normal" },
+  { text: "solves", weight: "font-medium" },
+  { text: " the problem.", weight: "font-normal" },
 ] as const;
 
 const CHARS = PARTS.flatMap((p) =>

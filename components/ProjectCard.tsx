@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowRight, Lock } from "@phosphor-icons/react/dist/ssr";
+import { CaretRight, Lock } from "@phosphor-icons/react/dist/ssr";
 
 export type Project = {
   role: string;
@@ -29,11 +29,11 @@ export function ProjectCard({
   onLockClick?: () => void;
 }) {
   return (
-    <article className="project-card group relative flex flex-col gap-[33px] items-start p-6 w-full transition-transform duration-300 ease-out will-change-transform hover:-translate-y-1">
+    <article className="project-card group relative flex flex-col gap-[33px] items-start p-6 w-full transition-transform duration-300 ease-smooth will-change-transform hover:-translate-y-1">
       {/* Decorative card frame: border + soft gradient + inner highlight + corner dots */}
       <div
         aria-hidden
-        className="absolute inset-0 rounded-[20px] border-[1.5px] border-line overflow-hidden pointer-events-none transition-[border-color,box-shadow] duration-300 ease-out group-hover:border-[#cfe1f6] group-hover:shadow-[0_18px_40px_-20px_rgba(19,63,200,0.25)]"
+        className="absolute inset-0 rounded-[20px] border-[1.5px] border-line overflow-hidden pointer-events-none transition-[border-color,box-shadow] duration-300 ease-smooth group-hover:border-[#cfe1f6] group-hover:shadow-[0_18px_40px_-20px_rgba(19,63,200,0.28)]"
       >
         <div
           className="absolute inset-0 rounded-[20px]"
@@ -53,14 +53,14 @@ export function ProjectCard({
         ))}
       </div>
 
-      {/* Image — preview is shown even when locked, with a small lock badge */}
+      {/* Image: preview is shown even when locked, with a small lock badge */}
       <div className="relative h-[240px] w-full rounded-[10px] overflow-hidden shadow-card-image">
         <Image
           src={project.image}
           alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, 400px"
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+          className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-[1.04]"
         />
         {locked && (
           <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full bg-white/95 text-ink shadow-[0_0_0_1px_rgba(13,13,13,0.10),0_2px_6px_0_rgba(0,0,0,0.12)] text-[12px] font-medium leading-none tracking-[-0.24px] backdrop-blur-[2px]">
@@ -70,7 +70,7 @@ export function ProjectCard({
         )}
       </div>
 
-      {/* Text — same layout in both states; description truncates via line-clamp */}
+      {/* Text: same layout in both states; description truncates via line-clamp */}
       <div className="relative flex flex-col gap-2 items-start w-full">
         <p className="text-[14px] font-medium leading-[21px] tracking-[-0.42px] text-[#133fc8]">
           {project.role}
@@ -83,30 +83,30 @@ export function ProjectCard({
         </p>
       </div>
 
-      {/* Action — Unlock matches View styling so the row aligns across cards */}
+      {/* Action: Unlock matches View styling so the row aligns across cards */}
       {locked ? (
         <button
           type="button"
           onClick={onLockClick}
-          className="relative inline-flex items-center gap-2 text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink transition-opacity hover:opacity-70 cursor-pointer"
+          className="relative inline-flex items-center gap-2 text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink cursor-pointer"
         >
           Unlock
-          <ArrowRight
+          <CaretRight
             size={14}
-            weight="regular"
-            className="transition-transform duration-300 ease-out group-hover:translate-x-1"
+            weight="bold"
+            className="transition-transform duration-300 ease-smooth group-hover:translate-x-1"
           />
         </button>
       ) : (
         <a
           href={project.href ?? "#"}
-          className="relative inline-flex items-center gap-2 text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink transition-opacity hover:opacity-70"
+          className="relative inline-flex items-center gap-2 text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink"
         >
           View
-          <ArrowRight
+          <CaretRight
             size={14}
-            weight="regular"
-            className="transition-transform duration-300 ease-out group-hover:translate-x-1"
+            weight="bold"
+            className="transition-transform duration-300 ease-smooth group-hover:translate-x-1"
           />
         </a>
       )}

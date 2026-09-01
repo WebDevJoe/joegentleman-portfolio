@@ -4,8 +4,8 @@ import type { CSSProperties } from "react";
 
    Drawn as explicit vector lines in a single SVG pass rather than a tiled CSS
    background. A repeating background-image (gradient or SVG tile) is a bitmap
-   that the compositor resamples at fractional device-pixel ratios — Windows
-   display scaling at 125%/150% — so the 1px lines land on fractional pixels,
+   that the compositor resamples at fractional device-pixel ratios (Windows
+   display scaling at 125%/150%), so the 1px lines land on fractional pixels,
    vary in intensity, and "beat" into what looks like two overlaid grids.
 
    Here every line is its own <line> with shape-rendering:crispEdges, so each
@@ -24,7 +24,7 @@ function GridSvg({
   cellH: number;
   vOpacity: number;
   // Horizontals sit further apart than the dense verticals, so they read
-  // weaker for the same alpha — especially inside a fade. Give them their own,
+  // weaker for the same alpha, especially inside a fade. Give them their own,
   // slightly higher opacity to balance.
   hOpacity: number;
   className?: string;

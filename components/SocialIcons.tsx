@@ -24,7 +24,7 @@ export function SocialIcons({ className = "" }: { className?: string }) {
           target="_blank"
           rel="noreferrer noopener"
           aria-label={name}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#e3e3e3] text-ink shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_2px_4px_0_rgba(0,0,0,0.1)] hover:brightness-95 transition"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#e3e3e3] text-ink shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_2px_4px_0_rgba(0,0,0,0.1)] cursor-pointer transition-[background-color,transform,box-shadow] duration-200 ease-smooth hover:bg-[#d7d7d7] hover:-translate-y-px hover:shadow-[0_0_0_1px_rgba(13,13,13,0.2),0_6px_14px_-6px_rgba(13,13,13,0.3)] active:translate-y-0 active:duration-75"
         >
           <Icon size={22} weight="fill" aria-hidden />
         </a>

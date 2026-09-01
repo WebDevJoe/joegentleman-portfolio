@@ -18,9 +18,6 @@ export function Footer() {
               </p>
             </div>
           </div>
-          <p className="text-ink-muted text-[16px] leading-[1.5]">
-            Available for product design roles and freelance projects.
-          </p>
         </div>
         <SocialIcons />
       </div>

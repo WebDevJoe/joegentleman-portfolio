@@ -4,7 +4,7 @@ const SITE_URL = "https://joegentleman.co.uk";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  // Note: /work/battle-pass is intentionally excluded — it is a private,
+  // Note: /work/battle-pass is intentionally excluded. It is a private,
   // password-gated case study and is marked noindex.
   return [
     {

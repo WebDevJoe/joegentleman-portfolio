@@ -47,19 +47,32 @@ export function Nav() {
             <div className="flex flex-1 items-center justify-center gap-6">
               <Link
                 href="/#top"
-                className={`text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink transition ${
-                  isHome ? "underline underline-offset-4" : "hover:opacity-70"
-                }`}
+                aria-current={isHome ? "page" : undefined}
+                className="group relative text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink transition-colors duration-200 ease-smooth hover:text-ink-muted"
               >
                 Home
+                <span
+                  aria-hidden
+                  className={`pointer-events-none absolute -bottom-1 left-0 h-px w-full origin-left bg-current transition-transform duration-300 ease-smooth ${
+                    isHome ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                  }`}
+                />
               </Link>
               <a
                 href="/resume.pdf"
                 download
-                className="inline-flex items-center gap-1 text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink hover:opacity-70 transition"
+                className="group relative inline-flex items-center gap-1 text-[16px] font-medium leading-[0.95] tracking-[-0.48px] text-ink transition-colors duration-200 ease-smooth hover:text-ink-muted"
               >
                 Resume
-                <DownloadSimple size={20} weight="regular" />
+                <DownloadSimple
+                  size={20}
+                  weight="regular"
+                  className="transition-transform duration-300 ease-smooth group-hover:translate-y-px"
+                />
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-smooth group-hover:scale-x-100"
+                />
               </a>
             </div>
             <PrimaryButton
@@ -72,7 +85,7 @@ export function Nav() {
             </PrimaryButton>
           </nav>
 
-          {/* Animated hamburger — three bars morph into an X */}
+          {/* Animated hamburger: three bars morph into an X */}
           <button
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -106,7 +119,7 @@ export function Nav() {
         </div>
       </header>
 
-      {/* Mobile full-viewport menu — portaled to body to escape header's
+      {/* Mobile full-viewport menu, portaled to body to escape header's
           backdrop-filter containing block (which would clip a fixed child) */}
       {mounted &&
         createPortal(

@@ -1,6 +1,6 @@
 export function LogoTile({ size = 48 }: { size?: number }) {
   // The whole tile is one inline SVG (gradient fill, top-highlight border, and
-  // the J glyph) so it paints natively at any scale — no rasterisation, no
+  // the J glyph) so it paints natively at any scale, with no rasterisation, no
   // /_next/image roundtrip. The drop shadow stays in CSS so it renders crisp.
   // The tile fills the size box; the J is centred at ~58% like the source art.
   return (

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 // Static social card shared across the site (per-page metadata can override).
-export const alt = "Joe Gentleman — Product & Game UI/UX Designer";
+export const alt = "Joe Gentleman | UX Designer & Game UI Artist";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -59,7 +59,7 @@ export default function OpengraphImage() {
             Joe Gentleman
           </div>
           <div style={{ fontSize: "40px", color: "#666666", letterSpacing: "-1px" }}>
-            Product &amp; Game UI/UX Designer
+            UX Designer &amp; Game UI Artist
           </div>
         </div>
 

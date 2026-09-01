@@ -43,7 +43,7 @@ next-env.d.ts
 .scripts/
 .snapshots/
 
-# AI / editor scratch — never commit
+# AI / editor scratch, never commit
 .claude/
 .cursor/
 .aider*

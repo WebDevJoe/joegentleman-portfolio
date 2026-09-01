@@ -1,18 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArrowLeft, ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowLeft, CaretRight } from "@phosphor-icons/react/dist/ssr";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { RevokeOnLeave } from "@/components/RevokeOnLeave";
 
 const HERO_IMAGE = "/figma/battle-pass/hero.png";
 
 export const metadata = {
-  title: "Battle pass — Chaos & Conquest",
+  title: "Battle pass: Chaos & Conquest",
   description:
     "Designing a battle pass that fit naturally into a 5-year-old mobile RTS HUD.",
-  // Private, password-gated case study — keep it out of search results.
+  // Private, password-gated case study, so keep it out of search results.
   robots: { index: false, follow: false },
 };
 
@@ -87,7 +86,6 @@ const DECISIONS = [
 export default function BattlePassPage() {
   return (
     <main className="flex min-h-screen flex-col items-stretch bg-white">
-      <RevokeOnLeave lockId="battle-pass-c-and-c" />
       <Nav />
 
       <article className="flex flex-col">
@@ -240,12 +238,12 @@ function NextProjectCta() {
             <p className="text-ink-muted text-[14px] leading-tight">
               A growth fund monetisation feature, shipped inside two live App Store games.
             </p>
-            <span className="inline-flex items-center gap-2 mt-2 h-11 px-5 rounded-[12px] bg-[#133fc8] text-white text-[14px] font-medium tracking-[-0.42px] shadow-[0_0_0_1px_#1742cc,0_2px_4px_0_rgba(0,0,0,0.1)] transition-transform duration-300 ease-out group-hover:-translate-y-0.5">
+            <span className="inline-flex items-center gap-2 mt-2 h-11 px-5 rounded-[12px] bg-[#133fc8] text-white text-[14px] font-medium tracking-[-0.42px] shadow-[0_0_0_1px_#1742cc,0_2px_4px_0_rgba(0,0,0,0.1)] transition-transform duration-300 ease-smooth group-hover:-translate-y-0.5">
               View project
-              <ArrowRight
+              <CaretRight
                 size={14}
-                weight="regular"
-                className="transition-transform duration-300 ease-out group-hover:translate-x-1"
+                weight="bold"
+                className="transition-transform duration-300 ease-smooth group-hover:translate-x-1"
               />
             </span>
           </div>
@@ -308,7 +306,7 @@ function HeroImageCard() {
       <div className="absolute inset-6 rounded-[10px] overflow-hidden">
         <Image
           src={HERO_IMAGE}
-          alt="Battle pass — three screens of Spoils of Conquest in Warhammer: Chaos & Conquest"
+          alt="Battle pass: three screens of Spoils of Conquest in Warhammer: Chaos & Conquest"
           fill
           sizes="(max-width: 880px) 100vw, 832px"
           priority

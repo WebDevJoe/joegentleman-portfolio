@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowLeft, ArrowUpRight, CaretRight } from "@phosphor-icons/react/dist/ssr";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 
@@ -15,7 +15,7 @@ export const metadata = {
   alternates: { canonical: "/work/fs2" },
   openGraph: {
     type: "article",
-    title: "Fallen Sword II Landing page — Joe Gentleman",
+    title: "Fallen Sword II Landing page | Joe Gentleman",
     description:
       "A pre-launch landing page built to drive wishlists and name reservations for Fallen Sword II.",
     url: "/work/fs2",
@@ -252,12 +252,12 @@ function NextProjectCta() {
             <p className="text-ink-muted text-[14px] leading-tight">
               A growth fund monetisation feature, shipped inside two live App Store games.
             </p>
-            <span className="inline-flex items-center gap-2 mt-2 h-11 px-5 rounded-[12px] bg-[#133fc8] text-white text-[14px] font-medium tracking-[-0.42px] shadow-[0_0_0_1px_#1742cc,0_2px_4px_0_rgba(0,0,0,0.1)] transition-transform duration-300 ease-out group-hover:-translate-y-0.5">
+            <span className="inline-flex items-center gap-2 mt-2 h-11 px-5 rounded-[12px] bg-[#133fc8] text-white text-[14px] font-medium tracking-[-0.42px] shadow-[0_0_0_1px_#1742cc,0_2px_4px_0_rgba(0,0,0,0.1)] transition-transform duration-300 ease-smooth group-hover:-translate-y-0.5">
               View project
-              <ArrowRight
+              <CaretRight
                 size={14}
-                weight="regular"
-                className="transition-transform duration-300 ease-out group-hover:translate-x-1"
+                weight="bold"
+                className="transition-transform duration-300 ease-smooth group-hover:translate-x-1"
               />
             </span>
           </div>

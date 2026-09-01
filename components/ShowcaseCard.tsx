@@ -19,7 +19,7 @@ export function ShowcaseCard({
   variant?: "tinted" | "plain";
 }) {
   return (
-    <div className="relative shrink-0 rounded-[20px] border-[1.5px] border-line p-6 overflow-hidden">
+    <div className="group relative shrink-0 rounded-[20px] border-[1.5px] border-line p-6 overflow-hidden transition-[transform,box-shadow,border-color] duration-300 ease-smooth hover:-translate-y-1 hover:border-[#cfe1f6] hover:shadow-[0_18px_40px_-20px_rgba(13,13,13,0.22)]">
       {/* gradient or plain background */}
       <div
         aria-hidden
@@ -49,7 +49,7 @@ export function ShowcaseCard({
           sizes="402px"
           quality={90}
           priority
-          className="object-cover"
+          className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-[1.03]"
         />
       </div>
     </div>

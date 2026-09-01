@@ -11,7 +11,6 @@ import { checkUnlock } from "@/lib/unlock-action";
 const categories = ["Product Design", "Game UI/UX", "Web Design"] as const;
 type Category = (typeof categories)[number];
 
-const BATTLE_PASS_LOCK = "battle-pass-c-and-c";
 const UNLOCK_STORAGE_KEY = "jg.unlocked-projects";
 
 const projects: (Project & { category: Category })[] = [
@@ -47,7 +46,6 @@ const projects: (Project & { category: Category })[] = [
       "Designing a battle pass that fit naturally into a 5-year-old mobile RTS HUD. Restructured screen flows, added a HUD slot, and turned a static claim banner into a smart dropdown.",
     image: "/figma/battle-pass/hero.png",
     href: "/work/battle-pass",
-    lockId: BATTLE_PASS_LOCK,
   },
   {
     category: "Game UI/UX",
@@ -65,14 +63,6 @@ const projects: (Project & { category: Category })[] = [
     description:
       "Reworked the front-end menu flows for a competitive strategy title, cutting time-to-match and improving discoverability of late-game features.",
     image: "https://placedog.net/610/480?id=202",
-  },
-  {
-    category: "Game UI/UX",
-    role: "Senior UI Designer",
-    title: "Open-World Inventory Overhaul",
-    description:
-      "Redesigned the inventory, crafting, and loot screens for an open-world RPG, focusing on controller-first ergonomics and clear item hierarchy.",
-    image: "https://placedog.net/610/480?id=203",
   },
   {
     category: "Web Design",
@@ -151,7 +141,7 @@ export function MyWork() {
             My work
           </h2>
           <p className="text-ink-muted text-[16px] md:text-[18px] font-normal leading-[0.95] tracking-[-0.48px] md:tracking-[-0.54px]">
-            A game UI/UX designer with a web development background.
+            Selected case studies across game UI, product, and web.
           </p>
         </ScrollReveal>
 
