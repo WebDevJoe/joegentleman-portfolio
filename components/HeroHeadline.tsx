@@ -14,7 +14,7 @@ const CHARS = PARTS.flatMap((p) =>
 const FULL_TEXT = PARTS.map((p) => p.text).join("");
 
 const HEADLINE_CLASSES =
-  "max-w-[1062px] text-center font-normal text-ink text-[48px] md:text-[64px] lg:text-[96px] leading-[0.95] tracking-[-1.44px] md:tracking-[-1.92px] lg:tracking-[-2.88px]";
+  "max-w-[1062px] text-center font-normal text-ink text-[clamp(2rem,11.2vw,3rem)] md:text-[64px] lg:text-[96px] leading-[0.95] tracking-[-1.44px] md:tracking-[-1.92px] lg:tracking-[-2.88px]";
 
 const START_DELAY_MS = 350;
 const DURATION_MS = 1800;
