@@ -72,7 +72,7 @@ export function Hero() {
           <HeroHeadline />
           <p
             data-anim="subtitle"
-            className="text-center text-[16px] md:text-[18px] font-normal leading-[0.95] tracking-[-0.48px] md:tracking-[-0.54px] text-ink-muted max-w-[284px] md:max-w-none"
+            className="text-center text-[16px] md:text-[18px] font-normal leading-[1.35] md:leading-[0.95] tracking-[-0.48px] md:tracking-[-0.54px] text-ink-muted"
           >
             A UX designer from the north east of Scotland, currently working as a game UI artist.
           </p>

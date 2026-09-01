@@ -1,24 +1,12 @@
 import Image from "next/image";
-import { LogoTile } from "./Logo";
 import { SocialIcons } from "./SocialIcons";
 
 export function Footer() {
   return (
     <footer className="w-full border-t border-line bg-white">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 px-4 md:px-16 pt-16 pb-12">
-        <div className="flex flex-col gap-4 max-w-[280px]">
-          <div className="flex items-center gap-3">
-            <LogoTile />
-            <div className="flex flex-col gap-[2px]">
-              <p className="text-ink text-[18px] font-medium tracking-[-0.36px] leading-none">
-                Joe
-              </p>
-              <p className="text-ink-muted text-[14px] font-normal leading-none">
-                Product designer
-              </p>
-            </div>
-          </div>
-        </div>
+      {/* Socials are the only thing left in this row, so they centre on mobile
+          and keep their right-hand position from the wider breakpoint up. */}
+      <div className="flex justify-center md:justify-end px-4 md:px-16 pt-16 pb-12">
         <SocialIcons />
       </div>
 
