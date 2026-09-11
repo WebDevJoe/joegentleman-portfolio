@@ -29,11 +29,16 @@ export function LogoTile({ size = 48 }: { size?: number }) {
         strokeWidth="1.135"
         fill="none"
       />
-      <path
-        transform="translate(10.08 10.08) scale(0.435)"
-        fill="white"
-        d="M50.9424 37.2597V41.0683C50.9424 52.7224 41.9772 60.0567 32.6074 59.9999C21.3289 59.9999 13.1157 50.4485 13 41.0683H25.0303C26.2449 46.0142 30.4094 48.4593 35.21 48.3456C42.6711 48.0046 48.3967 42.8309 50.8838 37.2597H50.9424ZM49.1494 4.00287C50.4216 4.05994 50.9424 5.25389 50.9424 6.33393L51 29.3583C50.942 37.4876 45.6785 43.8543 38.5645 46.0146V16.4531C38.6223 11.5073 41.6298 7.81202 44.9844 5.53803C46.3147 4.74214 48.1083 3.94602 49.1494 4.00287Z"
-      />
+      {/* Logo mark, nested so the viewBox handles the scaling: the artwork's
+          own bounds are 7,3 -> 39,45, placed centred at 20x26 inside the tile. */}
+      <svg x="14" y="11" width="20" height="26" viewBox="7 3 32 42" fill="white">
+        <rect x="29" y="3" width="10" height="11" />
+        <rect x="34" y="14" width="5" height="9" />
+        <rect x="18" y="14" width="10" height="10" />
+        <rect x="29" y="23" width="10" height="12" />
+        <rect x="7" y="25" width="10" height="10" />
+        <polygon points="19,34 37.5,34 28.5,45 19,45" />
+      </svg>
       <defs>
         <linearGradient
           id="jgTile"
