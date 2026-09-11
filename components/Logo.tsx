@@ -29,16 +29,12 @@ export function LogoTile({ size = 48 }: { size?: number }) {
         strokeWidth="1.135"
         fill="none"
       />
-      {/* Logo mark, nested so the viewBox handles the scaling: the artwork's
-          own bounds are 7,3 -> 39,45, placed centred at 20x26 inside the tile. */}
-      <svg x="14" y="11" width="20" height="26" viewBox="7 3 32 42" fill="white">
-        <rect x="29" y="3" width="10" height="11" />
-        <rect x="34" y="14" width="5" height="9" />
-        <rect x="18" y="14" width="10" height="10" />
-        <rect x="29" y="23" width="10" height="12" />
-        <rect x="7" y="25" width="10" height="10" />
-        <polygon points="19,34 37.5,34 28.5,45 19,45" />
-      </svg>
+      {/* Logo mark, exactly as exported from Figma (Joe.svg). Same 48x48
+          viewBox as the tile, so it sits at its native coordinates. */}
+      <path
+        d="M39 34L33.8662 39.5L29 45H19V35H29V23H34V14H29V3H39V34ZM17 35H7V25H17V35ZM28 24H18V14H28V24Z"
+        fill="white"
+      />
       <defs>
         <linearGradient
           id="jgTile"
