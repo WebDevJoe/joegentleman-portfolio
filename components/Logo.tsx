@@ -29,12 +29,14 @@ export function LogoTile({ size = 48 }: { size?: number }) {
         strokeWidth="1.135"
         fill="none"
       />
-      {/* Logo mark, exactly as exported from Figma (Joe.svg). Same 48x48
-          viewBox as the tile, so it sits at its native coordinates. */}
-      <path
-        d="M39 34L33.8662 39.5L29 45H19V35H29V23H34V14H29V3H39V34ZM17 35H7V25H17V35ZM28 24H18V14H28V24Z"
-        fill="white"
-      />
+      {/* Logo mark (Joe.svg). Its whole 48x48 frame is nested at 75% of the
+          tile, i.e. 36x36 inset by 6, the 48-in-64 ratio from the source. */}
+      <svg x="6" y="6" width="36" height="36" viewBox="0 0 48 48">
+        <path
+          d="M39 34L33.8662 39.5L29 45H19V35H29V23H34V14H29V3H39V34ZM17 35H7V25H17V35ZM28 24H18V14H28V24Z"
+          fill="white"
+        />
+      </svg>
       <defs>
         <linearGradient
           id="jgTile"

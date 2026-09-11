@@ -3,7 +3,7 @@
 <rect x="4" y="2" width="48" height="48" rx="8" fill="url(#paint0_linear_1072_119)"/>
 <rect x="4.56771" y="2.56771" width="46.8646" height="46.8646" rx="7.43229" stroke="url(#paint1_linear_1072_119)" stroke-width="1.13542"/>
 </g>
-<g transform="translate(4 2)"><path d="M39 34L33.8662 39.5L29 45H19V35H29V23H34V14H29V3H39V34ZM17 35H7V25H17V35ZM28 24H18V14H28V24Z" fill="#ffffff"/></g>
+<svg x="10" y="8" width="36" height="36" viewBox="0 0 48 48"><path d="M39 34L33.8662 39.5L29 45H19V35H29V23H34V14H29V3H39V34ZM17 35H7V25H17V35ZM28 24H18V14H28V24Z" fill="#ffffff"/></svg>
 <defs>
 <filter id="filter0_dd_1072_119" x="0" y="0" width="56" height="56" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
