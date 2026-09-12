@@ -63,16 +63,27 @@ export function PvBand() {
     strip read as a black bar laid over a lit page. Carries no border of its
     own either: the cards it sits between are boxed, and a border would double
     up against theirs. */
-export function PvGutter({ axis, className = "" }: { axis: "x" | "y"; className?: string }) {
+export function PvGutter({
+  axis,
+  className = "",
+  always = false,
+}: {
+  axis: "x" | "y";
+  className?: string;
+  /** The work grid only lays out from lg, so its gutters stay hidden below it.
+      Anything framed at every size, like the gate, passes this. */
+  always?: boolean;
+}) {
   // The stroke lives on the gutter rather than on the cards it separates. On the
   // cards each line stopped at the edge of a gutter track, so nothing carried
   // through a crossing and the intersections read as holes. On the gutter the
   // same line runs the whole length of the grid, and the two meet where the
   // tracks cross.
+  const shown = always ? "block" : "hidden lg:block";
   const box =
     axis === "y"
-      ? "hidden w-4 shrink-0 self-stretch border-x border-pv-border lg:block"
-      : "hidden h-4 w-full shrink-0 border-y border-pv-border lg:block";
+      ? `${shown} w-4 shrink-0 self-stretch border-x border-pv-border`
+      : `${shown} h-4 w-full shrink-0 border-y border-pv-border`;
   return (
     <div
       aria-hidden
