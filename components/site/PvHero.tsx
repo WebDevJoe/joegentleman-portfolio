@@ -15,10 +15,6 @@ const HEADLINE_GRADIENT =
 const ACCENT_GRADIENT =
   "linear-gradient(180deg, rgb(241,250,56) 0%, rgb(250,255,147) 100%)";
 
-// 4px dot on a 5px pitch, matching the 45 x 40 grid in the design.
-const DOT_TILE =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='5'%3E%3Crect width='4' height='4' fill='white' fill-opacity='0.102'/%3E%3C/svg%3E\")";
-
 const MASK = "linear-gradient(to bottom, #000 0%, #000 70%, transparent 96%)";
 
 export function PvHero() {
@@ -44,30 +40,6 @@ export function PvHero() {
           priority
         />
       </div>
-
-      {/* Dot matrix, masked by the two gradient fades from the design. Phone
-          only: at desktop widths it floats in the corner with nothing to sit
-          against, so it is dropped from lg up. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute bottom-0 left-0 h-[199px] w-[224px] lg:hidden"
-        style={{
-          backgroundImage: DOT_TILE,
-          backgroundSize: "5px 5px",
-          maskImage: 'url("/media/dot-mask-a.svg"), url("/media/dot-mask-b.svg")',
-          maskSize: "213px 181px, 213px 181px",
-          maskPosition: "0 0, 0 0",
-          maskRepeat: "no-repeat",
-          // Both masks fade out at their ends. They must intersect, not union,
-          // or the two fades cancel and the grid renders as a hard rectangle.
-          maskComposite: "intersect",
-          WebkitMaskImage: 'url("/media/dot-mask-a.svg"), url("/media/dot-mask-b.svg")',
-          WebkitMaskSize: "213px 181px, 213px 181px",
-          WebkitMaskPosition: "0 0, 0 0",
-          WebkitMaskRepeat: "no-repeat",
-          WebkitMaskComposite: "source-in",
-        }}
-      />
 
       {/* Headline: the whole line is one white to grey gradient, clipped to text.
           The selection box hugs the word with insets rather than a fixed size,

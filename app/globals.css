@@ -434,11 +434,13 @@ body {
    hero comes back rather than starting cold. */
 .pv-ping {
   animation: pv-ping 6s cubic-bezier(0, 0, 0.25, 1) infinite;
-  animation-play-state: paused;
   will-change: transform, opacity;
 }
-.pv-field[data-live="true"] .pv-ping {
-  animation-play-state: running;
+/* Running is the default and out-of-view is the exception, not the other way
+   round. Pausing by default meant that if the observer never reported in, for
+   instance because the JS failed, the field sat frozen with nothing to say why. */
+.pv-field[data-live="false"] .pv-ping {
+  animation-play-state: paused;
 }
 .pv-ping-2 {
   animation-delay: 2s;
@@ -450,8 +452,7 @@ body {
 /* Someone who has asked for less motion still gets the texture, just held
    still rather than pinging. */
 @media (prefers-reduced-motion: reduce) {
-  .pv-ping,
-  .pv-field[data-live="true"] .pv-ping {
+  .pv-ping {
     animation: none;
     transform: scale(0.62);
     opacity: 0.55;
