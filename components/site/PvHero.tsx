@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { IconDownload } from "./PvIcons";
+import { PvPulseField } from "./PvPulseField";
 
 // Figma node 1175:268. Mobile frame is 393 wide with 16px hatch rails, so the
 // hero content column is 361. The height is fixed because the portrait is
@@ -20,57 +21,10 @@ const DOT_TILE =
 
 const MASK = "linear-gradient(to bottom, #000 0%, #000 70%, transparent 96%)";
 
-// Cells on a 24px pitch, the blocky vocabulary the mark and the dot matrix
-// already use. Painted faintly as the resting state, and used again as a mask
-// so the rings behind only show through the cells.
-const CELL =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Crect width='3' height='3' fill='white' fill-opacity='0.05'/%3E%3C/svg%3E\")";
-const CELL_MASK =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Crect width='3' height='3' fill='white'/%3E%3C/svg%3E\")";
-const FIELD_FADE = "radial-gradient(125% 110% at 26% 88%, #000 12%, transparent 72%)";
-const RINGS =
-  "repeating-radial-gradient(circle, rgba(241,250,56,0.85) 0 2px, rgba(250,255,147,0.3) 2px 3px, transparent 3px 46px)";
-
 export function PvHero() {
   return (
     <section className="relative flex h-[656px] w-full flex-col items-center gap-4 overflow-hidden border-b border-pv-border px-4 py-10 sm:h-[720px] lg:h-[860px] lg:gap-6 lg:px-8 lg:py-16">
-      {/* Pulse. Rings ping out from a point low on the left, clipped to a grid
-          of cells, so it reads as pixels lighting up in rings rather than a
-          gradient sliding about. Three on the same loop, staggered, so one
-          leaves as the last fades. Desktop only, and it stops dead under
-          prefers-reduced-motion. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 hidden overflow-hidden lg:block"
-        style={{ maskImage: FIELD_FADE, WebkitMaskImage: FIELD_FADE }}
-      >
-        <div
-          className="absolute inset-0"
-          style={{ backgroundImage: CELL, backgroundSize: "24px 24px" }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            maskImage: CELL_MASK,
-            maskSize: "24px 24px",
-            WebkitMaskImage: CELL_MASK,
-            WebkitMaskSize: "24px 24px",
-          }}
-        >
-          {/* The centring translate sits on the wrapper: the keyframes animate
-              transform, so a translate on the same element would be thrown away
-              the moment the animation started. */}
-          <div className="absolute left-[26%] top-[88%] size-[1600px] -translate-x-1/2 -translate-y-1/2">
-            {["", "pv-ping-2", "pv-ping-3"].map((stagger, i) => (
-              <div
-                key={i}
-                className={`pv-ping absolute inset-0 ${stagger}`}
-                style={{ backgroundImage: RINGS }}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
+      <PvPulseField />
 
       {/* Portrait, sat right back at 12%. Centred while the frame is narrow,
           pushed to the right edge from lg. The photo ends on a bright row (the
