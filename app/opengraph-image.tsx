@@ -1,9 +1,13 @@
 import { ImageResponse } from "next/og";
 
 // Static social card shared across the site (per-page metadata can override).
-export const alt = "Joe Gentleman | UX Designer & Game UI Artist";
+// Dark plate, chartreuse mark, same palette as the site itself.
+export const alt = "Joe Gentleman | UX Designer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+
+const MARK =
+  "M39 34L33.8662 39.5L29 45H19V35H29V23H34V14H29V3H39V34ZM17 35H7V25H17V35ZM28 24H18V14H28V24Z";
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -15,57 +19,74 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#ffffff",
-          padding: "80px",
+          background: "#0a0a0a",
+          padding: "72px 80px",
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "10px",
-              background: "rgba(49, 141, 217, 0.14)",
-              color: "#133fc8",
-              padding: "12px 22px",
-              borderRadius: "999px",
-              fontSize: "28px",
-              fontWeight: 600,
+              justifyContent: "center",
+              width: "84px",
+              height: "84px",
+              borderRadius: "14px",
+              background: "linear-gradient(to bottom, #f1fa38, #faff93)",
             }}
           >
-            <div
-              style={{
-                width: "14px",
-                height: "14px",
-                borderRadius: "999px",
-                background: "#133fc8",
-              }}
-            />
-            Available for work
+            <svg width="62" height="62" viewBox="0 0 48 48">
+              <path d={MARK} fill="#252525" />
+            </svg>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ color: "#fafafa", fontSize: "34px", fontWeight: 600 }}>
+              Joe Gentleman
+            </div>
+            <div style={{ color: "#a3a3a3", fontSize: "26px" }}>UX Designer</div>
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
           <div
             style={{
-              fontSize: "92px",
+              color: "#fafafa",
+              fontSize: "76px",
               fontWeight: 600,
-              color: "#252525",
-              letterSpacing: "-3px",
-              lineHeight: 1,
+              lineHeight: 1.08,
+              letterSpacing: "-0.02em",
             }}
           >
-            Joe Gentleman
+            Design built to Solve
           </div>
-          <div style={{ fontSize: "40px", color: "#666666", letterSpacing: "-1px" }}>
-            UX Designer &amp; Game UI Artist
+          <div style={{ color: "#a3a3a3", fontSize: "30px", lineHeight: 1.4 }}>
+            A UX designer from the north east of Scotland, currently working @ Hunted Cow
+            Studios
           </div>
         </div>
 
-        <div style={{ fontSize: "30px", color: "#999999" }}>joegentleman.co.uk</div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "14px",
+            color: "#737373",
+            fontSize: "24px",
+          }}
+        >
+          <div
+            style={{
+              width: "10px",
+              height: "10px",
+              borderRadius: "999px",
+              background: "#f1fa38",
+            }}
+          />
+          joegentleman.co.uk
+        </div>
       </div>
     ),
-    { ...size },
+    size,
   );
 }

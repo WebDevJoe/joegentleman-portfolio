@@ -3,9 +3,9 @@
 // Glyphs are drawn as masks rather than <img> so hover can move their colour
 // from the exported #737373 up to the foreground.
 const SOCIALS = [
-  { name: "Dribbble", href: "https://dribbble.com/Joegentleman", src: "/preview/icon-dribbble.svg" },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/joe-gentleman-48a648244", src: "/preview/icon-linkedin.svg" },
-  { name: "X", href: "https://x.com/joegentsui", src: "/preview/icon-x.svg" },
+  { name: "Dribbble", href: "https://dribbble.com/Joegentleman", src: "/media/icon-dribbble.svg" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/joe-gentleman-48a648244", src: "/media/icon-linkedin.svg" },
+  { name: "X", href: "https://x.com/joegentsui", src: "/media/icon-x.svg" },
 ];
 
 export function PvFooter() {

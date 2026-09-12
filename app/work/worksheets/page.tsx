@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { PvShell } from "@/components/preview/PvShell";
-import { PvCaseHero } from "@/components/preview/PvCaseHero";
-import { PvBand } from "@/components/preview/PvHatch";
-import { PvFooter } from "@/components/preview/PvFooter";
+import { PvShell } from "@/components/site/PvShell";
+import { PvCaseHero } from "@/components/site/PvCaseHero";
+import { PvBand } from "@/components/site/PvHatch";
+import { PvFooter } from "@/components/site/PvFooter";
 import {
   PvBody,
   PvFigure,
@@ -17,8 +17,8 @@ import {
   PvSection,
   PvSectionBleed,
   PvSteps,
-} from "@/components/preview/PvProse";
-import { PvLightbox, type LightboxImage } from "@/components/preview/PvLightbox";
+} from "@/components/site/PvProse";
+import { PvLightbox, type LightboxImage } from "@/components/site/PvLightbox";
 
 const NEXT_HEADING_GRADIENT =
   "linear-gradient(180.10035450598858deg, rgb(255,255,255) 0.81508%, rgb(153,153,153) 111.98%)";
@@ -53,37 +53,37 @@ const PERSONAS = [
     name: "Andrew Clark, Business Owner",
     body: "Founded the company twelve years ago and runs 40 cleaning staff across client sites. Still does payroll admin himself late at night on a spreadsheet he has patched together for years. He was once caught out by a missed timesheet correction that cost him money, so he is cautious about handing over control without visibility.",
     quote: "I need to trust the numbers without double-checking everything myself.",
-    src: "/preview/ws-persona-andrew.webp",
+    src: "/media/ws-persona-andrew.webp",
   },
   {
     n: "02",
     name: "Caroline Jones, Payroll Manager",
     body: "Runs payroll for six small businesses as a contractor. She has seen every possible way a business can track time badly, and is sceptical of any new system until it proves it will not create more work for her. Her constraint is the sharpest in the project: the export has to be clean enough to need no manual reformatting.",
     quote: "Give me clean numbers on time.",
-    src: "/preview/ws-persona-caroline.webp",
+    src: "/media/ws-persona-caroline.webp",
   },
   {
     n: "03",
     name: "Caitlin Banks, Cleaning Operative",
     body: "Six years with the company, across many different sites, and has never used a work app. Hours have always gone on a paper sheet or a text to her boss. She is not bad with phones, but she has no patience for anything that feels built for someone else. Her fear is pressing the wrong thing and losing her hours with no way to fix it.",
     quote: "If it takes longer than writing it on paper, what is the point?",
-    src: "/preview/ws-persona-caitlin.webp",
+    src: "/media/ws-persona-caitlin.webp",
   },
 ];
 
 const JOURNEYS = [
   {
-    src: "/preview/ws-journey-caitlin.webp",
+    src: "/media/ws-journey-caitlin.webp",
     caption:
       "Caitlin's journey, from sceptical at the team briefing through to logging every shift without thinking about it.",
   },
   {
-    src: "/preview/ws-journey-andrew.webp",
+    src: "/media/ws-journey-andrew.webp",
     caption:
       "Andrew's journey, from a spreadsheet that stopped scaling to trusting the numbers without a backup copy.",
   },
   {
-    src: "/preview/ws-journey-caroline.webp",
+    src: "/media/ws-journey-caroline.webp",
     caption:
       "Caroline's journey, from another format to learn to her easiest client of the six.",
   },
@@ -139,7 +139,7 @@ export default function WorksheetsCaseStudy() {
       <PvSectionBleed eyebrow="Overview" heading="One product, three very different people">
         <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
           <PvFigure
-            src="/preview/worksheets-dashboard.webp"
+            src="/media/worksheets-dashboard.webp"
             caption="The owner's dashboard: the pay period at a glance, what is still to come in, and where the hours went by site."
             natural
             onZoom={setZoom}
@@ -389,7 +389,7 @@ export default function WorksheetsCaseStudy() {
             </div>
           </div>
           <Link
-            href="/preview/work/growth-fund-store"
+            href="/work/growth-fund-store"
             className="pv-primary pv-stroke pv-stroke-btn relative flex h-[44px] w-[156px] shrink-0 items-center justify-center gap-2 rounded-[10px] px-[10px] py-2 text-[16px] font-medium leading-[24px] text-pv-bg shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_2px_4px_0_rgba(0,0,0,0.1)] transition-[transform,box-shadow,background-image] duration-200 ease-smooth hover:-translate-y-px hover:shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_10px_22px_-8px_rgba(241,250,56,0.45)] active:translate-y-0 active:duration-75"
           >
             View Project

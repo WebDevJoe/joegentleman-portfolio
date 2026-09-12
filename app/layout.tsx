@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Rethink_Sans } from "next/font/google";
+import { Geist } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { cookies } from "next/headers";
@@ -7,23 +7,25 @@ import { SiteGate } from "@/components/SiteGate";
 import { SITE_UNLOCK_COOKIE } from "@/lib/site-unlock-constants";
 import "./globals.css";
 
-const rethinkSans = Rethink_Sans({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-rethink-sans",
-  weight: ["400", "500", "700"],
+  variable: "--font-geist",
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
 const SITE_URL = "https://joegentleman.co.uk";
 
+const DESCRIPTION =
+  "Joe Gentleman is a UX designer from the north east of Scotland, currently working at Hunted Cow Studios. Case studies across game UI, product and web.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Joe Gentleman | UX Designer & Game UI Artist",
+    default: "Joe Gentleman | UX Designer",
     template: "%s | Joe Gentleman",
   },
-  description:
-    "Joe Gentleman is a UX designer from the north east of Scotland, currently working as a game UI artist. Available for roles and freelance work.",
+  description: DESCRIPTION,
   applicationName: "Joe Gentleman",
   authors: [{ name: "Joe Gentleman", url: SITE_URL }],
   creator: "Joe Gentleman",
@@ -47,17 +49,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Joe Gentleman",
-    title: "Joe Gentleman | UX Designer & Game UI Artist",
-    description:
-      "A UX designer from the north east of Scotland, currently working as a game UI artist.",
+    title: "Joe Gentleman | UX Designer",
+    description: DESCRIPTION,
     url: SITE_URL,
     locale: "en_GB",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Joe Gentleman | UX Designer & Game UI Artist",
-    description:
-      "A UX designer from the north east of Scotland, currently working as a game UI artist.",
+    title: "Joe Gentleman | UX Designer",
+    description: DESCRIPTION,
   },
   robots: {
     index: true,
@@ -85,9 +85,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     name: "Joe Gentleman",
     alternateName: "Joegentleman",
     url: SITE_URL,
-    jobTitle: "UX Designer & Game UI Artist",
+    jobTitle: "UX Designer",
     description:
-      "A UX designer from the north east of Scotland, currently working as a game UI artist.",
+      "A UX designer from the north east of Scotland, currently working at Hunted Cow Studios.",
+    worksFor: {
+      "@type": "Organization",
+      name: "Hunted Cow Studios",
+    },
     knowsAbout: [
       "User Experience Design",
       "Game UI Art",
@@ -109,9 +113,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     ],
   };
 
+  // pv-root scopes the Geist rule in globals.css. The prefix is a leftover from
+  // when the rebrand lived at /preview alongside the old light site; it is now
+  // simply the site's own namespace.
   return (
-    <html lang="en" className={rethinkSans.variable}>
-      <body>
+    <html lang="en" className={geist.variable}>
+      <body className="pv-root bg-pv-bg text-pv-fg antialiased">
         {/* Structured data renders regardless of the gate so name-based
             search results stay rich. */}
         <script

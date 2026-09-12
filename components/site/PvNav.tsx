@@ -9,9 +9,9 @@ import { IconDownload, IconJ, IconMenu } from "./PvIcons";
 const EMAIL = "joegentlemanux@gmail.com";
 
 const SOCIALS = [
-  { name: "Dribbble", href: "https://dribbble.com/Joegentleman", src: "/preview/icon-dribbble.svg" },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/joe-gentleman-48a648244", src: "/preview/icon-linkedin.svg" },
-  { name: "X", href: "https://x.com/joegentsui", src: "/preview/icon-x.svg" },
+  { name: "Dribbble", href: "https://dribbble.com/Joegentleman", src: "/media/icon-dribbble.svg" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/joe-gentleman-48a648244", src: "/media/icon-linkedin.svg" },
+  { name: "X", href: "https://x.com/joegentsui", src: "/media/icon-x.svg" },
 ];
 
 // Figma node 1175:265. 361 wide, 16px padding all round, bottom hairline.
@@ -22,7 +22,7 @@ export function PvNav() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
-  const isHome = pathname === "/preview";
+  const isHome = pathname === "/";
 
   useEffect(() => setMounted(true), []);
 
@@ -61,7 +61,7 @@ export function PvNav() {
   return (
     <>
       <header className="sticky top-0 z-50 flex w-full items-center justify-between border-b border-pv-border bg-pv-bg/80 p-4 backdrop-blur-md lg:px-8 lg:py-6">
-        <Link href="/preview" aria-label="Home" className="group/logo shrink-0">
+        <Link href="/" aria-label="Home" className="group/logo shrink-0">
           <span className="pv-primary pv-stroke pv-stroke-tile relative grid size-12 place-items-center rounded-[8px] transition-[transform,box-shadow] duration-200 ease-smooth group-hover/logo:-translate-y-px group-hover/logo:shadow-[0_10px_22px_-8px_rgba(241,250,56,0.45)]">
             <IconJ className="size-9 text-[#252525]" />
           </span>
@@ -71,7 +71,7 @@ export function PvNav() {
             gives way to them. Same three destinations, same order. */}
         <nav className="hidden shrink-0 items-center gap-8 md:flex">
           <Link
-            href="/preview"
+            href="/"
             className="group relative text-[16px] font-medium leading-[24px] text-pv-fg"
           >
             Home
@@ -160,7 +160,7 @@ export function PvNav() {
             <div className="relative mx-auto flex h-full w-full max-w-[1120px] flex-col justify-between px-4 pb-12 pt-[120px] lg:px-14">
               <nav className="flex flex-col items-start gap-6">
                 <Link
-                  href="/preview"
+                  href="/"
                   onClick={() => setOpen(false)}
                   className={`group relative w-fit text-[18px] font-medium leading-[28px] text-pv-fg transition-all duration-500 ease-smooth ${slide}`}
                   style={stagger(120)}

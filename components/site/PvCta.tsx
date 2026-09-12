@@ -20,7 +20,7 @@ export function PvCta() {
               style={{ background: CHIP_GLOW }}
             />
             <span className="pv-dot-pulse relative z-10 block size-4 shrink-0">
-              <Image src="/preview/cta-dot.svg" alt="" width={20} height={20} className="absolute -inset-[12.5%] max-w-none size-[125%]" />
+              <Image src="/media/cta-dot.svg" alt="" width={20} height={20} className="absolute -inset-[12.5%] max-w-none size-[125%]" />
             </span>
             <p className="relative z-10 whitespace-nowrap text-[14px] font-medium leading-[0.95] tracking-[-0.42px] text-pv-fg">
               Available for projects
@@ -30,7 +30,7 @@ export function PvCta() {
               aria-hidden
               className="pointer-events-none absolute -bottom-px left-[calc(50%-2.5px)] h-px w-20 -translate-x-1/2"
               style={{
-                backgroundImage: 'url("/preview/cta-underline.png")',
+                backgroundImage: 'url("/media/cta-underline.png")',
                 backgroundSize: "100% 100%",
               }}
             />
@@ -57,7 +57,7 @@ export function PvCta() {
           >
             <span className="flex-none -scale-y-100 rotate-150">
               <Image
-                src="/preview/cta-arrow.svg"
+                src="/media/cta-arrow.svg"
                 alt=""
                 width={68}
                 height={28}

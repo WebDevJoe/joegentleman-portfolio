@@ -1,201 +1,171 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
-import type { ReactNode } from "react";
-import { ArrowLeft, CaretRight } from "@phosphor-icons/react/dist/ssr";
-import { Nav } from "@/components/Nav";
-import { Footer } from "@/components/Footer";
+import { PvShell } from "@/components/site/PvShell";
+import { PvCaseHero } from "@/components/site/PvCaseHero";
+import { PvBand } from "@/components/site/PvHatch";
+import { PvFooter } from "@/components/site/PvFooter";
+import {
+  PvBody,
+  PvFigure,
+  PvP,
+  PvPInset,
+  PvQuote,
+  PvSection,
+  PvSectionBleed,
+  PvSteps,
+} from "@/components/site/PvProse";
+import { PvLightbox, type LightboxImage } from "@/components/site/PvLightbox";
 
-const HERO_IMAGE = "/figma/battle-pass/hero.png";
+const NEXT_HEADING_GRADIENT =
+  "linear-gradient(180.10035450598858deg, rgb(255,255,255) 0.81508%, rgb(153,153,153) 111.98%)";
 
-export const metadata = {
-  title: "Battle pass: Chaos & Conquest",
-  description:
-    "Designing a battle pass that fit naturally into a 5-year-old mobile RTS HUD.",
-  // Private, password-gated case study, so keep it out of search results.
-  robots: { index: false, follow: false },
-};
-
-const META = [
-  ["Role", "Solo product designer"],
-  ["Timeline", "3 weeks · 2025"],
-  ["Tools", "Figma, Photoshop"],
-  ["Status", "Shipped"],
-] as const;
-
+// Content carried over from the light case study at /work/battle-pass, rebuilt
+// on the preview design system so it matches the Growth Funds page.
 const PROCESS = [
-  [
-    "01",
-    "Understood the Brief",
-    "Started with the product spec. Tiers, rewards, mechanics, naming, all defined. My job was figuring out how it would actually look and live in the game.",
-  ],
-  [
-    "02",
-    "Audited the UI",
-    "Audited what each screen actually needed to show and what it didn't. Decided what to keep, what to compress, and what to move so the battle pass could earn its place without crowding the rest.",
-  ],
-  [
-    "03",
-    "Research & Design",
-    "Studied how other mobile strategy games handled battle pass UI, then designed within the existing C&C design system. Borrowed conventions where they served the player, rejected them where they didn't fit the game's tone.",
-  ],
-  [
-    "04",
-    "Critique",
-    "Reviewed with senior designers and refined details for hand-off. The art team produced the final illustration and atmospheric art; my work was the layout, components, and flows.",
-  ],
-] as const;
+  {
+    n: "01",
+    title: "Understood the Brief",
+    body: "Started with the product spec. Tiers, rewards, mechanics, naming, all defined. My job was figuring out how it would actually look and live in the game.",
+  },
+  {
+    n: "02",
+    title: "Audited the UI",
+    body: "Audited what each screen actually needed to show and what it didn't. Decided what to keep, what to compress, and what to move so the battle pass could earn its place without crowding the rest.",
+  },
+  {
+    n: "03",
+    title: "Research & Design",
+    body: "Studied how other mobile strategy games handled battle pass UI, then designed within the existing C&C design system. Borrowed conventions where they served the player, rejected them where they didn't fit the game's tone.",
+  },
+  {
+    n: "04",
+    title: "Critique",
+    body: "Reviewed with senior designers and refined details for hand-off. The art team produced the final illustration and atmospheric art; my work was the layout, components, and flows.",
+  },
+];
 
-const DECISIONS = [
-  [
-    "01",
-    "Moved Daily Trials into the Battle Pass",
-    "Daily Trials already lived as their own screen. They were also the only way to earn battle pass points, which meant the activity sat in one place and the progression sat in another. I moved them inside the Battle Pass as a tab so both lived in the same screen. Complete trials, earn points, unlock rewards. One loop, one place.",
-    "/figma/battle-pass/decision-01-daily-trials-tab.png",
-    "The Spoils of Conquest screen with Daily Trials as a tab inside the battle pass, listing each trial, its points, and its rewards.",
-  ],
-  [
-    "02",
-    "Turned a fixed claim banner into a dropdown",
-    "The “Claim 15 Daily Trials” panel used to sit as a permanent header at the top of the screen. It mattered for ten seconds a day and stole space the rest of the time. I collapsed it into a dropdown that auto-expands the moment a claim is ready. The prominence shows up when it matters and disappears when it doesn't.",
-    "/figma/battle-pass/decision-02-claim-dropdown.png",
-    "The Claim 15 Daily Trials dropdown expanded to reveal the rewards it grants on completion.",
-  ],
-  [
-    "03",
-    "Added a HUD button without taking from the game",
-    "Mobile RTS HUDs are full. Every pixel already has a job. Adding a battle pass entry meant finding a slot that felt obvious without making players relearn the interface they already knew.",
-    "/figma/battle-pass/decision-03-hud-button.png",
-    "The world map HUD, with the battle pass entry button sitting among the existing controls without crowding them.",
-  ],
-  [
-    "04",
-    "Made progress easy to find in a long list",
-    "A battle pass is a long, vertical list. Without help, players open it at the top and scroll to find where they are. Instead, the pass opens already scrolled to the tier you're on, so the answer to “where am I?” is the first thing you see. The chest button in the header acts as a smart jump: tap it once to skip to the final reward, tap again to drop back to your tier. Two taps to see the full arc instead of a thumb workout.",
-    "/figma/battle-pass/decision-04-reward-track.png",
-    "The Spoils of Conquest reward track, a long vertical list of free and exalted rewards across each tier.",
-  ],
-  [
-    "05",
-    "Gave the feature one place to explain itself",
-    "New players needed to understand what the battle pass was and what premium unlocked without leaving the screen. I laid out an info popup that leads with the value up top, follows with a short progression explainer, and ends on two clear actions: view the daily trials or unlock premium. One tap from anywhere the feature appears.",
-    "/figma/battle-pass/decision-05-info-popup.png",
-    "The Spoils of Conquest info popup, explaining the tiers and progression above a pair of actions to view daily trials or unlock premium.",
-  ],
-] as const;
+const DECISIONS: { n: string; title: string; body: string; src: string; caption: string }[] = [
+  {
+    n: "01",
+    title: "Moved Daily Trials into the Battle Pass",
+    body: "Daily Trials already lived as their own screen. They were also the only way to earn battle pass points, which meant the activity sat in one place and the progression sat in another. I moved them inside the Battle Pass as a tab so both lived in the same screen. Complete trials, earn points, unlock rewards. One loop, one place.",
+    src: "/media/bp-1.webp",
+    caption:
+      "The Spoils of Conquest screen with Daily Trials as a tab inside the battle pass.",
+  },
+  {
+    n: "02",
+    title: "Turned a fixed claim banner into a dropdown",
+    body: "The Claim 15 Daily Trials panel used to sit as a permanent header at the top of the screen. It mattered for ten seconds a day and stole space the rest of the time. I collapsed it into a dropdown that auto-expands the moment a claim is ready. The prominence shows up when it matters and disappears when it doesn't.",
+    src: "/media/bp-2.webp",
+    caption:
+      "The Claim 15 Daily Trials dropdown expanded to reveal the rewards it grants.",
+  },
+  {
+    n: "03",
+    title: "Added a HUD button without taking from the game",
+    body: "Mobile RTS HUDs are full. Every pixel already has a job. Adding a battle pass entry meant finding a slot that felt obvious without making players relearn the interface they already knew.",
+    src: "/media/bp-3.webp",
+    caption:
+      "The world map HUD, with the battle pass entry button among the existing controls.",
+  },
+  {
+    n: "04",
+    title: "Made progress easy to find in a long list",
+    body: "A battle pass is a long, vertical list. Without help, players open it at the top and scroll to find where they are. Instead, the pass opens already scrolled to the tier you're on. The chest button in the header acts as a smart jump: tap once to skip to the final reward, tap again to drop back to your tier.",
+    src: "/media/bp-4.webp",
+    caption:
+      "The Spoils of Conquest reward track, free and exalted rewards across each tier.",
+  },
+  {
+    n: "05",
+    title: "Gave the feature one place to explain itself",
+    body: "New players needed to understand what the battle pass was and what premium unlocked without leaving the screen. I laid out an info popup that leads with the value up top, follows with a short progression explainer, and ends on two clear actions: view the daily trials or unlock premium.",
+    src: "/media/bp-5.webp",
+    caption:
+      "The info popup, explaining tiers and progression above a pair of actions.",
+  },
+];
 
-export default function BattlePassPage() {
+export default function BattlePassCaseStudy() {
+  const [zoom, setZoom] = useState<LightboxImage>(null);
+
   return (
-    <main className="flex min-h-screen flex-col items-stretch bg-white">
-      <Nav />
+    <PvShell>
+      <PvCaseHero
+        title="Making a new feature feel like it always belonged"
+        intro="Warhammer: Chaos & Conquest didn't have a battle pass when I joined the project. Designing one meant fitting a major new monetisation feature into a HUD, screen system, and player ritual that had been live for years."
+        role="UX designer"
+        status="Shipped"
+      />
 
-      <article className="flex flex-col">
-        {/* Hero */}
-        <section className="border-b border-line flex flex-col items-center px-4 md:px-12 lg:px-16 py-12">
-          <div className="flex flex-col gap-6 w-full max-w-[880px]">
-            <Link
-              href="/#top"
-              className="inline-flex items-center gap-1.5 text-ink-faint text-[16px] font-medium leading-none hover:text-ink transition w-fit"
-            >
-              <ArrowLeft size={16} weight="regular" aria-hidden />
-              Back to work
-            </Link>
+      <PvBand />
 
-            <div className="flex flex-col gap-4">
-              <span className="self-start inline-flex items-center gap-2 px-4 py-2 bg-chip-blue-tint rounded-full text-brand-text text-[16px] font-medium leading-[0.95] tracking-[-0.48px]">
-                <span aria-hidden className="h-2 w-2 rounded-full bg-brand-text" />
-                Game UI/UX
-              </span>
-              <h1 className="text-ink text-[40px] md:text-[56px] font-medium leading-[1.05] tracking-[-1.68px]">
-                Battle pass - Making a new feature feel like it always belonged
-              </h1>
-              <p className="text-ink-muted text-[16px] md:text-[18px] leading-[1.5]">
-                Warhammer: Chaos &amp; Conquest didn&apos;t have a battle pass when I joined the
-                project. Designing one meant fitting a major new monetisation feature into a HUD,
-                screen system, and player ritual that had been live for years.
-              </p>
-            </div>
+      <PvSectionBleed eyebrow="Overview" heading="Spoils of Conquest">
+        <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
+          <PvFigure
+            src="/media/bp-hero.webp"
+            caption="Battle pass: three screens of Spoils of Conquest in Warhammer: Chaos & Conquest."
+            onZoom={setZoom}
+          />
+        </div>
+      </PvSectionBleed>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-3">
-              {META.map(([label, value]) => (
-                <div key={label} className="flex flex-col gap-1">
-                  <p className="text-ink-faint text-[12px] font-medium">{label}</p>
-                  <p className="text-ink text-[14px] font-medium">{value}</p>
-                </div>
-              ))}
-            </div>
+      <PvBand />
 
-            <HeroImageCard />
-          </div>
-        </section>
-
-        <Section
-          eyebrow="The problem"
-          title="The brief defined a battle pass. It didn't define where it would live."
-        >
-          <p>
+      <PvSection
+        eyebrow="The problem"
+        heading="The brief defined a battle pass. It didn't define where it would live."
+      >
+        <PvBody>
+          <PvP>
             Chaos &amp; Conquest is a long-running mobile strategy game with a dense HUD, a busy
             resource bar, and a screen system that players had built habits around for years. The
             product spec defined the battle pass: tiers, rewards, naming, mechanics. What it
             didn&apos;t define was how any of it fit into a UI that hadn&apos;t been built to
             accommodate it.
-          </p>
-          <blockquote className="border-l-[3px] border-brand-text pl-5 py-2 text-ink text-[20px] font-medium leading-[1.5]">
+          </PvP>
+          <PvQuote>
             The hardest part wasn&apos;t designing it. It was finding room for it.
-          </blockquote>
-        </Section>
+          </PvQuote>
+        </PvBody>
+      </PvSection>
 
-        <Section eyebrow="Process" title="How I got there">
-          <div className="not-prose flex flex-col gap-4">
-            {PROCESS.map(([num, title, copy]) => (
-              <div
-                key={num}
-                className="bg-white border border-line rounded-[12px] p-4 flex flex-col gap-1.5"
-              >
-                <p className="text-brand-text text-[14px] font-medium tracking-[0.5px] uppercase">
-                  {num}
+      <PvBand />
+
+      <PvSectionBleed eyebrow="The Process" heading="How I worked">
+        <PvSteps steps={PROCESS} />
+      </PvSectionBleed>
+
+      <PvBand />
+
+      <PvSectionBleed eyebrow="Key Decisions" heading="Five changes that made room">
+        <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
+          {DECISIONS.map((d) => (
+            <div key={d.n} className="flex w-full shrink-0 flex-col items-start gap-4">
+              <div className="mx-auto flex w-full max-w-[760px] flex-col items-start gap-1.5 px-4 lg:px-8">
+                <p
+                  className="whitespace-nowrap bg-clip-text text-[14px] font-medium leading-[20px] text-transparent"
+                  style={{ backgroundImage: "linear-gradient(180deg, #f1fa38 0%, #faff93 100%)" }}
+                >
+                  {d.n}
                 </p>
-                <p className="text-ink text-[22px] font-medium">{title}</p>
-                <p className="text-ink-faint text-[16px] leading-[1.4]">{copy}</p>
+                <p className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[24px] lg:leading-[32px]">{d.title}</p>
               </div>
-            ))}
-          </div>
-        </Section>
+              <PvPInset>{d.body}</PvPInset>
+              <PvFigure src={d.src} caption={d.caption} natural onZoom={setZoom} />
+            </div>
+          ))}
+        </div>
+      </PvSectionBleed>
 
-        <Section
-          eyebrow="Key decisions"
-          title="Five calls that fit the battle pass into the game"
-        >
-          <div className="not-prose flex flex-col gap-12 pt-2">
-            {DECISIONS.map(([num, title, copy, img, imgAlt], i) => (
-              <div
-                key={num}
-                className={`flex flex-col md:flex-row gap-8 md:gap-16 items-start ${
-                  i % 2 === 1 ? "md:flex-row-reverse" : ""
-                }`}
-              >
-                <div className="flex-1 flex flex-col gap-3">
-                  <p className="text-brand-text text-[40px] md:text-[56px] font-medium leading-none tracking-[-1.68px]">
-                    {num}
-                  </p>
-                  <p className="text-ink text-[24px] font-medium leading-[1.3] tracking-[-0.6px]">
-                    {title}
-                  </p>
-                  <p className="text-ink-muted text-[15px] leading-[1.65]">{copy}</p>
-                </div>
-                <PhoneMock src={img} alt={imgAlt} />
-              </div>
-            ))}
-          </div>
-        </Section>
+      <PvBand />
 
-        <Section eyebrow="Final designs" title="Where it landed">
-          <div className="not-prose pt-2">
-            <HeroImageCard />
-          </div>
-        </Section>
-
-        <Section eyebrow="Outcome" title="What I learned">
-          <p>
+      <PvSection eyebrow="Outcome" heading="What I learned">
+        <PvBody>
+          <PvP>
             This was an early project for me, and it&apos;s still the one I learned the most from.
             Working from someone else&apos;s spec, inside someone else&apos;s game, on someone
             else&apos;s design system, I learned that good design in a live product is rarely about
@@ -203,141 +173,50 @@ export default function BattlePassPage() {
             feel like it always belonged. The dropdown, the tab restructure, the HUD slot. None of
             those were exciting on their own, but together they made the Battle Pass feel native
             rather than bolted on.
-          </p>
-          <p>
-            There was no user testing on this project. The team&apos;s process leaned on real
-            player behaviour after launch rather than testing in advance. The decisions in this
-            case study are backed by design reasoning and senior critique, not user data. If I
-            picked up a feature this big again, I&apos;d make the case for a testing round before
-            launch.
-          </p>
-        </Section>
-      </article>
+          </PvP>
+          <PvP>
+            There was no user testing on this project. The team&apos;s process leaned on real player
+            behaviour after launch rather than testing in advance. The decisions in this case study
+            are backed by design reasoning and senior critique, not user data. If I picked up a
+            feature this big again, I&apos;d make the case for a testing round before launch.
+          </PvP>
+        </PvBody>
+      </PvSection>
 
-      <NextProjectCta />
-      <Footer />
-    </main>
-  );
-}
+      <PvBand />
 
-function NextProjectCta() {
-  return (
-    <section className="flex flex-col items-center px-4 md:px-12 lg:px-16 pt-16 pb-24">
-      <div className="w-full max-w-[880px]">
-        <Link
-          href="/work/growth-fund-store"
-          className="group block bg-[#fafafa] rounded-[20px] px-8 py-12 hover:bg-[#f5f5f5] transition-colors"
-        >
-          <div className="flex flex-col items-center gap-2 text-center">
-            <p className="text-ink-faint text-[12px] font-medium tracking-[0.5px] uppercase">
-              Next project
+      <section className="flex w-full flex-col items-center border-b border-pv-border px-4 py-10 lg:py-16">
+        <div className="flex shrink-0 flex-col items-center gap-6">
+          <div className="flex shrink-0 flex-col items-center gap-3">
+            <p className="whitespace-nowrap text-[12px] font-medium leading-[16px] text-pv-muted">
+              Next Project
             </p>
-            <p className="text-ink text-[28px] font-medium leading-tight tracking-[-0.84px]">
-              Growth Fund and Store Bundles
-            </p>
-            <p className="text-ink-muted text-[14px] leading-tight">
-              A growth fund monetisation feature, shipped inside two live App Store games.
-            </p>
-            <span className="inline-flex items-center gap-2 mt-2 h-11 px-5 rounded-[12px] bg-[#133fc8] text-white text-[14px] font-medium tracking-[-0.42px] shadow-[0_0_0_1px_#1742cc,0_2px_4px_0_rgba(0,0,0,0.1)] transition-transform duration-300 ease-smooth group-hover:-translate-y-0.5">
-              View project
-              <CaretRight
-                size={14}
-                weight="bold"
-                className="transition-transform duration-300 ease-smooth group-hover:translate-x-1"
-              />
-            </span>
+            <div className="flex shrink-0 flex-col items-center gap-2">
+              <p
+                className="w-full max-w-[323px] bg-clip-text text-center text-[24px] font-medium leading-[32px] text-transparent lg:max-w-[560px] lg:text-[34px] lg:leading-[44px]"
+                style={{ backgroundImage: NEXT_HEADING_GRADIENT }}
+              >
+                Growth Fund and Store Bundles
+              </p>
+              <p className="w-full max-w-[297px] text-center text-[14px] font-normal leading-[17.5px] text-[#666] lg:max-w-[520px] lg:text-[16px] lg:leading-[24px]">
+                A growth fund monetisation feature, shipped inside two live App Store games.
+              </p>
+            </div>
           </div>
-        </Link>
-      </div>
-    </section>
-  );
-}
-
-function Section({
-  eyebrow,
-  title,
-  children,
-}: {
-  eyebrow: string;
-  title: string;
-  children: ReactNode;
-}) {
-  return (
-    <section className="border-b border-line flex flex-col items-center px-4 md:px-12 lg:px-16 py-16">
-      <div className="flex flex-col gap-4 w-full max-w-[880px]">
-        <p className="text-ink-faint text-[12px] font-medium tracking-[0.5px] uppercase">
-          {eyebrow}
-        </p>
-        <h2 className="text-ink text-[28px] font-medium leading-[1.15] tracking-[-0.84px]">
-          {title}
-        </h2>
-        <div className="flex flex-col gap-4 text-ink-muted text-[16px] leading-[1.65] mt-2">
-          {children}
+          <Link
+            href="/work/growth-fund-store"
+            className="pv-primary pv-stroke pv-stroke-btn relative flex h-[44px] w-[156px] shrink-0 items-center justify-center gap-2 rounded-[10px] px-[10px] py-2 text-[16px] font-medium leading-[24px] text-pv-bg shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_2px_4px_0_rgba(0,0,0,0.1)] transition-[transform,box-shadow,background-image] duration-200 ease-smooth hover:-translate-y-px hover:shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_10px_22px_-8px_rgba(241,250,56,0.45)] active:translate-y-0 active:duration-75"
+          >
+            View Project
+          </Link>
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-function HeroImageCard() {
-  return (
-    <div
-      className="relative w-full h-[280px] md:h-[495px] rounded-[20px] border-[1.5px] border-line overflow-hidden mt-6"
-      style={{
-        background: "linear-gradient(to top, #e0f1fe 0%, rgba(246,251,255,0) 60%)",
-      }}
-    >
-      <div
-        aria-hidden
-        className="absolute inset-0 rounded-[inherit] card-inset pointer-events-none z-[1]"
-      />
-      {[
-        "top-3 left-3",
-        "top-3 right-3",
-        "bottom-3 left-3",
-        "bottom-3 right-3",
-      ].map((pos) => (
-        <span
-          key={pos}
-          aria-hidden
-          className={`absolute ${pos} h-1.5 w-1.5 rounded-full bg-ink-faint/40 z-[2]`}
-        />
-      ))}
-      <div className="absolute inset-6 rounded-[10px] overflow-hidden">
-        <Image
-          src={HERO_IMAGE}
-          alt="Battle pass: three screens of Spoils of Conquest in Warhammer: Chaos & Conquest"
-          fill
-          sizes="(max-width: 880px) 100vw, 832px"
-          priority
-          className="object-cover"
-        />
-      </div>
-    </div>
-  );
-}
+      <PvBand />
 
-function PhoneMock({ src, alt }: { src?: string; alt?: string }) {
-  const frame =
-    "w-full max-w-[280px] aspect-[280/580] mx-auto md:max-w-none md:w-[280px] md:aspect-auto md:h-[580px] md:mx-0 rounded-[36px] border-[1.5px] border-line bg-card-tint relative overflow-hidden shrink-0";
+      <PvFooter />
 
-  if (src) {
-    return (
-      <div className={frame}>
-        <Image
-          src={src}
-          alt={alt ?? ""}
-          fill
-          sizes="280px"
-          className="object-cover object-top"
-        />
-      </div>
-    );
-  }
-
-  return (
-    <div className={`${frame} flex items-center justify-center`}>
-      <p className="text-ink-faint text-[14px]">Phone mockup</p>
-    </div>
+      <PvLightbox image={zoom} onClose={() => setZoom(null)} />
+    </PvShell>
   );
 }

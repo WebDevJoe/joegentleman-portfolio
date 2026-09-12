@@ -29,12 +29,12 @@
 
 html,
 body {
-  background: #ffffff;
-  color: var(--color-ink);
+  background: #0a0a0a;
+  color: #fafafa;
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -89,7 +89,7 @@ body {
 /* Consistent, visible keyboard focus ring across all interactive elements.
    Only shows for keyboard users (:focus-visible), not on mouse click. */
 :focus-visible {
-  outline: 3px solid #133fc8;
+  outline: 3px solid #f1fa38;
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -114,10 +114,10 @@ body {
 
 
 /*
-   Preview theme (/preview only).
-   The rebrand runs on shadcn's dark palette and Geist, which is a different
-   system from the live light site. Tokens are namespaced pv-* so the two can
-   coexist in one stylesheet without either overriding the other.
+   Site theme.
+   The site runs on shadcn's dark palette and Geist. Tokens keep their pv-*
+   prefix from when this lived at /preview beside the old light site; the light
+   tokens above are still used by the site gate.
  */
 @theme {
   --color-pv-bg: #0a0a0a;
@@ -344,7 +344,9 @@ body {
     rgba(251, 251, 251, 0.031) 90%,
     rgba(251, 251, 251, 0) 100%
   );
-}* In Figma the glow is an ellipse with a layer blur. On the phone the frame is
+}
+
+/* In Figma the glow is an ellipse with a layer blur. On the phone the frame is
    narrow enough that its horizontal profile is flat, so a vertical gradient is
    an exact stand in. At the md column it still reads, given a horizontal
    falloff tied to the column width, and the same again at lg and xl. */
@@ -402,5 +404,43 @@ body {
       #000 calc(50% + 400px),
       transparent calc(50% + 576px)
     );
+  }
+}
+
+/* Hero pulse. Concentric rings ping outward from a point and are clipped to a
+   grid of cells, so what you actually see is pixels lighting up in rings and
+   going out again, not a gradient moving. Three copies on the same 6s loop,
+   staggered, so a new ring leaves as the last one fades. It is a transform and
+   an opacity on three elements, so it composites on the GPU and never repaints.
+   The availability chip already breathes on a similar rhythm. */
+@keyframes pv-ping {
+  0% {
+    transform: scale(0.12);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+.pv-ping {
+  animation: pv-ping 6s cubic-bezier(0, 0, 0.25, 1) infinite;
+  will-change: transform, opacity;
+}
+.pv-ping-2 {
+  animation-delay: 2s;
+}
+.pv-ping-3 {
+  animation-delay: 4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pv-ping {
+    animation: none;
+    transform: scale(0.6);
+    opacity: 0.5;
   }
 }
