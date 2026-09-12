@@ -97,10 +97,10 @@ export function SiteGate() {
                 placeholder="••••"
                 aria-invalid={error}
                 aria-describedby={error ? "site-gate-error" : undefined}
-                className={`h-12 w-full rounded-[10px] border bg-white/[0.04] px-4 text-[16px] text-pv-fg outline-none transition-[border-color,box-shadow] duration-200 ease-smooth placeholder:text-[#6b6b6b] ${
+                className={`h-12 w-full rounded-[10px] border bg-white/[0.04] px-4 text-[16px] text-pv-fg outline-none transition-[border-color,box-shadow] duration-200 ease-smooth focus-visible:outline-none placeholder:text-[#6b6b6b] ${
                   error
                     ? "border-[#f87171] shadow-[0_0_0_3px_rgba(248,113,113,0.14)]"
-                    : "border-pv-border focus:border-pv-accent focus:shadow-[0_0_0_3px_rgba(241,250,56,0.16)]"
+                    : "border-pv-border focus:border-pv-muted focus:shadow-[0_0_0_3px_rgba(250,250,250,0.10)]"
                 }`}
               />
               {error && (

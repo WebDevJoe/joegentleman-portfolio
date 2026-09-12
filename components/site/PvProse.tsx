@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 const H2_GRADIENT =
   "linear-gradient(180.1970480898805deg, rgb(255,255,255) 0.81508%, rgb(153,153,153) 111.98%)";
 
-export const PV_INSET = "mx-auto w-full max-w-[760px] px-4 lg:px-8";
+export const PV_INSET = "w-full max-w-[820px] px-4 lg:px-16";
 
 export function PvSection({
   eyebrow,
@@ -19,8 +19,8 @@ export function PvSection({
   gap?: string;
 }) {
   return (
-    <section className="flex w-full flex-col items-center justify-center border-b border-pv-border py-10 lg:py-16">
-      <div className={`flex w-full max-w-[760px] shrink-0 flex-col items-start ${gap} px-4 lg:px-8`}>
+    <section className="flex w-full flex-col items-start justify-center border-b border-pv-border py-10 lg:py-16">
+      <div className={`flex w-full max-w-[820px] shrink-0 flex-col items-start ${gap} px-4 lg:px-16`}>
         <div className="flex w-full shrink-0 flex-col items-start gap-2">
           <p className="whitespace-nowrap text-[12px] font-medium leading-[16px] text-pv-muted">
             {eyebrow}
@@ -95,11 +95,11 @@ export function PvSteps({
   steps: { n: string; title: string; body: string }[];
 }) {
   return (
-    <div className="mx-auto flex w-full max-w-[760px] shrink-0 flex-col items-start pt-2">
+    <div className="flex w-full max-w-[820px] shrink-0 flex-col items-start pt-2">
       {steps.map((s, i) => (
         <div
           key={s.n}
-          className={`flex w-full shrink-0 flex-col items-start gap-1.5 border-pv-border px-4 py-4 lg:px-8 lg:py-5 ${
+          className={`flex w-full shrink-0 flex-col items-start gap-1.5 border-pv-border px-4 py-4 lg:px-16 lg:py-5 ${
             i === 0 ? "border-t border-b" : "border-b"
           }`}
         >
@@ -206,12 +206,12 @@ export function PvPainPoints({
   rows: { pain: string; fix: string }[];
 }) {
   return (
-    <div className="mx-auto flex w-full max-w-[760px] shrink-0 flex-col items-start">
-      <p className="w-full px-4 pb-3 lg:px-8 text-[14px] font-medium leading-[20px] text-pv-fg">{who}</p>
+    <div className="flex w-full max-w-[820px] shrink-0 flex-col items-start">
+      <p className="w-full px-4 pb-3 lg:px-16 text-[14px] font-medium leading-[20px] text-pv-fg">{who}</p>
       {rows.map((r, i) => (
         <div
           key={r.pain}
-          className={`flex w-full shrink-0 flex-col items-start gap-2 border-pv-border px-4 py-4 lg:px-8 lg:py-5 ${
+          className={`flex w-full shrink-0 flex-col items-start gap-2 border-pv-border px-4 py-4 lg:px-16 lg:py-5 ${
             i === 0 ? "border-y" : "border-b"
           }`}
         >

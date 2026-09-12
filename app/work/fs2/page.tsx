@@ -132,7 +132,7 @@ export default function Fs2CaseStudy() {
 
           {WALKTHROUGH.map((s) => (
             <div key={s.n} className="flex w-full shrink-0 flex-col items-start gap-4">
-              <div className="mx-auto flex w-full max-w-[760px] flex-col items-start gap-1.5 px-4 lg:px-8">
+              <div className="flex w-full max-w-[820px] flex-col items-start gap-1.5 px-4 lg:px-16">
                 <p
                   className="whitespace-nowrap bg-clip-text text-[14px] font-medium leading-[20px] text-transparent"
                   style={{ backgroundImage: ACCENT_GRADIENT }}
