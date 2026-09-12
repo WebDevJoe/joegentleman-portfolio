@@ -1,10 +1,14 @@
 "use client";
 
 import { useRef, useState, type FormEvent } from "react";
-import { Lock } from "@phosphor-icons/react";
-import { PrimaryButton } from "./Buttons";
+import { IconJ } from "./site/PvIcons";
+import { PvGutter } from "./site/PvHatch";
 import { unlockSite } from "@/lib/unlock-action";
 
+// The gate is the first thing anyone sees, so it is built from the site's own
+// parts rather than a separate visual language: the logo tile, the hatch bands,
+// the chartreuse primary, the same hairline. No lock icon, because the mark
+// already says whose door this is.
 export function SiteGate() {
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
@@ -33,76 +37,90 @@ export function SiteGate() {
   };
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center px-4 bg-white">
+    <div className="pv-page pv-root fixed inset-0 z-[60] flex items-center justify-center overflow-y-auto bg-pv-bg px-4 py-10">
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="site-gate-title"
-        className={`relative w-full max-w-[440px] rounded-[20px] bg-white border-[1.5px] border-line shadow-[0_30px_60px_-20px_rgba(13,13,13,0.28)] ${
+        className={`relative w-full max-w-[400px] ${
           shake ? "animate-[modal-shake_0.4s_cubic-bezier(.36,.07,.19,.97)_both]" : ""
         }`}
       >
-        <div
-          aria-hidden
-          className="absolute inset-0 rounded-[inherit] card-inset pointer-events-none"
-        />
+        {/* Framed the way the rest of the site is: bands across the top and
+            bottom running the full width, rails down each side between them,
+            and the strokes carried by the frame so the box closes at every
+            corner. The bands take a border-x as well as their own border-y, so
+            the outer edge carries on past them and the corners actually meet.
+            The form itself has no border of its own. */}
+        <PvGutter axis="x" always className="border-x" />
+        <div className="flex items-stretch">
+          <PvGutter axis="y" always />
+          <form
+            onSubmit={handleSubmit}
+            className="flex min-w-0 flex-1 flex-col gap-6 px-6 py-8"
+          >
+            <span className="pv-primary pv-stroke pv-stroke-tile relative grid size-12 place-items-center rounded-[8px]">
+              <IconJ className="size-9 text-[#252525]" />
+            </span>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5 p-8">
-          <div className="flex h-12 w-12 items-center justify-center rounded-[12px] bg-card-tint text-[#133fc8]">
-            <Lock size={22} weight="regular" aria-hidden />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <h2
-              id="site-gate-title"
-              className="text-ink text-[24px] font-medium leading-[1.2] tracking-[-0.6px]"
-            >
-              Joe Gentleman
-            </h2>
-            <p className="text-ink-muted text-[15px] leading-[1.5]">
-              Enter the password to view this portfolio.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label
-              htmlFor="site-gate-input"
-              className="text-ink-faint text-[12px] tracking-[0.5px] uppercase font-medium"
-            >
-              Password
-            </label>
-            <input
-              id="site-gate-input"
-              ref={inputRef}
-              type="password"
-              inputMode="numeric"
-              autoComplete="off"
-              autoFocus
-              value={value}
-              onChange={(e) => {
-                setValue(e.target.value);
-                if (error) setError(false);
-              }}
-              placeholder="••••"
-              className={`h-12 w-full rounded-[12px] border-[1.5px] bg-white px-4 text-[16px] tracking-[-0.3px] text-ink placeholder:text-ink-faint outline-none transition-[border-color,box-shadow] duration-150 ${
-                error
-                  ? "border-[#d94747] shadow-[0_0_0_3px_rgba(217,71,71,0.12)]"
-                  : "border-line focus:border-brand focus:shadow-[0_0_0_3px_rgba(39,86,232,0.15)]"
-              }`}
-            />
-            {error && (
-              <p className="text-[#d94747] text-[14px] leading-[1.4]">
-                Wrong password. Try again.
+            <div className="flex flex-col gap-2">
+              <h2
+                id="site-gate-title"
+                className="text-[24px] font-medium leading-[32px] text-pv-fg"
+              >
+                Joe Gentleman
+              </h2>
+              <p className="text-[16px] font-normal leading-[24px] text-pv-muted">
+                Enter the password to view this portfolio.
               </p>
-            )}
-          </div>
+            </div>
 
-          <div className="flex items-center justify-end pt-1">
-            <PrimaryButton type="submit" className="px-5" disabled={submitting}>
-              {submitting ? "Checking…" : "Unlock"}
-            </PrimaryButton>
-          </div>
-        </form>
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor="site-gate-input"
+                className="text-[12px] font-medium uppercase leading-[16px] tracking-[0.08em] text-pv-muted"
+              >
+                Password
+              </label>
+              <input
+                id="site-gate-input"
+                ref={inputRef}
+                type="password"
+                inputMode="numeric"
+                autoComplete="off"
+                autoFocus
+                value={value}
+                onChange={(e) => {
+                  setValue(e.target.value);
+                  if (error) setError(false);
+                }}
+                placeholder="••••"
+                aria-invalid={error}
+                aria-describedby={error ? "site-gate-error" : undefined}
+                className={`h-12 w-full rounded-[10px] border bg-white/[0.04] px-4 text-[16px] text-pv-fg outline-none transition-[border-color,box-shadow] duration-200 ease-smooth placeholder:text-[#6b6b6b] ${
+                  error
+                    ? "border-[#f87171] shadow-[0_0_0_3px_rgba(248,113,113,0.14)]"
+                    : "border-pv-border focus:border-pv-accent focus:shadow-[0_0_0_3px_rgba(241,250,56,0.16)]"
+                }`}
+              />
+              {error && (
+                <p id="site-gate-error" className="text-[14px] leading-[20px] text-[#f87171]">
+                  Wrong password. Try again.
+                </p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              disabled={submitting}
+              className="pv-primary pv-stroke pv-stroke-btn relative flex h-[44px] w-full shrink-0 cursor-pointer items-center justify-center rounded-[10px] px-[10px] py-2 text-[16px] font-medium leading-[24px] text-pv-bg shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_2px_4px_0_rgba(0,0,0,0.1)] transition-[transform,box-shadow,background-image] duration-200 ease-smooth hover:-translate-y-px hover:shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_10px_22px_-8px_rgba(241,250,56,0.45)] active:translate-y-0 active:duration-75 disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              {submitting ? "Checking" : "Unlock"}
+            </button>
+          </form>
+          <PvGutter axis="y" always />
+        </div>
+        <PvGutter axis="x" always className="border-x" />
       </div>
     </div>
   );

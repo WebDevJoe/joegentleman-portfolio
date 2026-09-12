@@ -204,7 +204,7 @@ export function Nav() {
                 style={{ transitionDelay: open ? "360ms" : "0ms" }}
               >
                 <p className="text-ink-muted text-[14px] tracking-[-0.3px]">
-                  Available for product design roles and freelance work.
+                  Available for UX roles and freelance projects.
                 </p>
                 <SocialIcons />
               </div>

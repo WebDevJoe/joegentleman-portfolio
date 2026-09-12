@@ -33,8 +33,7 @@ export function CtaSection() {
           </span>
         </h2>
         <p className="max-w-[448px] text-[18px] font-normal leading-[1.5] text-ink-muted">
-          Open to product design roles and freelance work. Reply guaranteed within 48
-          hours.
+          Open to UX roles and freelance projects. I reply within 48 hours.
         </p>
         <PrimaryButton
           onClick={() => {
