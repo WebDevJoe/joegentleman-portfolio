@@ -112,3 +112,295 @@ body {
   top: 16px;
 }
 
+
+/*
+   Preview theme (/preview only).
+   The rebrand runs on shadcn's dark palette and Geist, which is a different
+   system from the live light site. Tokens are namespaced pv-* so the two can
+   coexist in one stylesheet without either overriding the other.
+ */
+@theme {
+  --color-pv-bg: #0a0a0a;
+  --color-pv-fg: #fafafa;
+  --color-pv-muted: #a3a3a3;
+  /* Opaque on purpose. As 10% white the hairline took its brightness from
+     whatever sat behind it, so a stroke over a glow lit section read around
+     rgb(75) while the same stroke over the flat band read rgb(35). This is
+     that mid page value, frozen, so every stroke matches. */
+  --color-pv-border: #4a4a4a;
+  --color-pv-card: #141414;
+  --color-pv-accent: #f1fa38;
+  --color-pv-accent-soft: #faff93;
+
+}
+
+/* Geist is scoped to the preview tree with a plain rule rather than a theme
+   token. The @theme --font-* entry generated the utility but never emitted
+   the variable at :root, so it fell back to the live palette typeface. */
+.pv-root {
+  font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Primary action: the chartreuse gradient from the Figma button component. */
+.pv-primary {
+  background-image: linear-gradient(to bottom, #f1fa38, #faff93);
+}
+.pv-primary:hover:not(:disabled) {
+  background-image:
+    linear-gradient(rgba(10, 10, 10, 0.12), rgba(10, 10, 10, 0.12)),
+    linear-gradient(to bottom, #f1fa38, #faff93);
+}
+.pv-primary:active:not(:disabled) {
+  background-image:
+    linear-gradient(rgba(10, 10, 10, 0.24), rgba(10, 10, 10, 0.24)),
+    linear-gradient(to bottom, #f1fa38, #faff93);
+}
+
+/* Section divider band, the 1px diagonal hatch from the Figma pattern tile. */
+.pv-hatch {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.07) 0 1px,
+    transparent 1px 14px
+  );
+}
+
+/* Gradient hairline strokes, inside-aligned like Figma. The exported code
+   flattened these to solid white; the real paints are gradients with low
+   alpha, so a solid border reads far too bright. */
+.pv-stroke::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+/* Button: paint opacity 0.2 over stops a1 -> a0.2, so 20% down to 4%. */
+.pv-stroke-btn::after {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.04));
+}
+/* Logo tile: paint opacity 0.6 over stops a1 -> a0, so 60% down to 0. */
+.pv-stroke-tile::after {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+}
+
+
+
+/* Chartreuse light travelling around the availability pill. @property makes the
+   angle animatable; without it the conic gradient cannot be tweened. The ring
+   is masked to a 1px band so only the border lights up. */
+@property --pv-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.pv-chip-ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--pv-angle),
+    transparent 0deg,
+    rgba(241, 250, 56, 0.9) 30deg,
+    rgba(250, 255, 147, 0.35) 60deg,
+    transparent 110deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: pv-spin 4s linear infinite;
+}
+@keyframes pv-spin {
+  to {
+    --pv-angle: 360deg;
+  }
+}
+
+/* Availability dot: a soft halo breathing out from behind the glyph. */
+.pv-dot-pulse::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: rgba(241, 250, 56, 0.55);
+  animation: pv-pulse 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  pointer-events: none;
+}
+@keyframes pv-pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+
+/* Social glyphs drawn as masks so their colour is ours to animate. */
+.pv-social {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+/* Lightbox entrance */
+@keyframes pv-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes pv-zoom {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Ellipse 111 as a vertical gradient. Sampled from the real 700px blur: across
+   the 393 frame the horizontal profile is flat at 0.2, because the ellipse is
+   697 wide and the blur spreads it well past both edges. So the visible glow is
+   purely vertical. Expressing it in CSS rather than an image means the browser
+   dithers it at render resolution, which kills the banding a stretched 8 bit
+   alpha ramp produced on the longer pages. */
+/* Rail hatch. On the phone the rails are 16px trims either side of the content
+   and the diagonals read as an edge detail. From sm up they stop being trims
+   and become the whole margin, where a field of diagonals is too much, so the
+   gutters go plain and the hairline alone marks the column. */
+.pv-rail {
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.06) 0 1px,
+    transparent 1px 5px
+  );
+}
+@media (min-width: 640px) {
+  .pv-rail {
+    background-image: none;
+  }
+}
+
+/* One light across the whole page, margins included, rather than painted on
+   the content sections. The sections only covered the column, so the gutters
+   stayed flat #0a0a0a and the join showed as a seam down both sides. On the
+   page wrapper it spans the full width and the full scroll height, and the
+   rails sit over it with no fill of their own. Bands keep their solid black so
+   they still read as separators. */
+.pv-page {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(251, 251, 251, 0) 0%,
+    rgba(251, 251, 251, 0.055) 22%,
+    rgba(251, 251, 251, 0.07) 50%,
+    rgba(251, 251, 251, 0.055) 78%,
+    rgba(251, 251, 251, 0) 100%
+  );
+}
+
+/* Vertical hatch divider between the project cards. Unlike .pv-rail this one
+   keeps its strokes at every width, since dividing the row is its whole job. */
+.pv-gutter {
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.06) 0 1px,
+    transparent 1px 5px
+  );
+}* Kept for the full screen nav overlay, which is a single screen tall. */
+.pv-glow {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(251, 251, 251, 0.039) 0%,
+    rgba(251, 251, 251, 0.118) 10%,
+    rgba(251, 251, 251, 0.184) 20%,
+    rgba(251, 251, 251, 0.2) 30%,
+    rgba(251, 251, 251, 0.2) 60%,
+    rgba(251, 251, 251, 0.18) 70%,
+    rgba(251, 251, 251, 0.11) 80%,
+    rgba(251, 251, 251, 0.031) 90%,
+    rgba(251, 251, 251, 0) 100%
+  );
+}* In Figma the glow is an ellipse with a layer blur. On the phone the frame is
+   narrow enough that its horizontal profile is flat, so a vertical gradient is
+   an exact stand in. At the md column it still reads, given a horizontal
+   falloff tied to the column width, and the same again at lg and xl. */
+@media (min-width: 768px) {
+  .pv-glow {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent calc(50% - 352px),
+      #000 calc(50% - 250px),
+      #000 calc(50% + 250px),
+      transparent calc(50% + 352px)
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent calc(50% - 352px),
+      #000 calc(50% - 250px),
+      #000 calc(50% + 250px),
+      transparent calc(50% + 352px)
+    );
+  }
+}
+
+@media (min-width: 1024px) {
+  .pv-glow {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent calc(50% - 448px),
+      #000 calc(50% - 310px),
+      #000 calc(50% + 310px),
+      transparent calc(50% + 448px)
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent calc(50% - 448px),
+      #000 calc(50% - 310px),
+      #000 calc(50% + 310px),
+      transparent calc(50% + 448px)
+    );
+  }
+}
+
+@media (min-width: 1280px) {
+  .pv-glow {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent calc(50% - 576px),
+      #000 calc(50% - 400px),
+      #000 calc(50% + 400px),
+      transparent calc(50% + 576px)
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent calc(50% - 576px),
+      #000 calc(50% - 400px),
+      #000 calc(50% + 400px),
+      transparent calc(50% + 576px)
+    );
+  }
+}
