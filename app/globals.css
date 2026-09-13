@@ -408,3 +408,92 @@ body {
     );
   }
 }
+
+/* Selection marquee round the hero word. It reads as selecting an object in a
+   design tool, which is the same language as the hatch and the grid: the four
+   corner handles arrive first, then the box closes around the word.
+ 
+   One shot on load, never repeating. The hero already has a field pulsing
+   behind it, and a second loop would compete with it.
+ 
+   The box scales on its own axis rather than animating width, so it composites
+   instead of laying out, and the handles are only opacity and scale. */
+/* scaleX only. The centring is Tailwind's -translate-y-1/2, which in v4 is the
+   separate `translate` property rather than `transform`; the two compose, so
+   repeating the translate here shifted the box a second -50% off the word. */
+@keyframes pv-marquee-x {
+  from {
+    transform: scaleX(0.42);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+@keyframes pv-handle {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.35);
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.pv-marquee {
+  transform-origin: center;
+  animation: pv-marquee-x 420ms var(--ease-smooth) 260ms both;
+}
+.pv-handle {
+  animation: pv-handle 260ms var(--ease-smooth) both;
+}
+/* Clockwise from the top left, 60ms apart, so the selection lands corner by
+   corner rather than all at once. */
+.pv-handle:nth-child(1) {
+  animation-delay: 0ms;
+}
+.pv-handle:nth-child(2) {
+  animation-delay: 60ms;
+}
+.pv-handle:nth-child(3) {
+  animation-delay: 180ms;
+}
+.pv-handle:nth-child(4) {
+  animation-delay: 120ms;
+}
+
+/* The lines behind it rise in on the same curve, headline first. */
+@keyframes pv-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+.pv-rise {
+  animation: pv-rise 500ms var(--ease-smooth) both;
+}
+.pv-rise-2 {
+  animation-delay: 80ms;
+}
+.pv-rise-3 {
+  animation-delay: 160ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pv-marquee,
+  .pv-handle,
+  .pv-rise {
+    animation: none;
+  }
+}

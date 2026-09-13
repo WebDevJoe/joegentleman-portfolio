@@ -19,7 +19,7 @@ const MASK = "linear-gradient(to bottom, #000 0%, #000 70%, transparent 96%)";
 
 export function PvHero() {
   return (
-    <section className="relative flex h-[656px] w-full flex-col items-center gap-4 overflow-hidden border-b border-pv-border px-4 py-10 sm:h-[720px] lg:h-[860px] lg:gap-6 lg:px-8 lg:py-16">
+    <section className="relative flex h-[656px] w-full flex-col items-center gap-4 overflow-hidden border-b border-pv-border px-4 py-10 sm:h-[720px] lg:h-screen lg:gap-6 lg:px-8 lg:py-16">
       {/* Portrait, sat right back at 12%. Centred while the frame is narrow,
           pushed to the right edge from lg. The photo ends on a bright row (the
           shirt), so the last stretch is faded out rather than cut, and it stops
@@ -27,7 +27,7 @@ export function PvHero() {
       <div
         aria-hidden
         data-hero-portrait
-        className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-[541px] w-full sm:max-w-[520px] lg:left-auto lg:right-0 lg:mx-0 lg:h-[660px] lg:max-w-[620px]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-[541px] w-full sm:max-w-[520px] lg:left-auto lg:right-0 lg:mx-0 lg:h-[77%] lg:max-w-[620px]"
         style={{ maskImage: MASK, WebkitMaskImage: MASK }}
       >
         <Image
@@ -46,7 +46,7 @@ export function PvHero() {
           The selection box hugs the word with insets rather than a fixed size,
           so it tracks the type at every breakpoint. */}
       <h1
-        className="relative w-full max-w-[329px] bg-clip-text text-center text-[36px] font-medium leading-[48px] text-transparent sm:max-w-[560px] sm:text-[52px] sm:leading-[64px] lg:max-w-[820px] lg:text-[72px] lg:leading-[88px]"
+        className="pv-rise relative w-full max-w-[329px] bg-clip-text text-center text-[36px] font-medium leading-[48px] text-transparent sm:max-w-[560px] sm:text-[52px] sm:leading-[64px] lg:max-w-[820px] lg:text-[72px] lg:leading-[88px]"
         style={{ backgroundImage: HEADLINE_GRADIENT }}
       >
         {/* Hard break: the word sits on its own line on the phone because the
@@ -60,22 +60,22 @@ export function PvHero() {
         >
           <span
             aria-hidden
-            className="pointer-events-none absolute -inset-x-[11px] top-1/2 h-[42px] -translate-y-1/2 border border-[#f1fa38] sm:-inset-x-[15px] sm:h-[60px] lg:-inset-x-[20px] lg:h-[82px]"
+            className="pv-marquee pointer-events-none absolute -inset-x-[11px] top-1/2 h-[42px] -translate-y-1/2 border border-[#f1fa38] sm:-inset-x-[15px] sm:h-[60px] lg:-inset-x-[20px] lg:h-[82px]"
             style={{
               backgroundImage:
                 "linear-gradient(to bottom, rgba(241,250,56,0.12), rgba(250,255,147,0.12))",
             }}
           >
-            <span className="absolute -left-[3px] -top-[3px] size-[4px] border border-[#f1fa38] bg-[#161616]" />
-            <span className="absolute -right-[3px] -top-[3px] size-[4px] border border-[#f1fa38] bg-[#151515]" />
-            <span className="absolute -bottom-[3px] -left-[3px] size-[4px] border border-[#f1fa38] bg-[#161616]" />
-            <span className="absolute -bottom-[3px] -right-[3px] size-[4px] border border-[#f1fa38] bg-[#171717]" />
+            <span className="pv-handle absolute -left-[3px] -top-[3px] size-[4px] border border-[#f1fa38] bg-[#161616]" />
+            <span className="pv-handle absolute -right-[3px] -top-[3px] size-[4px] border border-[#f1fa38] bg-[#151515]" />
+            <span className="pv-handle absolute -bottom-[3px] -left-[3px] size-[4px] border border-[#f1fa38] bg-[#161616]" />
+            <span className="pv-handle absolute -bottom-[3px] -right-[3px] size-[4px] border border-[#f1fa38] bg-[#171717]" />
           </span>
           Solve
         </span>
       </h1>
 
-      <p className="relative w-full max-w-[560px] text-balance text-center text-[16px] font-normal leading-[24px] text-pv-muted lg:max-w-[820px] lg:text-[18px] lg:leading-[28px]">
+      <p className="pv-rise pv-rise-2 relative w-full max-w-[560px] text-balance text-center text-[16px] font-normal leading-[24px] text-pv-muted lg:max-w-[820px] lg:text-[18px] lg:leading-[28px]">
         A UX designer from the north east of Scotland, currently working @{" "}
         {/* The studio name is one thing, so it never breaks across lines. */}
         <span
@@ -89,7 +89,7 @@ export function PvHero() {
       <a
         href="/resume.pdf"
         download
-        className="pv-primary pv-stroke pv-stroke-btn relative flex h-[44px] w-[156px] shrink-0 items-center justify-center gap-2 rounded-[10px] px-[10px] py-2 text-[16px] font-medium leading-[24px] text-pv-bg shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_2px_4px_0_rgba(0,0,0,0.1)] transition-[transform,box-shadow,background-image] duration-200 ease-smooth hover:-translate-y-px hover:shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_10px_22px_-8px_rgba(241,250,56,0.45)] active:translate-y-0 active:duration-75"
+        className="pv-rise pv-rise-3 pv-primary pv-stroke pv-stroke-btn relative flex h-[44px] w-[156px] shrink-0 items-center justify-center gap-2 rounded-[10px] px-[10px] py-2 text-[16px] font-medium leading-[24px] text-pv-bg shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_2px_4px_0_rgba(0,0,0,0.1)] transition-[transform,box-shadow,background-image] duration-200 ease-smooth hover:-translate-y-px hover:shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_10px_22px_-8px_rgba(241,250,56,0.45)] active:translate-y-0 active:duration-75"
       >
         Resume
         <IconDownload className="size-4" />
