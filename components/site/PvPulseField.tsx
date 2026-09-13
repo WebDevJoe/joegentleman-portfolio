@@ -7,7 +7,13 @@ const DOT = 3; // cell size
 const ACCENT = [241, 250, 56];
 const PLAIN = [235, 235, 235];
 const EDGE = 16; // short softening inside the 16px margin, so the field does not end on a razor line
-const CLEAR = 72; // how far the field backs off from the portrait
+const CLEAR = 56; // the gap the field keeps around the subject
+
+// Where the subject actually sits inside joe.webp, measured off the source:
+// he starts 16% in from the left and 32% down, and runs to both far edges.
+// Excluding the whole element box wrote off all that empty space, which on a
+// phone is most of the picture, and left the field nowhere to go.
+const SUBJECT = { x0: 0.164, y0: 0.32, x1: 1, y1: 1 };
 
 /** A field of grid cells across the hero, each brightening and fading on its
     own phase, so the pattern breathes rather than a shape sliding over it. Two
@@ -18,8 +24,9 @@ const CLEAR = 72; // how far the field backs off from the portrait
     cannot do it. Around 1700 flat rects at desktop size, so it costs little.
  
     The canvas is inset 16px so the field can never touch the section's own
-    strokes, and it reads the portrait's real position every resize rather than
-    assuming where it sits, so it keeps clear of it wherever it is anchored.
+    strokes. It reads the portrait every resize and works out where the subject
+    lands inside it through object-cover, so the field runs right up around him
+    and into the empty part of the frame instead of avoiding the whole box.
  
     Paused when the hero leaves the viewport or the tab is hidden, and a single
     still frame under prefers-reduced-motion. */
@@ -52,9 +59,24 @@ export function PvPulseField() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       const portrait = canvas.parentElement?.querySelector("[data-hero-portrait]");
-      if (portrait) {
+      const img = portrait?.querySelector<HTMLImageElement>("img");
+      if (portrait && img?.naturalWidth) {
         const p = portrait.getBoundingClientRect();
-        hole = { x0: p.left - r.left, y0: p.top - r.top, x1: p.right - r.left, y1: p.bottom - r.top };
+        // object-cover: the picture is scaled to fill the box and centred, so
+        // part of it is off the edges. Work out where the subject lands.
+        const scale = Math.max(p.width / img.naturalWidth, p.height / img.naturalHeight);
+        const drawnW = img.naturalWidth * scale;
+        const drawnH = img.naturalHeight * scale;
+        const offX = (p.width - drawnW) / 2;
+        const offY = (p.height - drawnH) / 2;
+        const bx = p.left - r.left;
+        const by = p.top - r.top;
+        hole = {
+          x0: Math.max(bx, bx + offX + SUBJECT.x0 * drawnW),
+          y0: Math.max(by, by + offY + SUBJECT.y0 * drawnH),
+          x1: Math.min(bx + p.width, bx + offX + SUBJECT.x1 * drawnW),
+          y1: Math.min(by + p.height, by + offY + SUBJECT.y1 * drawnH),
+        };
       } else {
         hole = null;
       }
@@ -82,7 +104,7 @@ export function PvPulseField() {
             smoothstep(0, EDGE, y) *
             smoothstep(0, EDGE, height - y);
 
-          // Back off from the portrait, feathered so there is no cut line.
+          // Back off from the subject, feathered so there is no cut line.
           if (hole) {
             const dx = Math.max(hole.x0 - x, x - hole.x1, 0);
             const dy = Math.max(hole.y0 - y, y - hole.y1, 0);
@@ -128,6 +150,17 @@ export function PvPulseField() {
     });
     if (canvas.parentElement) ro.observe(canvas.parentElement);
 
+    // naturalWidth is 0 until the photo decodes, and without it there is no
+    // subject to avoid. Measure again the moment it lands.
+    const img = canvas.parentElement?.querySelector<HTMLImageElement>(
+      "[data-hero-portrait] img",
+    );
+    const onLoad = () => {
+      measure();
+      if (reduced || !raf) draw(performance.now());
+    };
+    if (img && !img.complete) img.addEventListener("load", onLoad);
+
     const io = new IntersectionObserver(([e]) => {
       inView = e.isIntersecting;
       if (inView) start();
@@ -142,6 +175,7 @@ export function PvPulseField() {
       stop();
       ro.disconnect();
       io.disconnect();
+      img?.removeEventListener("load", onLoad);
       document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
