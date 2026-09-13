@@ -413,6 +413,9 @@ body {
    design tool, which is the same language as the hatch and the grid: the four
    corner handles arrive first, then the box closes around the word.
  
+   Sequenced: the copy rises first over roughly 660ms, then the handles land,
+   then the box closes slowly around the word, settling near 1.7s.
+
    One shot on load, never repeating. The hero already has a field pulsing
    behind it, and a second loop would compete with it.
  
@@ -447,24 +450,25 @@ body {
 
 .pv-marquee {
   transform-origin: center;
-  animation: pv-marquee-x 420ms var(--ease-smooth) 260ms both;
+  animation: pv-marquee-x 760ms var(--ease-smooth) 900ms both;
 }
 .pv-handle {
-  animation: pv-handle 260ms var(--ease-smooth) both;
+  animation: pv-handle 300ms var(--ease-smooth) both;
 }
-/* Clockwise from the top left, 60ms apart, so the selection lands corner by
-   corner rather than all at once. */
+/* Clockwise from the top left, 80ms apart. The whole selection waits until
+   the copy has finished rising, so it reads as a second beat rather than
+   everything arriving at once. */
 .pv-handle:nth-child(1) {
-  animation-delay: 0ms;
+  animation-delay: 620ms;
 }
 .pv-handle:nth-child(2) {
-  animation-delay: 60ms;
+  animation-delay: 700ms;
 }
 .pv-handle:nth-child(3) {
-  animation-delay: 180ms;
+  animation-delay: 860ms;
 }
 .pv-handle:nth-child(4) {
-  animation-delay: 120ms;
+  animation-delay: 780ms;
 }
 
 /* The lines behind it rise in on the same curve, headline first. */
