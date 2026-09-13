@@ -131,7 +131,10 @@ export function PvWork() {
   const [zoom, setZoom] = useState<LightboxImage>(null);
 
   return (
-    <section className="flex w-full flex-col items-center gap-10 border-b border-pv-border py-10 lg:gap-14 lg:pb-0 lg:pt-16">
+    <section
+      id="work"
+      className="scroll-mt-[97px] flex w-full flex-col items-center gap-10 border-b border-pv-border py-10 lg:gap-14 lg:pb-0 lg:pt-16"
+    >
       <div className="mx-auto flex w-full max-w-[760px] flex-col items-start gap-2 px-4 text-center lg:px-8">
         <h2
           className="w-full bg-clip-text text-[30px] font-medium leading-[36px] text-transparent lg:text-[44px] lg:leading-[52px]"

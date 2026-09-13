@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { IconDownload } from "./PvIcons";
 import { PvPulseField } from "./PvPulseField";
 
 // Figma node 1175:268. Mobile frame is 393 wide with 16px hatch rails, so the
@@ -86,13 +85,17 @@ export function PvHero() {
         </span>
       </p>
 
+      {/* The work is a full screen below on desktop with nothing above the fold
+          to say so, and Resume already lives in the nav. So the hero's one
+          action points at the evidence. No icon: the chevron is stroked in the
+          accent gradient, which is invisible on an accent button, and it was
+          still taking its 16px and shoving the label off centre. A real anchor,
+          so it works without JS and the URL is shareable. */}
       <a
-        href="/resume.pdf"
-        download
+        href="#work"
         className="pv-rise pv-rise-3 pv-primary pv-stroke pv-stroke-btn relative flex h-[44px] w-[156px] shrink-0 items-center justify-center gap-2 rounded-[10px] px-[10px] py-2 text-[16px] font-medium leading-[24px] text-pv-bg shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_2px_4px_0_rgba(0,0,0,0.1)] transition-[transform,box-shadow,background-image] duration-200 ease-smooth hover:-translate-y-px hover:shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_10px_22px_-8px_rgba(241,250,56,0.45)] active:translate-y-0 active:duration-75"
       >
-        Resume
-        <IconDownload className="size-4" />
+        My Work
       </a>
     </section>
   );
