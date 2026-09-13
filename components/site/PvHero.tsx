@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { IconDownload } from "./PvIcons";
+import { PvPulseField } from "./PvPulseField";
 
 // Figma node 1175:268. Mobile frame is 393 wide with 16px hatch rails, so the
 // hero content column is 361. The height is fixed because the portrait is
@@ -9,10 +10,6 @@ import { IconDownload } from "./PvIcons";
 // Larger screens keep the same arrangement, everything anchored to the bottom,
 // and scale the three pieces together: taller section, taller portrait capped
 // to a width so it does not stretch across the whole frame, larger headline.
-// 4px dot on a 5px pitch, matching the 45 x 40 grid in the design.
-const DOT_TILE =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='5'%3E%3Crect width='4' height='4' fill='white' fill-opacity='0.102'/%3E%3C/svg%3E\")";
-
 const HEADLINE_GRADIENT =
   "linear-gradient(180.29557067819997deg, rgb(255,255,255) 0.81508%, rgb(153,153,153) 111.98%)";
 const ACCENT_GRADIENT =
@@ -23,36 +20,13 @@ const MASK = "linear-gradient(to bottom, #000 0%, #000 70%, transparent 96%)";
 export function PvHero() {
   return (
     <section className="relative flex h-[656px] w-full flex-col items-center gap-4 overflow-hidden border-b border-pv-border px-4 py-10 sm:h-[720px] lg:h-[860px] lg:gap-6 lg:px-8 lg:py-16">
-      {/* Dot matrix, masked by the two gradient fades from the design. Phone
-          only: at desktop widths it floats in the corner with nothing to sit
-          against, so it is dropped from lg up. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute bottom-0 left-0 h-[199px] w-[224px] lg:hidden"
-        style={{
-          backgroundImage: DOT_TILE,
-          backgroundSize: "5px 5px",
-          maskImage: 'url("/media/dot-mask-a.svg"), url("/media/dot-mask-b.svg")',
-          maskSize: "213px 181px, 213px 181px",
-          maskPosition: "0 0, 0 0",
-          maskRepeat: "no-repeat",
-          // Both masks fade out at their ends. They must intersect, not union,
-          // or the two fades cancel and the grid renders as a hard rectangle.
-          maskComposite: "intersect",
-          WebkitMaskImage: 'url("/media/dot-mask-a.svg"), url("/media/dot-mask-b.svg")',
-          WebkitMaskSize: "213px 181px, 213px 181px",
-          WebkitMaskPosition: "0 0, 0 0",
-          WebkitMaskRepeat: "no-repeat",
-          WebkitMaskComposite: "source-in",
-        }}
-      />
-
       {/* Portrait, sat right back at 12%. Centred while the frame is narrow,
           pushed to the right edge from lg. The photo ends on a bright row (the
           shirt), so the last stretch is faded out rather than cut, and it stops
           clear of the section stroke. */}
       <div
         aria-hidden
+        data-hero-portrait
         className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-[541px] w-full sm:max-w-[520px] lg:left-auto lg:right-0 lg:mx-0 lg:h-[660px] lg:max-w-[620px]"
         style={{ maskImage: MASK, WebkitMaskImage: MASK }}
       >
@@ -65,6 +39,8 @@ export function PvHero() {
           priority
         />
       </div>
+
+      <PvPulseField />
 
       {/* Headline: the whole line is one white to grey gradient, clipped to text.
           The selection box hugs the word with insets rather than a fixed size,
