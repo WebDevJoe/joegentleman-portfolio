@@ -18,7 +18,7 @@ const MASK = "linear-gradient(to bottom, #000 0%, #000 70%, transparent 96%)";
 
 export function PvHero() {
   return (
-    <section className="relative flex h-[656px] w-full flex-col items-center gap-4 overflow-hidden border-b border-pv-border px-4 py-10 sm:h-[720px] lg:h-screen lg:gap-6 lg:px-8 lg:py-16">
+    <section className="relative flex h-[656px] w-full flex-col items-center gap-4 overflow-hidden border-b border-pv-border px-4 py-10 sm:h-[720px] lg:h-[min(calc(100svh_-_97px),760px)] lg:min-h-[640px] lg:justify-center lg:gap-6 lg:px-8 lg:py-16">
       {/* Portrait, sat right back at 12%. Centred while the frame is narrow,
           pushed to the right edge from lg. The photo ends on a bright row (the
           shirt), so the last stretch is faded out rather than cut, and it stops
