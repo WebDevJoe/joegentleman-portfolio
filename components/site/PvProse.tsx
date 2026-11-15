@@ -90,29 +90,34 @@ export function PvSectionBleed({
 
 const ACCENT_GRADIENT = "linear-gradient(180deg, #f1fa38 0%, #faff93 100%)";
 
-/** Figma 1189:34491: hairline separated rows, px-16 py-16, gap-6. */
+/** Figma 1189:34491: hairline separated rows. The rows run the full width
+    of the column. From lg each one splits in two, number and title on the
+    left and the explanation on the right, so the section fills the column
+    without the body running to an unreadable line length. */
 export function PvSteps({
   steps,
 }: {
   steps: { n: string; title: string; body: string }[];
 }) {
   return (
-    <div className="flex w-full max-w-[820px] shrink-0 flex-col items-start pt-2">
+    <div className="flex w-full shrink-0 flex-col items-start pt-2">
       {steps.map((s, i) => (
         <div
           key={s.n}
-          className={`flex w-full shrink-0 flex-col items-start gap-1.5 border-pv-border px-4 py-4 lg:px-16 lg:py-5 ${
+          className={`grid w-full shrink-0 grid-cols-1 gap-1.5 border-pv-border px-4 py-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-x-16 lg:px-16 lg:py-8 ${
             i === 0 ? "border-t border-b" : "border-b"
           }`}
         >
-          <p
-            className="whitespace-nowrap bg-clip-text text-[14px] font-medium leading-[20px] text-transparent"
-            style={{ backgroundImage: ACCENT_GRADIENT }}
-          >
-            {s.n}
-          </p>
-          <p className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[22px] lg:leading-[30px]">{s.title}</p>
-          <p className="w-full text-[16px] font-normal leading-[24px] text-pv-muted lg:text-[18px] lg:leading-[30px]">
+          <div className="flex flex-col items-start gap-1.5">
+            <p
+              className="whitespace-nowrap bg-clip-text text-[14px] font-medium leading-[20px] text-transparent"
+              style={{ backgroundImage: ACCENT_GRADIENT }}
+            >
+              {s.n}
+            </p>
+            <p className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[22px] lg:leading-[30px]">{s.title}</p>
+          </div>
+          <p className="w-full max-w-[720px] text-[16px] font-normal leading-[24px] text-pv-muted lg:pt-[26px] lg:text-[18px] lg:leading-[30px]">
             {s.body}
           </p>
         </div>
