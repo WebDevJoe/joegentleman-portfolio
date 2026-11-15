@@ -92,7 +92,8 @@ export default function Fs2CaseStudy() {
             natural
             onZoom={setZoom}
           />
-          <div className="w-full px-4">
+          {/* Same inset as the caption above, so the two share a left edge. */}
+          <div className="w-full px-4 lg:px-16">
             <a
               href={LIVE_URL}
               target="_blank"
