@@ -126,9 +126,20 @@ const RESULTS = [
 ];
 
 /** A row of phone screens on a dark panel, each one opens in the lightbox. */
-function Phones({ shots, onZoom }: { shots: { src: string; alt: string }[]; onZoom: Zoom }) {
+const PHONES_PANEL =
+  "flex w-full shrink-0 items-start justify-center gap-3 border-y border-pv-border bg-[#141414] px-4 py-8 sm:gap-6 lg:gap-12 lg:py-14";
+
+function Phones({
+  shots,
+  onZoom,
+  className = PHONES_PANEL,
+}: {
+  shots: { src: string; alt: string }[];
+  onZoom: Zoom;
+  className?: string;
+}) {
   return (
-    <div className="flex w-full shrink-0 items-start justify-center gap-3 border-y border-pv-border bg-[#141414] px-4 py-8 sm:gap-6 lg:gap-12 lg:py-14">
+    <div className={className}>
       {shots.map((s) => {
         const [w, h] = MEDIA_DIMS[s.src] ?? [1179, 1977];
         return (
@@ -156,33 +167,77 @@ function Phones({ shots, onZoom }: { shots: { src: string; alt: string }[]; onZo
 }
 
 /** A decision: who it is for and the call on the left, the reasoning on the
-    right from lg, then the screens that show it. */
+    right from lg, then the screens that show it.
+
+    Phone screens sit beside the text instead, in a dark panel the height of
+    the row, and swap sides from one decision to the next (side). On a phone
+    the text always comes first and the screens follow. */
 function Decision({
   who,
   title,
   children,
   visual,
+  phones,
+  side = "left",
+  onZoom,
 }: {
   who: string;
   title: string;
   children: ReactNode;
   visual?: ReactNode;
+  phones?: { src: string; alt: string }[];
+  side?: "left" | "right";
+  onZoom?: Zoom;
 }) {
+  const label = (
+    <div className="flex flex-col items-start gap-2">
+      <p
+        className="bg-clip-text text-[12px] font-medium leading-[16px] text-transparent"
+        style={{ backgroundImage: ACCENT_GRADIENT }}
+      >
+        {who}
+      </p>
+      <h3 className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[24px] lg:leading-[32px]">{title}</h3>
+    </div>
+  );
+  const body = (
+    <div className="flex w-full max-w-[720px] flex-col gap-4 text-[16px] font-normal leading-[24px] text-pv-muted lg:text-[18px] lg:leading-[30px]">
+      {children}
+    </div>
+  );
+
+  if (phones && onZoom) {
+    const left = side === "left";
+    return (
+      <div className="grid w-full shrink-0 grid-cols-1 gap-6 pt-12 first:pt-0 lg:grid-cols-2 lg:gap-0 lg:border-b lg:border-pv-border lg:pt-0 lg:first:border-t">
+        <div
+          className={`flex flex-col items-start justify-center gap-3 px-4 lg:gap-5 lg:px-16 lg:py-14 ${
+            left ? "lg:order-2" : ""
+          }`}
+        >
+          {label}
+          {body}
+        </div>
+        <div
+          className={`flex items-center justify-center border-y border-pv-border bg-[#141414] px-4 py-8 lg:border-y-0 lg:px-10 lg:py-14 ${
+            left ? "lg:order-1 lg:border-r" : "lg:border-l"
+          }`}
+        >
+          <Phones
+            shots={phones}
+            onZoom={onZoom}
+            className="flex w-full items-start justify-center gap-3 sm:gap-6 lg:gap-8"
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex w-full shrink-0 flex-col items-start gap-6 lg:gap-8">
       <div className="grid w-full grid-cols-1 gap-3 px-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-x-16 lg:px-16">
-        <div className="flex flex-col items-start gap-2">
-          <p
-            className="bg-clip-text text-[12px] font-medium leading-[16px] text-transparent"
-            style={{ backgroundImage: ACCENT_GRADIENT }}
-          >
-            {who}
-          </p>
-          <h3 className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[24px] lg:leading-[32px]">{title}</h3>
-        </div>
-        <div className="flex w-full max-w-[720px] flex-col gap-4 text-[16px] font-normal leading-[24px] text-pv-muted lg:text-[18px] lg:leading-[30px]">
-          {children}
-        </div>
+        {label}
+        {body}
       </div>
       {visual}
     </div>
@@ -325,99 +380,89 @@ export default function WorksheetsCaseStudy() {
             </p>
           </Decision>
 
-          <Decision
-            who="For Caitlin"
-            title="The week is the home screen"
-            visual={
-              <Phones
-                onZoom={setZoom}
-                shots={[
-                  { src: "/media/ws-app-week.webp", alt: "This week: every day listed, the total, the confirmation and the submit button." },
-                ]}
-              />
-            }
-          >
-            <p>
-              Open the app and you are looking at this week: every day from Monday to Sunday,
-              including the empty ones. A day she forgot does not disappear. It sits in the list
-              saying Add hours, so it is hard to miss.
-            </p>
-            <p>
-              One number leads, the week total, with holiday shown separately. The deadline and a
-              countdown sit at the top. She ticks to confirm the hours are right, then submits, all
-              on the same screen. It took six rounds to get here, starting from cards for every
-              shift, which were too heavy to scan on a phone.
-            </p>
-          </Decision>
+          <div className="flex w-full shrink-0 flex-col">
+            <Decision
+              who="For Caitlin"
+              title="The week is the home screen"
+              side="left"
+              onZoom={setZoom}
+              phones={[
+                    { src: "/media/ws-app-week.webp", alt: "This week: every day listed, the total, the confirmation and the submit button." },
+                  ]}
+            >
+              <p>
+                Open the app and you are looking at this week: every day from Monday to Sunday,
+                including the empty ones. A day she forgot does not disappear. It sits in the list
+                saying Add hours, so it is hard to miss.
+              </p>
+              <p>
+                One number leads, the week total, with holiday shown separately. The deadline and a
+                countdown sit at the top. She ticks to confirm the hours are right, then submits, all
+                on the same screen. It took six rounds to get here, starting from cards for every
+                shift, which were too heavy to scan on a phone.
+              </p>
+            </Decision>
 
-          <Decision
-            who="For Caitlin"
-            title="Reuse last week, but never blindly"
-            visual={
-              <Phones
-                onZoom={setZoom}
-                shots={[
-                  { src: "/media/ws-app-reuse.webp", alt: "A new week opens with her standard week and recent weeks to start from." },
-                  { src: "/media/ws-app-saved.webp", alt: "Past timesheets, with the standard week she saved." },
-                ]}
-              />
-            }
-          >
-            <p>
-              Most of the team work much the same shifts every week, and typing them in again is
-              the quickest way to make someone give up. A new week opens by offering her standard
-              week, or a recent one, with its hours shown.
-            </p>
-            <p>
-              It never copies anything silently, because a holiday week copied forward would end up
-              in someone&apos;s pay. She can open a week before using it, and the full week is
-              always in front of her before she confirms it. Seeing the hours is what makes the
-              confirmation mean something. Typing them again added nothing. &ldquo;Save as your
-              usual week&rdquo; is offered after she submits a real week, not as setup on day one.
-            </p>
-          </Decision>
+            <Decision
+              who="For Caitlin"
+              title="Reuse last week, but never blindly"
+              side="right"
+              onZoom={setZoom}
+              phones={[
+                    { src: "/media/ws-app-reuse.webp", alt: "A new week opens with her standard week and recent weeks to start from." },
+                    { src: "/media/ws-app-saved.webp", alt: "Past timesheets, with the standard week she saved." },
+                  ]}
+            >
+              <p>
+                Most of the team work much the same shifts every week, and typing them in again is
+                the quickest way to make someone give up. A new week opens by offering her standard
+                week, or a recent one, with its hours shown.
+              </p>
+              <p>
+                It never copies anything silently, because a holiday week copied forward would end up
+                in someone&apos;s pay. She can open a week before using it, and the full week is
+                always in front of her before she confirms it. Seeing the hours is what makes the
+                confirmation mean something. Typing them again added nothing. &ldquo;Save as your
+                usual week&rdquo; is offered after she submits a real week, not as setup on day one.
+              </p>
+            </Decision>
 
-          <Decision
-            who="For Caitlin and Caroline"
-            title="Suggest the job, never guess the hours"
-            visual={
-              <Phones
-                onZoom={setZoom}
-                shots={[{ src: "/media/ws-app-log.webp", alt: "Add a shift: her usual jobs first, then the form." }]}
-              />
-            }
-          >
-            <p>
-              Adding a shift starts with her usual jobs, worked out from her own history and ranked
-              for the day she is logging. One tap adds the job.
-            </p>
-            <p>
-              Times are only filled in when her history shows they never change. If they vary,
-              they stay blank, because a guessed time ends up in someone&apos;s pay and Caroline is
-              the one who has to fix it.
-            </p>
-          </Decision>
+            <Decision
+              who="For Caitlin and Caroline"
+              title="Suggest the job, never guess the hours"
+              side="left"
+              onZoom={setZoom}
+              phones={[{ src: "/media/ws-app-log.webp", alt: "Add a shift: her usual jobs first, then the form." }]}
+            >
+              <p>
+                Adding a shift starts with her usual jobs, worked out from her own history and ranked
+                for the day she is logging. One tap adds the job.
+              </p>
+              <p>
+                Times are only filled in when her history shows they never change. If they vary,
+                they stay blank, because a guessed time ends up in someone&apos;s pay and Caroline is
+                the one who has to fix it.
+              </p>
+            </Decision>
 
-          <Decision
-            who="For Caitlin and Andrew"
-            title="Leave in hours, and safe from editing"
-            visual={
-              <Phones
-                onZoom={setZoom}
-                shots={[{ src: "/media/ws-app-leave.webp", alt: "Leave: hours left, request buttons and history with status." }]}
-              />
-            }
-          >
-            <p>
-              Many of the team work part-time rounds, so counting holiday in days gave the wrong
-              answer. Her balance is in hours, the same unit as her timesheet.
-            </p>
-            <p>
-              Approved holiday appears on her week automatically, but she cannot edit it there.
-              Changing it goes through a leave request, so approved leave cannot be quietly
-              rewritten, and Andrew no longer has to work out entitlement himself.
-            </p>
-          </Decision>
+            <Decision
+              who="For Caitlin and Andrew"
+              title="Leave in hours, and safe from editing"
+              side="right"
+              onZoom={setZoom}
+              phones={[{ src: "/media/ws-app-leave.webp", alt: "Leave: hours left, request buttons and history with status." }]}
+            >
+              <p>
+                Many of the team work part-time rounds, so counting holiday in days gave the wrong
+                answer. Her balance is in hours, the same unit as her timesheet.
+              </p>
+              <p>
+                Approved holiday appears on her week automatically, but she cannot edit it there.
+                Changing it goes through a leave request, so approved leave cannot be quietly
+                rewritten, and Andrew no longer has to work out entitlement himself.
+              </p>
+            </Decision>
+          </div>
         </div>
       </PvSectionBleed>
 
