@@ -15,6 +15,8 @@ const READY = new Set([
   "/media/gxk-offer.webp",
   "/media/gxk-active.webp",
   "/media/gxk-popup.webp",
+  "/media/one-offer.webp",
+  "/media/one-info.webp",
   "/media/bp-trials.webp",
   "/media/bp-rewards.webp",
   "/media/bp-info.webp",

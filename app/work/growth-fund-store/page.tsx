@@ -39,9 +39,8 @@ export default function GrowthFundCaseStudy() {
       <PvSectionBleed eyebrow="Overview" heading="Growth Fund Bundles">
         <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
           <PvFigure
-            src="/media/one-5.webp"
-            caption="The growth fund bundles as they ship in game."
-            natural
+            src="/media/gxk-active.webp"
+            caption="The growth fund as it ships in game: claimed, ready to claim and near unlock."
             onZoom={setZoom}
           />
         </div>
@@ -143,13 +142,15 @@ export default function GrowthFundCaseStudy() {
           </PvPInset>
 
           <PvFigure
-            src="/media/one-4.webp"
-            caption="The growth fund offer, built in the game's store style."
+            src="/media/one-offer.webp"
+            caption="The growth fund as its own tab in the shop: the offer, then the milestone list."
+            natural
             onZoom={setZoom}
           />
           <PvFigure
-            src="/media/one-5.webp"
-            caption="The milestone list, reachable as its own tab in the shop"
+            src="/media/one-info.webp"
+            caption="The question mark opens how it works: the fund explained in two lines."
+            natural
             onZoom={setZoom}
           />
         </div>
