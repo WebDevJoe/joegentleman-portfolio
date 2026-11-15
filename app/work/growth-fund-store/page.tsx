@@ -169,8 +169,13 @@ export default function GrowthFundCaseStudy() {
           </PvPInset>
 
           <PvFigure
-            src="/media/gxk-1.webp"
+            src="/media/gxk-base.webp"
             caption="The game's base view, where players reach the store."
+            onZoom={setZoom}
+          />
+          <PvFigure
+            src="/media/gxk-offer.webp"
+            caption="The growth fund in the webshop before purchase: one price, up to 100K crystals."
             onZoom={setZoom}
           />
 
@@ -182,12 +187,12 @@ export default function GrowthFundCaseStudy() {
           </PvPInset>
 
           <PvFigure
-            src="/media/gxk-2.webp"
+            src="/media/gxk-active.webp"
             caption="The webshop growth fund, with the near unlock callout on the next card."
             onZoom={setZoom}
           />
           <PvFigure
-            src="/media/gxk-3.webp"
+            src="/media/gxk-popup.webp"
             caption="The growth fund offer pop up to ensure its discoverablity."
             onZoom={setZoom}
           />

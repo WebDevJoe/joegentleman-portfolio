@@ -37,6 +37,7 @@ const CARDS: Card[] = [
     href: "/work/growth-fund-store",
     image: COVERS.growthFund,
     ratio: "aspect-[722/408]",
+    pos: "object-left",
     title: "Growth Fund Bundles",
     body: "A paid progression track shipped into two live App Store games, built inside each one's own store and design system.",
   },
