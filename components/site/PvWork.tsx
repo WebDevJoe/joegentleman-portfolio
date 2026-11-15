@@ -20,8 +20,9 @@ type Card = {
   node: string;
   href: string;
   image: string;
-  /** Slot ratio. Kept close to each cover's own so nothing is cropped hard or
-      scaled up: the battle pass shot is three screens side by side and a square
+  /** Slot ratio below lg, kept close to each cover's own so nothing is cropped
+      hard or scaled up. From lg every slot is 16:10, near the wide covers'
+      own shape, so the FS2 logo and nav no longer fall off the sides: the battle pass shot is three screens side by side and a square
       slot threw two of them away and blew the third up almost threefold. */
   ratio: string;
   title: string;
@@ -43,7 +44,7 @@ const CARDS: Card[] = [
     node: "1175:294",
     href: "/work/fs2",
     image: COVERS.fs2,
-    ratio: "aspect-square",
+    ratio: "aspect-[1440/872]",
     title: "Fallen Sword II Landing page",
     body: "A pre-launch landing page built in two weeks to drive wishlists, name reservations and press kit downloads.",
   },
@@ -84,7 +85,7 @@ function WorkCard({
     >
       {isHeld(card.image) ? (
         <div
-          className={`relative w-full shrink-0 overflow-hidden border-y border-pv-border ${card.ratio} lg:aspect-[4/3] lg:border-t-0`}
+          className={`relative w-full shrink-0 overflow-hidden border-y border-pv-border ${card.ratio} lg:aspect-[16/10] lg:border-t-0`}
         >
           <PvImageTemplate />
         </div>
@@ -93,7 +94,7 @@ function WorkCard({
           type="button"
           onClick={() => onZoom({ src: card.image, alt: card.title })}
           aria-label={`Preview ${card.title}`}
-          className={`relative w-full shrink-0 cursor-zoom-in overflow-hidden border-y border-pv-border ${card.ratio} lg:aspect-[4/3] lg:border-t-0`}
+          className={`relative w-full shrink-0 cursor-zoom-in overflow-hidden border-y border-pv-border ${card.ratio} lg:aspect-[16/10] lg:border-t-0`}
         >
           <Image
             src={card.image}
