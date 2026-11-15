@@ -161,9 +161,6 @@ export function PvFigure({
         <div className="relative aspect-[4/3] w-full shrink-0 border-y border-pv-border sm:aspect-video">
           <PvImageTemplate />
         </div>
-        <figcaption className={`text-[14px] font-normal leading-[20px] text-pv-muted lg:text-[15px] ${PV_INSET}`}>
-          {caption}
-        </figcaption>
       </figure>
     );
   }
@@ -185,9 +182,8 @@ export function PvFigure({
       <Image src={src} alt={caption} fill quality={90} sizes={COLUMN_SIZES} className="object-cover" />
     </div>
   );
-  // gap-4 rather than gap-2: the stacks these sit in are gap-4, so a tighter
-  // internal gap left the caption 8px under its image and 16px above the next
-  // one. Matching the two makes the caption sit evenly between them.
+  // The caption isn't shown under the image; it stays as the alt text and the
+  // lightbox label.
   return (
     <figure className="flex w-full shrink-0 flex-col items-start gap-4">
       {onZoom ? (
@@ -202,9 +198,6 @@ export function PvFigure({
       ) : (
         img
       )}
-      <figcaption className={`text-[14px] font-normal leading-[20px] text-pv-muted lg:text-[15px] ${PV_INSET}`}>
-        {caption}
-      </figcaption>
     </figure>
   );
 }

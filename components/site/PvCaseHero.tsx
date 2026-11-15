@@ -7,11 +7,15 @@ export function PvCaseHero({
   intro,
   role,
   status,
+  meta,
 }: {
   title: string;
   intro: string;
-  role: string;
-  status: string;
+  role?: string;
+  status?: string;
+  /** More than two facts: a row of labelled cells, two up on a phone and all
+      in one row from lg. Replaces role and status when given. */
+  meta?: { label: string; value: string }[];
 }) {
   return (
     <section className="flex w-full flex-col items-center justify-center gap-10 border-b border-pv-border py-10 lg:gap-14 lg:py-20">
@@ -25,16 +29,27 @@ export function PvCaseHero({
         <p className="w-full text-[16px] font-normal leading-[24px] text-[#666] lg:text-[18px] lg:leading-[30px]">{intro}</p>
       </div>
 
-      <div className="mx-auto flex w-full max-w-[860px] shrink-0 items-start gap-8 px-4 lg:px-8">
-        <div className="flex h-[43px] min-w-px flex-1 flex-col items-start gap-1">
-          <p className="whitespace-nowrap text-[12px] font-medium leading-[16px] text-pv-muted">Role</p>
-          <p className="whitespace-nowrap text-[14px] font-medium leading-[20px] text-pv-fg">{role}</p>
+      {meta ? (
+        <dl className="mx-auto grid w-full max-w-[860px] shrink-0 grid-cols-2 gap-x-8 gap-y-5 px-4 lg:grid-cols-4 lg:px-8">
+          {meta.map((m) => (
+            <div key={m.label} className="flex min-w-0 flex-col items-start gap-1">
+              <dt className="text-[12px] font-medium leading-[16px] text-pv-muted">{m.label}</dt>
+              <dd className="text-[14px] font-medium leading-[20px] text-pv-fg">{m.value}</dd>
+            </div>
+          ))}
+        </dl>
+      ) : (
+        <div className="mx-auto flex w-full max-w-[860px] shrink-0 items-start gap-8 px-4 lg:px-8">
+          <div className="flex h-[43px] min-w-px flex-1 flex-col items-start gap-1">
+            <p className="whitespace-nowrap text-[12px] font-medium leading-[16px] text-pv-muted">Role</p>
+            <p className="whitespace-nowrap text-[14px] font-medium leading-[20px] text-pv-fg">{role}</p>
+          </div>
+          <div className="flex h-[43px] min-w-px flex-1 flex-col items-start gap-1">
+            <p className="w-full text-right text-[12px] font-medium leading-[16px] text-pv-muted">Status</p>
+            <p className="w-full text-right text-[14px] font-medium leading-[20px] text-pv-fg">{status}</p>
+          </div>
         </div>
-        <div className="flex h-[43px] min-w-px flex-1 flex-col items-start gap-1">
-          <p className="w-full text-right text-[12px] font-medium leading-[16px] text-pv-muted">Status</p>
-          <p className="w-full text-right text-[14px] font-medium leading-[20px] text-pv-fg">{status}</p>
-        </div>
-      </div>
+      )}
     </section>
   );
 }

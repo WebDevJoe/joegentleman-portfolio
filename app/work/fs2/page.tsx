@@ -14,6 +14,7 @@ import {
   PvQuote,
   PvSection,
   PvSectionBleed,
+  PvSteps,
 } from "@/components/site/PvProse";
 import { PvLightbox, type LightboxImage } from "@/components/site/PvLightbox";
 
@@ -21,53 +22,89 @@ const NEXT_HEADING_GRADIENT =
   "linear-gradient(180.10035450598858deg, rgb(255,255,255) 0.81508%, rgb(153,153,153) 111.98%)";
 const LIVE_URL = "https://fs2.game/";
 
-// Content carried over from the light case study at /work/fs2, rebuilt on the
-// preview design system. Every walkthrough shot keeps its own aspect ratio:
-// they run from 3.25 wide down to 0.41 tall, so a fixed slot would ruin them.
-const WALKTHROUGH = [
+// Every image here is cut from the Figma design (Playground, Desktop frame
+// 877:35714) exported at 2x, so it stays sharp on a retina screen at the full
+// column width.
+
+const CHALLENGES = [
   {
-    n: "01",
-    src: "/media/fs2-hero.webp",
-    title: "Hero",
-    paragraphs: [
-      "Two column layout. Brand and the primary actions on the left, key art on the right. A single illustration sets the tone for the whole world, so it takes the larger half of the fold.",
-      "The left column stays on the job: logo, one line on what the game is, and the wishlist and reservation actions within reach before anyone scrolls.",
-    ],
-    caption:
-      "Hero section with the Fallen Sword II logo on the left and a hooded character walking toward a glowing portal on the right.",
+    n: "new",
+    title: "A world I hadn't worked on",
+    body: "I hadn't worked on Fallen Sword before. The world, tone and art direction were already set in the game's design bible, so getting it right meant designing from that document, not from my own taste.",
   },
   {
-    n: "02",
-    src: "/media/fs2-about.webp",
-    title: "About",
-    paragraphs: [
-      "Six feature blocks, alternating sides. Each block is the same template: art, tagline, description. Identical slots for the copy team to fill, so the section stays coherent however the words land and however many features make the final cut.",
-      "Flipping the art from side to side keeps a long section from reading as a flat list, and gives each feature its own moment as you scroll past.",
-    ],
-    caption: "About section: six feature blocks alternating left and right.",
+    n: "audiences",
+    title: "Two audiences",
+    body: "Returning players want continuity, starting with their old name. New players need to understand the world and why they should care.",
   },
   {
-    n: "03",
-    src: "/media/fs2-secure.webp",
-    title: "Secure it early",
-    paragraphs: [
-      "Username reservation gets its own block. It speaks only to returning Fallen Sword players, the ones who care about keeping their old name, so it sits apart and talks to them directly.",
-      "Scoping it this way keeps the promise out of the main flow, where it would only confuse a new player who has no name to protect.",
-    ],
-    caption: "Secure It Early section: username reservation with a Log In control.",
-  },
-  {
-    n: "04",
-    src: "/media/fs2-bottom.webp",
-    title: "The bottom of the page",
-    paragraphs: [
-      "Media carousel, a second wishlist callback, community and newsletter, then the footer. The page is one long scroll, so the closing stretch repeats the main action for anyone who read all the way down before deciding.",
-      "Each block is self contained, which let the page ship in pieces and made it easy to reorder as priorities moved.",
-    ],
-    caption:
-      "Bottom of the page: media gallery, Be Prepared Wishlist on Steam, Community newsletter, and footer.",
+    n: "asks",
+    title: "Several asks on one page",
+    body: "Wishlist on Steam, pre-register on mobile, reserve a name, join the newsletter and download the press kit, all competing for the same scroll.",
   },
 ];
+
+const DECISIONS = [
+  {
+    title: "One job above the fold",
+    body: "Logo, one line, the store buttons and a single piece of key art taking the bigger half of the screen. Wishlisting is the action. Mobile pre-registration sits beside it as the same ask on other platforms, not a second one.",
+    src: "/media/fs2-hero.webp",
+    alt: "The hero: Fallen Sword II logo, Wishlist Now with Steam, Google Play and App Store, beside the key art.",
+  },
+  {
+    title: "One template, six features",
+    body: "Every About block is art, title and description, alternating sides. Copy could land late and features could be cut without the section falling apart, and flipping the art keeps a long section from reading as a list.",
+    src: "/media/fs2-about-pair.webp",
+    alt: "The first two About blocks, Live the Legend and Become a Hero, with the art on alternating sides.",
+  },
+  {
+    title: "Talk to veterans on their own",
+    body: "Secure It Early only speaks to returning Fallen Sword players. Kept out of the main flow, it can't confuse someone who has no name to protect.",
+    src: "/media/fs2-secure.webp",
+    alt: "Secure It Early: reserve your username, with a Log in button for returning players.",
+  },
+  {
+    title: "Ask again at the end",
+    body: "Anyone who reads all the way down gets the wishlist a second time, then community, the newsletter and the press kit, so nobody reaches the bottom without a next step.",
+    src: "/media/fs2-closing.webp",
+    alt: "The closing stretch: Be Prepared wishlist block, Community and newsletter sign up, and Download Press Kit.",
+  },
+];
+
+const REFLECTION = [
+  {
+    n: "tracking",
+    title: "Agree on tracking before launch",
+    body: "The page went live without events on each action, so I can't say which block did the work. Next time I'd set that up first, so the page is judged on more than being live.",
+  },
+  {
+    n: "kit",
+    title: "Start with a small kit",
+    body: "I made the UI assets as the page needed them. A small component sheet built from the bible up front would have been quicker, and the team could reuse it for the next page.",
+  },
+];
+
+/** A decision: title left and reasoning right from lg, then its screen at the
+    full width of the column. */
+function Decision({
+  d,
+  onZoom,
+}: {
+  d: (typeof DECISIONS)[number];
+  onZoom: (img: LightboxImage) => void;
+}) {
+  return (
+    <div className="flex w-full shrink-0 flex-col items-start gap-6 lg:gap-8">
+      <div className="grid w-full grid-cols-1 gap-2 px-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-x-16 lg:px-16">
+        <h3 className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[22px] lg:leading-[30px]">{d.title}</h3>
+        <p className="w-full max-w-[720px] text-[16px] font-normal leading-[24px] text-pv-muted lg:text-[18px] lg:leading-[30px]">
+          {d.body}
+        </p>
+      </div>
+      <PvFigure src={d.src} caption={d.alt} natural onZoom={onZoom} />
+    </div>
+  );
+}
 
 export default function Fs2CaseStudy() {
   const [zoom, setZoom] = useState<LightboxImage>(null);
@@ -76,22 +113,25 @@ export default function Fs2CaseStudy() {
     <PvShell>
       <PvCaseHero
         title="Fallen Sword II Landing page"
-        intro="Fallen Sword II is the sequel to a long running browser RPG. This was its first public page, built in two weeks to introduce the world and drive three actions: wishlist on Steam, reserve a name, and download the press kit."
-        role="Designer"
-        status="Live at fs2.game"
+        intro="The first public page for Fallen Sword II, the sequel to a long running browser RPG. Designed in two weeks to introduce the world and turn interest into wishlists, name reservations and press coverage."
+        meta={[
+          { label: "Role", value: "Sole designer" },
+          { label: "Timeline", value: "Two weeks" },
+          { label: "Art and copy", value: "The game's artists and designers" },
+          { label: "Status", value: "Live at fs2.game" },
+        ]}
       />
 
       <PvBand />
 
-      <PvSectionBleed eyebrow="Overview" heading="The page as it shipped">
-        <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
+      <PvSectionBleed eyebrow="Overview" heading="The whole page at a glance">
+        <div className="flex w-full shrink-0 flex-col items-start gap-6 pt-2 lg:gap-8">
           <PvFigure
-            src="/media/fs2-hero.webp"
-            caption="The Fallen Sword II landing page."
+            src="/media/fs2-overview.webp"
+            caption="The full Fallen Sword II landing page, top to bottom in three columns."
             natural
             onZoom={setZoom}
           />
-          {/* Same inset as the caption above, so the two share a left edge. */}
           <div className="w-full px-4 lg:px-16">
             <a
               href={LIVE_URL}
@@ -107,55 +147,60 @@ export default function Fs2CaseStudy() {
 
       <PvBand />
 
-      <PvSection eyebrow="The brief" heading="One page, three actions to drive">
+      <PvSection eyebrow="Context" heading="A sequel that needed a front door">
         <PvBody>
           <PvP>
-            This was the game&apos;s first public presence, so the page had to introduce the world
-            and give people a way to commit in the same scroll. I built it around three actions:
-            wishlist on Steam, reserve a name, and download the press kit. Everything else on the
-            page exists to support one of those.
+            Announcing Fallen Sword II meant players, press and the Steam page all needed somewhere
+            to point. The brief was simple: get it live as soon as possible. That gave the page two
+            weeks from first frame to launch.
           </PvP>
           <PvQuote>
-            Introduce the world and give people a reason to commit, in a single scroll.
+            Make it feel like Fallen Sword, make the wishlist the obvious next step, and get it out
+            fast.
           </PvQuote>
         </PvBody>
       </PvSection>
 
       <PvBand />
 
-      <PvSectionBleed eyebrow="The page" heading="A walk through, top to bottom">
-        <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
-          <PvPInset>
-            One continuous scroll, each part its own block so it could ship in pieces and be
-            reordered as priorities moved. Here is how it reads from the top.
-          </PvPInset>
+      <PvSectionBleed eyebrow="The challenge" heading="A new world to me, with a lot to say">
+        <PvSteps steps={CHALLENGES} />
+      </PvSectionBleed>
 
-          {WALKTHROUGH.map((s) => (
-            <div key={s.n} className="mt-8 flex w-full shrink-0 flex-col items-start gap-4 lg:mt-14">
-              <div className="flex w-full flex-col items-start gap-1.5 px-4 lg:px-16">
-                <p className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[24px] lg:leading-[32px]">{s.title}</p>
-              </div>
-              {s.paragraphs.map((p) => (
-                <PvPInset key={p.slice(0, 24)}>{p}</PvPInset>
-              ))}
-              <PvFigure src={s.src} caption={s.caption} natural onZoom={setZoom} />
-            </div>
+      <PvBand />
+
+      <PvSectionBleed eyebrow="Craft" heading="Working from the design bible">
+        <div className="flex w-full shrink-0 flex-col items-start gap-6 pt-2 lg:gap-8">
+          <PvPInset>
+            I treated the bible as the spec: its palette, type, ornament and tone. The art and copy
+            came from the game&apos;s artists and designers. Every UI asset on the page is mine:
+            the buttons, frames, double line dividers, accents and icons, drawn to sit inside the
+            game&apos;s art rather than on top of it.
+          </PvPInset>
+          <PvFigure
+            src="/media/fs2-ui.webp"
+            caption="UI assets drawn for the page: a section heading with double line dividers, the wishlist and sign up buttons, the email field and the social row."
+            natural
+            onZoom={setZoom}
+          />
+        </div>
+      </PvSectionBleed>
+
+      <PvBand />
+
+      <PvSectionBleed eyebrow="The decisions" heading="Four calls that shaped the page">
+        <div className="flex w-full shrink-0 flex-col items-start gap-14 pt-2 lg:gap-20">
+          {DECISIONS.map((d) => (
+            <Decision key={d.title} d={d} onZoom={setZoom} />
           ))}
         </div>
       </PvSectionBleed>
 
       <PvBand />
 
-      <PvSection eyebrow="Outcome" heading="What I took from it">
-        <PvBody>
-          <PvP>The page is live at fs2.game as the game&apos;s first public presence.</PvP>
-          <PvP>
-            The interesting part was holding a whole world together on one page while keeping three
-            separate actions clear. Leaning on one strong illustration and a tight set of actions
-            mattered more than filling the page with content.
-          </PvP>
-        </PvBody>
-      </PvSection>
+      <PvSectionBleed eyebrow="Reflection" heading="What I'd do differently">
+        <PvSteps steps={REFLECTION} />
+      </PvSectionBleed>
 
       <PvBand />
 

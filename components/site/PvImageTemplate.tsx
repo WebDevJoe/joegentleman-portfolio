@@ -6,11 +6,12 @@ export const HOLD_IMAGES = true;
 
 // Images re-exported at full quality, which show even while the rest are held.
 const READY = new Set([
+  "/media/fs2-overview.webp",
   "/media/fs2-hero.webp",
-  "/media/fs2-about.webp",
+  "/media/fs2-ui.webp",
+  "/media/fs2-about-pair.webp",
   "/media/fs2-secure.webp",
-  "/media/fs2-bottom.webp",
-  "/media/fs2-full.webp",
+  "/media/fs2-closing.webp",
 ]);
 
 /** Whether this image should show as a template rather than itself. */
