@@ -90,6 +90,7 @@ function WorkCard({
           // The column is 1152 at xl, so a flat 361 had Next serving the 750w
           // variant and the browser scaling it up by half.
           sizes="(min-width: 1024px) 46vw, (min-width: 768px) calc(100vw - 128px), (min-width: 640px) calc(100vw - 64px), 100vw"
+          quality={90}
           className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-[1.03]"
         />
         <span

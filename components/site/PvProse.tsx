@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
+import { MEDIA_DIMS } from "@/lib/media-dims";
 
 // Section shell shared by the case study body blocks. Figma: py-40, an inner
 // container at w-361 max-w-880 px-16 gap-16, header block gap-8, body pt-8.
@@ -119,10 +121,24 @@ export function PvSteps({
   );
 }
 
+/** The column's width at each breakpoint (see PV_COLUMN and the rails), so the
+    browser asks the optimiser for a copy that size and no bigger. */
+const COLUMN_SIZES =
+  "(min-width: 1640px) 1400px, (min-width: 1024px) calc(100vw - 240px), (min-width: 768px) calc(100vw - 128px), (min-width: 640px) calc(100vw - 64px), calc(100vw - 32px)";
+
 /** Figma 1192:34569: full bleed image with border-y, caption px-16.
     Landscape captures sit in the 361x204 slot from the design. Portrait ones
     (the phone screenshots) keep their own ratio: forcing them into that slot
-    crops about three quarters of the image away. */
+    crops about three quarters of the image away.
+
+    Through next/image rather than a bare img: each screen gets an AVIF or WebP
+    at the width it shows, loaded as it scrolls into view, instead of every
+    original at full size up front. Quality 90 because these are interface
+    captures, and small type is the first thing lower settings smear.
+
+    Portrait captures stop at two thirds of their pixel width, centred between
+    side strokes. Stretched to the full column a 640px phone screenshot ran
+    1200px wide and 2600 tall: soft, and nothing on screen but its top. */
 export function PvFigure({
   src,
   caption,
@@ -134,15 +150,24 @@ export function PvFigure({
   natural?: boolean;
   onZoom?: (img: { src: string; alt: string }) => void;
 }) {
+  const [w, h] = MEDIA_DIMS[src] ?? [1600, 900];
+  const portrait = h > w;
   const img = natural ? (
-    <div className="w-full shrink-0 overflow-hidden border-y border-pv-border">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={caption} className="block h-auto w-full" />
+    <div className="flex w-full shrink-0 justify-center overflow-hidden border-y border-pv-border">
+      <Image
+        src={src}
+        alt={caption}
+        width={w}
+        height={h}
+        quality={90}
+        sizes={portrait ? `(min-width: 640px) ${Math.round(w / 1.5)}px, calc(100vw - 32px)` : COLUMN_SIZES}
+        className={`block h-auto w-full ${portrait ? "sm:border-x sm:border-pv-border" : ""}`}
+        style={portrait ? { maxWidth: Math.round(w / 1.5) } : undefined}
+      />
     </div>
   ) : (
     <div className="relative aspect-[361/204] w-full shrink-0 overflow-hidden border-y border-pv-border">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={caption} className="absolute inset-0 size-full max-w-none object-cover" />
+      <Image src={src} alt={caption} fill quality={90} sizes={COLUMN_SIZES} className="object-cover" />
     </div>
   );
   // gap-4 rather than gap-2: the stacks these sit in are gap-4, so a tighter

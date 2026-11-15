@@ -1,0 +1,37 @@
+// Pixel sizes of the raster images in public/media, so next/image can reserve
+// their space and pick the right width without loading them first.
+// Regenerate when an image is added or replaced:
+//   node scripts/media-dims.mjs
+export const MEDIA_DIMS: Record<string, [width: number, height: number]> = {
+  "/media/bp-1.webp": [640, 1387],
+  "/media/bp-2.webp": [640, 1387],
+  "/media/bp-3.webp": [640, 1387],
+  "/media/bp-4.webp": [640, 1387],
+  "/media/bp-5.webp": [640, 1387],
+  "/media/bp-hero.webp": [832, 447],
+  "/media/fs2-1.webp": [800, 495],
+  "/media/fs2-2.webp": [800, 1941],
+  "/media/fs2-3.webp": [800, 246],
+  "/media/fs2-4.webp": [800, 1535],
+  "/media/fs2-cover.webp": [800, 600],
+  "/media/gxk-1.webp": [1664, 936],
+  "/media/gxk-2.webp": [1664, 936],
+  "/media/gxk-3.webp": [1664, 936],
+  "/media/joe.webp": [780, 1170],
+  "/media/one-1.webp": [1664, 936],
+  "/media/one-2.webp": [1664, 936],
+  "/media/one-3.webp": [1664, 936],
+  "/media/one-4.webp": [1664, 936],
+  "/media/one-5.webp": [1664, 936],
+  "/media/work-1.webp": [722, 722],
+  "/media/work-2.webp": [722, 722],
+  "/media/work-3.webp": [722, 722],
+  "/media/work-4.webp": [722, 658],
+  "/media/worksheets-dashboard.webp": [1440, 1024],
+  "/media/ws-journey-andrew.webp": [1440, 966],
+  "/media/ws-journey-caitlin.webp": [1440, 953],
+  "/media/ws-journey-caroline.webp": [1440, 980],
+  "/media/ws-persona-andrew.webp": [1440, 891],
+  "/media/ws-persona-caitlin.webp": [1440, 891],
+  "/media/ws-persona-caroline.webp": [1440, 891],
+};

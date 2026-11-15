@@ -58,7 +58,10 @@ export function PvLightbox({
           alt={image.alt}
           width={1444}
           height={1444}
-          sizes="100vw"
+          // The frame stops at 1100, so a full-viewport size fetched more than
+          // it can show on a wide screen. 90 keeps zoomed-in UI type crisp.
+          sizes="(min-width: 1132px) 1100px, calc(100vw - 32px)"
+          quality={90}
           className="h-auto max-h-[86vh] w-full rounded-[12px] border border-pv-border object-contain animate-[pv-zoom_240ms_cubic-bezier(0.22,1,0.36,1)]"
         />
       </div>
