@@ -387,7 +387,8 @@ export default function WorksheetsCaseStudy() {
               side="left"
               onZoom={setZoom}
               phones={[
-                    { src: "/media/ws-app-week.webp", alt: "This week: every day listed, the total, the confirmation and the submit button." },
+                    { src: "/media/ws-app-week.webp", alt: "This week: every day listed, including the empty ones." },
+                    { src: "/media/ws-app-week-total.webp", alt: "The bottom of the week: the total, the confirmation and the submit button." },
                   ]}
             >
               <p>

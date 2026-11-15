@@ -13,6 +13,7 @@ const READY = new Set([
   "/media/fs2-wishlist.webp",
   "/media/ws-app-signin.webp",
   "/media/ws-app-week.webp",
+  "/media/ws-app-week-total.webp",
   "/media/ws-app-reuse.webp",
   "/media/ws-app-saved.webp",
   "/media/ws-app-log.webp",
