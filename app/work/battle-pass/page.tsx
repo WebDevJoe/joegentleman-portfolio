@@ -8,15 +8,14 @@ import { PvBand } from "@/components/site/PvHatch";
 import { PvFooter } from "@/components/site/PvFooter";
 import {
   PvBody,
-  PvFigure,
   PvP,
-  PvPInset,
   PvQuote,
   PvSection,
   PvSectionBleed,
   PvSteps,
 } from "@/components/site/PvProse";
 import { PvLightbox, type LightboxImage } from "@/components/site/PvLightbox";
+import { PvPhones, PvPhoneRow } from "@/components/site/PvPhones";
 
 const NEXT_HEADING_GRADIENT =
   "linear-gradient(180.10035450598858deg, rgb(255,255,255) 0.81508%, rgb(153,153,153) 111.98%)";
@@ -46,48 +45,61 @@ const PROCESS = [
   },
 ];
 
-const DECISIONS: { n: string; title: string; body: string; src: string; caption: string }[] = [
+type Shot = { src: string; alt: string };
+
+// Decisions with a screen show it beside the text; the HUD button and the
+// expanded dropdown have no sharp capture yet, so those two stand as text.
+const DECISIONS: { n: string; title: string; body: string; shots?: Shot[] }[] = [
   {
     n: "01",
     title: "Moved Daily Trials into the Battle Pass",
     body: "Daily Trials already lived as their own screen. They were also the only way to earn battle pass points, which meant the activity sat in one place and the progression sat in another. I moved them inside the Battle Pass as a tab so both lived in the same screen. Complete trials, earn points, unlock rewards. One loop, one place.",
-    src: "/media/bp-1.webp",
-    caption:
-      "The Spoils of Conquest screen with Daily Trials as a tab inside the battle pass.",
+    shots: [{ src: "/media/bp-trials.webp", alt: "The Spoils of Conquest screen with Daily Trials as a tab inside the battle pass." }],
   },
   {
     n: "02",
     title: "Turned a fixed claim banner into a dropdown",
     body: "The Claim 15 Daily Trials panel used to sit as a permanent header at the top of the screen. It mattered for ten seconds a day and stole space the rest of the time. I collapsed it into a dropdown that auto-expands the moment a claim is ready. The prominence shows up when it matters and disappears when it doesn't.",
-    src: "/media/bp-2.webp",
-    caption:
-      "The Claim 15 Daily Trials dropdown expanded to reveal the rewards it grants.",
   },
   {
     n: "03",
     title: "Added a HUD button without taking from the game",
     body: "Mobile RTS HUDs are full. Every pixel already has a job. Adding a battle pass entry meant finding a slot that felt obvious without making players relearn the interface they already knew.",
-    src: "/media/bp-3.webp",
-    caption:
-      "The world map HUD, with the battle pass entry button among the existing controls.",
   },
   {
     n: "04",
     title: "Made progress easy to find in a long list",
     body: "A battle pass is a long, vertical list. Without help, players open it at the top and scroll to find where they are. Instead, the pass opens already scrolled to the tier you're on. The chest button in the header acts as a smart jump: tap once to skip to the final reward, tap again to drop back to your tier.",
-    src: "/media/bp-4.webp",
-    caption:
-      "The Spoils of Conquest reward track, free and exalted rewards across each tier.",
+    shots: [{ src: "/media/bp-rewards.webp", alt: "The reward track: free and Exalted rewards across each tier." }],
   },
   {
     n: "05",
     title: "Gave the feature one place to explain itself",
     body: "New players needed to understand what the battle pass was and what premium unlocked without leaving the screen. I laid out an info popup that leads with the value up top, follows with a short progression explainer, and ends on two clear actions: view the daily trials or unlock premium.",
-    src: "/media/bp-5.webp",
-    caption:
-      "The info popup, explaining tiers and progression above a pair of actions.",
+    shots: [
+      { src: "/media/bp-info.webp", alt: "The info popup: the value, a short progression explainer, and two actions." },
+      { src: "/media/bp-exalted.webp", alt: "Unlock Exalted Tier: the two premium options and their prices." },
+    ],
   },
 ];
+
+/** Runs of decisions that do or don't have screens, so screen rows can sit
+    together and share their rules. */
+function groupDecisions() {
+  const groups: (typeof DECISIONS)[] = [];
+  for (const d of DECISIONS) {
+    const last = groups[groups.length - 1];
+    if (last && !!last[0].shots === !!d.shots) last.push(d);
+    else groups.push([d]);
+  }
+  return groups;
+}
+
+/** Screen rows alternate sides, counting only the rows that have screens. */
+function sideOf(n: string): "left" | "right" {
+  const withShots = DECISIONS.filter((d) => d.shots);
+  return withShots.findIndex((d) => d.n === n) % 2 === 0 ? "left" : "right";
+}
 
 export default function BattlePassCaseStudy() {
   const [zoom, setZoom] = useState<LightboxImage>(null);
@@ -105,10 +117,13 @@ export default function BattlePassCaseStudy() {
 
       <PvSectionBleed eyebrow="Overview" heading="Spoils of Conquest">
         <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
-          <PvFigure
-            src="/media/bp-hero.webp"
-            caption="Battle pass: three screens of Spoils of Conquest in Warhammer: Chaos & Conquest."
+          <PvPhones
             onZoom={setZoom}
+            shots={[
+              { src: "/media/bp-rewards.webp", alt: "The Spoils of Conquest reward track." },
+              { src: "/media/bp-trials.webp", alt: "Daily Trials, the way to earn Conquest points." },
+              { src: "/media/bp-exalted.webp", alt: "Unlocking the Exalted tier." },
+            ]}
           />
         </div>
       </PvSectionBleed>
@@ -142,16 +157,29 @@ export default function BattlePassCaseStudy() {
       <PvBand />
 
       <PvSectionBleed eyebrow="Key Decisions" heading="Five changes that made room">
-        <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
-          {DECISIONS.map((d) => (
-            <div key={d.n} className="mt-8 flex w-full shrink-0 flex-col items-start gap-4 lg:mt-14">
-              <div className="flex w-full flex-col items-start gap-1.5 px-4 lg:px-16">
-                <p className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[24px] lg:leading-[32px]">{d.title}</p>
+        <div className="flex w-full shrink-0 flex-col items-start gap-14 pt-2 lg:gap-20">
+          {groupDecisions().map((group) =>
+            group[0].shots ? (
+              <div key={group[0].n} className="flex w-full shrink-0 flex-col">
+                {group.map((d) => (
+                  <PvPhoneRow key={d.n} shots={d.shots!} side={sideOf(d.n)} onZoom={setZoom}>
+                    <h3 className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[24px] lg:leading-[32px]">{d.title}</h3>
+                    <p className="w-full max-w-[720px] text-[16px] font-normal leading-[24px] text-pv-muted lg:text-[18px] lg:leading-[30px]">{d.body}</p>
+                  </PvPhoneRow>
+                ))}
               </div>
-              <PvPInset>{d.body}</PvPInset>
-              <PvFigure src={d.src} caption={d.caption} natural onZoom={setZoom} />
-            </div>
-          ))}
+            ) : (
+              group.map((d) => (
+                <div
+                  key={d.n}
+                  className="grid w-full shrink-0 grid-cols-1 gap-3 px-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-x-16 lg:px-16"
+                >
+                  <h3 className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[24px] lg:leading-[32px]">{d.title}</h3>
+                  <p className="w-full max-w-[720px] text-[16px] font-normal leading-[24px] text-pv-muted lg:text-[18px] lg:leading-[30px]">{d.body}</p>
+                </div>
+              ))
+            ),
+          )}
         </div>
       </PvSectionBleed>
 

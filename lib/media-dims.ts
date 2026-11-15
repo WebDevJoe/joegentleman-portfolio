@@ -3,12 +3,10 @@
 // Regenerate when an image is added or replaced:
 //   node scripts/media-dims.mjs
 export const MEDIA_DIMS: Record<string, [width: number, height: number]> = {
-  "/media/bp-1.webp": [640, 1387],
-  "/media/bp-2.webp": [640, 1387],
-  "/media/bp-3.webp": [640, 1387],
-  "/media/bp-4.webp": [640, 1387],
-  "/media/bp-5.webp": [640, 1387],
-  "/media/bp-hero.webp": [832, 447],
+  "/media/bp-exalted.webp": [1179, 2556],
+  "/media/bp-info.webp": [1179, 2556],
+  "/media/bp-rewards.webp": [1179, 2556],
+  "/media/bp-trials.webp": [1179, 2556],
   "/media/dog-2.webp": [960, 948],
   "/media/dog-3.webp": [700, 700],
   "/media/dog-4.webp": [717, 478],

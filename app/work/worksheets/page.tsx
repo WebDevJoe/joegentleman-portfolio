@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { PvShell } from "@/components/site/PvShell";
 import { PvCaseHero } from "@/components/site/PvCaseHero";
@@ -18,7 +17,7 @@ import {
   PvSteps,
 } from "@/components/site/PvProse";
 import { PvLightbox, type LightboxImage } from "@/components/site/PvLightbox";
-import { MEDIA_DIMS } from "@/lib/media-dims";
+import { PvPhones as Phones, PvPhoneRow } from "@/components/site/PvPhones";
 
 const NEXT_HEADING_GRADIENT =
   "linear-gradient(180.10035450598858deg, rgb(255,255,255) 0.81508%, rgb(153,153,153) 111.98%)";
@@ -76,47 +75,6 @@ const RESULTS = [
   { who: "Andrew", label: "Corrections after submitting", before: "Chased by phone" },
 ];
 
-/** A row of phone screens on a dark panel, each one opens in the lightbox. */
-const PHONES_PANEL =
-  "flex w-full shrink-0 items-start justify-center gap-3 border-y border-pv-border bg-[#141414] px-4 py-8 sm:gap-6 lg:gap-12 lg:py-14";
-
-function Phones({
-  shots,
-  onZoom,
-  className = PHONES_PANEL,
-}: {
-  shots: { src: string; alt: string }[];
-  onZoom: Zoom;
-  className?: string;
-}) {
-  return (
-    <div className={className}>
-      {shots.map((s) => {
-        const [w, h] = MEDIA_DIMS[s.src] ?? [1179, 1977];
-        return (
-          <button
-            key={s.src}
-            type="button"
-            onClick={() => onZoom({ src: s.src, alt: s.alt })}
-            aria-label={`Preview: ${s.alt}`}
-            className="w-full max-w-[300px] min-w-0 cursor-zoom-in overflow-hidden rounded-[18px] border border-white/10 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.8)] transition-transform duration-300 ease-smooth hover:-translate-y-1 lg:rounded-[24px]"
-          >
-            <Image
-              src={s.src}
-              alt={s.alt}
-              width={w}
-              height={h}
-              quality={90}
-              sizes="(min-width: 640px) 300px, 45vw"
-              className="block h-auto w-full"
-            />
-          </button>
-        );
-      })}
-    </div>
-  );
-}
-
 /** A decision: who it is for and the call on the left, the reasoning on the
     right from lg, then the screens that show it.
 
@@ -158,29 +116,11 @@ function Decision({
   );
 
   if (phones && onZoom) {
-    const left = side === "left";
     return (
-      <div className="grid w-full shrink-0 grid-cols-1 gap-6 pt-12 first:pt-0 lg:grid-cols-2 lg:gap-0 lg:border-b lg:border-pv-border lg:pt-0 lg:first:border-t">
-        <div
-          className={`flex flex-col items-start justify-center gap-3 px-4 lg:gap-5 lg:px-16 lg:py-14 ${
-            left ? "lg:order-2" : ""
-          }`}
-        >
-          {label}
-          {body}
-        </div>
-        <div
-          className={`flex items-center justify-center border-y border-pv-border bg-[#141414] px-4 py-8 lg:border-y-0 lg:px-10 lg:py-14 ${
-            left ? "lg:order-1 lg:border-r" : "lg:border-l"
-          }`}
-        >
-          <Phones
-            shots={phones}
-            onZoom={onZoom}
-            className="flex w-full items-start justify-center gap-3 sm:gap-6 lg:gap-8"
-          />
-        </div>
-      </div>
+      <PvPhoneRow shots={phones} side={side} onZoom={onZoom}>
+        {label}
+        {body}
+      </PvPhoneRow>
     );
   }
 
