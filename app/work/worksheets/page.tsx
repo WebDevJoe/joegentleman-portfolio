@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { PvShell } from "@/components/site/PvShell";
 import { PvCaseHero } from "@/components/site/PvCaseHero";
@@ -17,7 +18,7 @@ import {
   PvSteps,
 } from "@/components/site/PvProse";
 import { PvLightbox, type LightboxImage } from "@/components/site/PvLightbox";
-import { PvPhones as Phones } from "@/components/site/PvPhones";
+import { MEDIA_DIMS } from "@/lib/media-dims";
 
 const NEXT_HEADING_GRADIENT =
   "linear-gradient(180.10035450598858deg, rgb(255,255,255) 0.81508%, rgb(153,153,153) 111.98%)";
@@ -74,6 +75,47 @@ const RESULTS = [
   { who: "Caroline", label: "Time to get payroll ready", before: "Reformatted by hand" },
   { who: "Andrew", label: "Corrections after submitting", before: "Chased by phone" },
 ];
+
+/** A row of phone screens on a dark panel, each one opens in the lightbox. */
+const PHONES_PANEL =
+  "flex w-full shrink-0 items-start justify-center gap-3 border-y border-pv-border bg-[#141414] px-4 py-8 sm:gap-6 lg:gap-12 lg:py-14";
+
+function Phones({
+  shots,
+  onZoom,
+  className = PHONES_PANEL,
+}: {
+  shots: { src: string; alt: string }[];
+  onZoom: Zoom;
+  className?: string;
+}) {
+  return (
+    <div className={className}>
+      {shots.map((s) => {
+        const [w, h] = MEDIA_DIMS[s.src] ?? [1179, 1977];
+        return (
+          <button
+            key={s.src}
+            type="button"
+            onClick={() => onZoom({ src: s.src, alt: s.alt })}
+            aria-label={`Preview: ${s.alt}`}
+            className="w-full max-w-[300px] min-w-0 cursor-zoom-in overflow-hidden rounded-[18px] border border-white/10 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.8)] transition-transform duration-300 ease-smooth hover:-translate-y-1 lg:rounded-[24px]"
+          >
+            <Image
+              src={s.src}
+              alt={s.alt}
+              width={w}
+              height={h}
+              quality={90}
+              sizes="(min-width: 640px) 300px, 45vw"
+              className="block h-auto w-full"
+            />
+          </button>
+        );
+      })}
+    </div>
+  );
+}
 
 /** A decision: who it is for and the call on the left, the reasoning on the
     right from lg, then the screens that show it.
@@ -415,7 +457,7 @@ export default function WorksheetsCaseStudy() {
                 Growth Fund and Store Bundles
               </p>
               <p className="w-full max-w-[297px] text-center text-[14px] font-normal leading-[17.5px] text-[#666] lg:max-w-[520px] lg:text-[16px] lg:leading-[24px]">
-                A growth fund monetisation feature, shipped inside three live mobile games.
+                A growth fund monetisation feature, shipped inside two live App Store games.
               </p>
             </div>
           </div>

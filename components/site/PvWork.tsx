@@ -39,7 +39,7 @@ const CARDS: Card[] = [
     ratio: "aspect-[722/408]",
     pos: "object-left",
     title: "Growth Fund Bundles",
-    body: "A paid progression track shipped into three live mobile games, built inside each one's own store and design system.",
+    body: "A paid progression track shipped into two live App Store games, built inside each one's own store and design system.",
   },
   {
     node: "1175:294",
