@@ -65,19 +65,6 @@ const DECISIONS = [
   },
 ];
 
-const REFLECTION = [
-  {
-    n: "tracking",
-    title: "Agree on tracking before launch",
-    body: "The page went live without events on each action, so I can't say which block did the work. Next time I'd set that up first, so the page is judged on more than being live.",
-  },
-  {
-    n: "kit",
-    title: "Start with a small kit",
-    body: "I made the UI assets as the page needed them. A small component sheet built from the bible up front would have been quicker, and the team could reuse it for the next page.",
-  },
-];
-
 /** A decision: title left and reasoning right from lg, then its screen at the
     full width of the column. */
 function Decision({
@@ -178,12 +165,6 @@ export default function Fs2CaseStudy() {
             <Decision key={d.title} d={d} onZoom={setZoom} />
           ))}
         </div>
-      </PvSectionBleed>
-
-      <PvBand />
-
-      <PvSectionBleed eyebrow="Reflection" heading="What I'd do differently">
-        <PvSteps steps={REFLECTION} />
       </PvSectionBleed>
 
       <PvBand />
