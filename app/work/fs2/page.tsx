@@ -65,9 +65,9 @@ const DECISIONS = [
   },
   {
     title: "Ask again at the end",
-    body: "Anyone who reads all the way down gets the wishlist a second time, then community, the newsletter and the press kit, so nobody reaches the bottom without a next step.",
-    src: "/media/fs2-closing.webp",
-    alt: "The closing stretch: Be Prepared wishlist block, Community and newsletter sign up, and Download Press Kit.",
+    body: "Anyone who reads all the way down gets the wishlist a second time, followed by community, the newsletter and the press kit, so nobody reaches the bottom without a next step.",
+    src: "/media/fs2-wishlist.webp",
+    alt: "Be Prepared: the second wishlist ask near the bottom of the page, with the Add to Steam Wishlist button.",
   },
 ];
 
@@ -95,7 +95,7 @@ function Decision({
 }) {
   return (
     <div className="flex w-full shrink-0 flex-col items-start gap-6 lg:gap-8">
-      <div className="grid w-full grid-cols-1 gap-2 px-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-x-16 lg:px-16">
+      <div className="grid w-full grid-cols-1 gap-2 px-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center lg:gap-x-16 lg:px-16">
         <h3 className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[22px] lg:leading-[30px]">{d.title}</h3>
         <p className="w-full max-w-[720px] text-[16px] font-normal leading-[24px] text-pv-muted lg:text-[18px] lg:leading-[30px]">
           {d.body}
@@ -168,8 +168,8 @@ export default function Fs2CaseStudy() {
             game&apos;s art rather than on top of it.
           </PvPInset>
           <PvFigure
-            src="/media/fs2-ui.webp"
-            caption="UI assets drawn for the page: a section heading with double line dividers, the wishlist and sign up buttons, the email field and the social row."
+            src="/media/fs2-community.webp"
+            caption="The Community section as it shipped: a heading with double line dividers, the newsletter form with its Sign Up button, and the social row."
             natural
             onZoom={setZoom}
           />

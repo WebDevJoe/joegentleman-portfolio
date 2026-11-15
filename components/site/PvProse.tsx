@@ -104,7 +104,7 @@ export function PvSteps({
       {steps.map((s, i) => (
         <div
           key={s.n}
-          className={`grid w-full shrink-0 grid-cols-1 gap-1.5 border-pv-border px-4 py-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-x-16 lg:px-16 lg:py-8 ${
+          className={`grid w-full shrink-0 grid-cols-1 gap-1.5 border-pv-border px-4 py-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center lg:gap-x-16 lg:px-16 lg:py-8 ${
             i === 0 ? "border-t border-b" : "border-b"
           }`}
         >
