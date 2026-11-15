@@ -15,7 +15,7 @@ export function PvCaseHero({
   status?: string;
   /** More than two facts: a row of labelled cells, two up on a phone and all
       in one row from lg. Replaces role and status when given. */
-  meta?: { label: string; value: string }[];
+  meta?: { label: string; value: string; href?: string }[];
 }) {
   return (
     <section className="flex w-full flex-col items-center justify-center gap-10 border-b border-pv-border py-10 lg:gap-14 lg:py-20">
@@ -34,7 +34,24 @@ export function PvCaseHero({
           {meta.map((m) => (
             <div key={m.label} className="flex min-w-0 flex-col items-start gap-1">
               <dt className="text-[12px] font-medium leading-[16px] text-pv-muted">{m.label}</dt>
-              <dd className="text-[14px] font-medium leading-[20px] text-pv-fg">{m.value}</dd>
+              <dd className="text-[14px] font-medium leading-[20px] text-pv-fg">
+                {m.href ? (
+                  <a
+                    href={m.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-1 bg-clip-text text-transparent"
+                    style={{ backgroundImage: "linear-gradient(180deg, #f1fa38 0%, #faff93 100%)" }}
+                  >
+                    {m.value}
+                    <svg viewBox="0 0 16 16" fill="none" aria-hidden className="size-3.5 text-pv-accent transition-transform duration-200 group-hover:-translate-y-px group-hover:translate-x-px">
+                      <path d="M5 11 11 5M6 5h5v5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </a>
+                ) : (
+                  m.value
+                )}
+              </dd>
             </div>
           ))}
         </dl>

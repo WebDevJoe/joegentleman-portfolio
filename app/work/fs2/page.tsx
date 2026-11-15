@@ -118,30 +118,20 @@ export default function Fs2CaseStudy() {
           { label: "Role", value: "Sole designer" },
           { label: "Timeline", value: "Two weeks" },
           { label: "Art and copy", value: "The game's artists and designers" },
-          { label: "Status", value: "Live at fs2.game" },
+          { label: "Status", value: "Live at fs2.game", href: LIVE_URL },
         ]}
       />
 
       <PvBand />
 
       <PvSectionBleed eyebrow="Overview" heading="The whole page at a glance">
-        <div className="flex w-full shrink-0 flex-col items-start gap-6 pt-2 lg:gap-8">
+        <div className="w-full shrink-0 pt-2">
           <PvFigure
             src="/media/fs2-overview.webp"
             caption="The full Fallen Sword II landing page, top to bottom in three columns."
             natural
             onZoom={setZoom}
           />
-          <div className="w-full px-4 lg:px-16">
-            <a
-              href={LIVE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pv-primary pv-stroke pv-stroke-btn relative flex h-[44px] w-[156px] shrink-0 items-center justify-center gap-2 rounded-[10px] px-[10px] py-2 text-[16px] font-medium leading-[24px] text-pv-bg shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_2px_4px_0_rgba(0,0,0,0.1)] transition-[transform,box-shadow,background-image] duration-200 ease-smooth hover:-translate-y-px hover:shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_10px_22px_-8px_rgba(241,250,56,0.45)] active:translate-y-0 active:duration-75"
-            >
-              Visit fs2.game
-            </a>
-          </div>
         </div>
       </PvSectionBleed>
 

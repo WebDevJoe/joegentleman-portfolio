@@ -14,11 +14,11 @@ const SOCIALS = [
   { name: "X", href: "https://x.com/joegentsui", src: "/media/icon-x.svg" },
 ];
 
-// The page you're on is underlined in the primary, fading in from nothing at
-// each end and full strength in the middle (#F7FD7A at 0%, 100%, 0%), so the
-// active link reads as lit rather than ruled. Hover keeps the plain line.
-const ACTIVE_STROKE =
-  "bg-[linear-gradient(90deg,rgba(247,253,122,0)_0%,#F7FD7A_50%,rgba(247,253,122,0)_100%)]";
+// One underline for both states: a solid line in the headline's white to grey
+// gradient, run left to right. The page you're on keeps it drawn; hover draws
+// it in from the left.
+const STROKE =
+  "bg-[linear-gradient(90deg,#ffffff_0%,#999999_100%)]";
 
 // Figma node 1175:265. 361 wide, 16px padding all round, bottom hairline.
 // The menu behaviour matches the live site: locked scroll, Escape to close,
@@ -84,7 +84,7 @@ export function PvNav() {
             <span
               aria-hidden
               className={`pointer-events-none absolute -bottom-1 left-0 h-px w-full origin-left transition-transform duration-300 ease-smooth ${
-                isHome ? `scale-x-100 ${ACTIVE_STROKE}` : "scale-x-0 bg-current group-hover:scale-x-100"
+                `${STROKE} ${isHome ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`
               }`}
             />
           </Link>
@@ -98,7 +98,7 @@ export function PvNav() {
             <IconDownload className="size-4" />
             <span
               aria-hidden
-              className="pointer-events-none absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-smooth group-hover:scale-x-100"
+              className={`pointer-events-none absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 ${STROKE} transition-transform duration-300 ease-smooth group-hover:scale-x-100`}
             />
           </a>
 
@@ -175,7 +175,7 @@ export function PvNav() {
                   <span
                     aria-hidden
                     className={`pointer-events-none absolute -bottom-1 left-0 h-px w-full origin-left transition-transform duration-300 ease-smooth ${
-                      isHome ? `scale-x-100 ${ACTIVE_STROKE}` : "scale-x-0 bg-current group-hover:scale-x-100"
+                      `${STROKE} ${isHome ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`
                     }`}
                   />
                 </Link>
@@ -191,7 +191,7 @@ export function PvNav() {
                   <IconDownload className="size-4" />
                   <span
                     aria-hidden
-                    className="pointer-events-none absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-smooth group-hover:scale-x-100"
+                    className={`pointer-events-none absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 ${STROKE} transition-transform duration-300 ease-smooth group-hover:scale-x-100`}
                   />
                 </a>
 
