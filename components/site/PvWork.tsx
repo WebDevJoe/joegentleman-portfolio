@@ -26,11 +26,13 @@ type Card = {
   body: string;
 };
 
+// Covers are placeholder dogs until sharper exports of the real ones exist:
+// one-5, fs2-cover, bp-hero and worksheets-dashboard, in that order.
 const CARDS: Card[] = [
   {
     node: "1175:289",
     href: "/work/growth-fund-store",
-    image: "/media/one-5.webp",
+    image: "/media/dog-1.webp",
     ratio: "aspect-[722/408]",
     title: "Growth Fund Bundles",
     body: "A paid progression track shipped into two live App Store games, built inside each one's own store and design system.",
@@ -38,7 +40,7 @@ const CARDS: Card[] = [
   {
     node: "1175:294",
     href: "/work/fs2",
-    image: "/media/fs2-cover.webp",
+    image: "/media/dog-2.webp",
     ratio: "aspect-square",
     title: "Fallen Sword II Landing page",
     body: "A pre-launch landing page built in two weeks to drive wishlists, name reservations and press kit downloads.",
@@ -46,7 +48,7 @@ const CARDS: Card[] = [
   {
     node: "1175:299",
     href: "/work/battle-pass",
-    image: "/media/bp-hero.webp",
+    image: "/media/dog-3.webp",
     ratio: "aspect-[722/388]",
     title: "Battle Pass Chaos & Conquest",
     body: "A battle pass fitted into a five year old mobile RTS HUD without crowding what was already there.",
@@ -54,7 +56,7 @@ const CARDS: Card[] = [
   {
     node: "1175:275",
     href: "/work/worksheets",
-    image: "/media/worksheets-dashboard.webp",
+    image: "/media/dog-4.webp",
     ratio: "aspect-[361/329]",
     title: "Worksheets",
     body: "Time and attendance for a cleaning contractor in Moray. Timesheets a team will actually fill in.",
