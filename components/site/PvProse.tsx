@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import { MEDIA_DIMS } from "@/lib/media-dims";
-import { HOLD_IMAGES, PvImageTemplate } from "./PvImageTemplate";
+import { isHeld, PvImageTemplate } from "./PvImageTemplate";
 
 // Section shell shared by the case study body blocks. Figma: py-40, an inner
 // container at w-361 max-w-880 px-16 gap-16, header block gap-8, body pt-8.
@@ -142,7 +142,7 @@ export function PvFigure({
   src,
   caption,
   natural = false,
-  placeholder = HOLD_IMAGES,
+  placeholder,
   onZoom,
 }: {
   src: string;
@@ -155,7 +155,7 @@ export function PvFigure({
 }) {
   const [w, h] = MEDIA_DIMS[src] ?? [1600, 900];
   const portrait = h > w;
-  if (placeholder) {
+  if (placeholder ?? isHeld(src)) {
     return (
       <figure className="flex w-full shrink-0 flex-col items-start gap-4">
         <div className="relative aspect-[4/3] w-full shrink-0 border-y border-pv-border sm:aspect-video">

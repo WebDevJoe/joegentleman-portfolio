@@ -7,7 +7,7 @@ import { IconChevronRight } from "./PvIcons";
 import { PvLightbox, type LightboxImage } from "./PvLightbox";
 import { PvGutter } from "./PvHatch";
 import { COVERS } from "@/lib/work-covers";
-import { HOLD_IMAGES, PvImageTemplate } from "./PvImageTemplate";
+import { isHeld, PvImageTemplate } from "./PvImageTemplate";
 
 // Figma nodes 1175:271 (section), 1175:272 (header), then four cards.
 // The white to grey gradient is shared with the hero headline.
@@ -79,7 +79,7 @@ function WorkCard({
       data-node-id={card.node}
       className={`group flex w-full flex-col items-center gap-6 lg:min-w-0 lg:gap-0 ${className}`}
     >
-      {HOLD_IMAGES ? (
+      {isHeld(card.image) ? (
         <div
           className={`relative w-full shrink-0 overflow-hidden border-y border-pv-border ${card.ratio} lg:aspect-[4/3] lg:border-t-0`}
         >

@@ -27,7 +27,7 @@ const LIVE_URL = "https://fs2.game/";
 const WALKTHROUGH = [
   {
     n: "01",
-    src: "/media/fs2-1.webp",
+    src: "/media/fs2-hero.webp",
     title: "Hero",
     paragraphs: [
       "Two column layout. Brand and the primary actions on the left, key art on the right. A single illustration sets the tone for the whole world, so it takes the larger half of the fold.",
@@ -38,7 +38,7 @@ const WALKTHROUGH = [
   },
   {
     n: "02",
-    src: "/media/fs2-2.webp",
+    src: "/media/fs2-about.webp",
     title: "About",
     paragraphs: [
       "Six feature blocks, alternating sides. Each block is the same template: art, tagline, description. Identical slots for the copy team to fill, so the section stays coherent however the words land and however many features make the final cut.",
@@ -48,7 +48,7 @@ const WALKTHROUGH = [
   },
   {
     n: "03",
-    src: "/media/fs2-3.webp",
+    src: "/media/fs2-secure.webp",
     title: "Secure it early",
     paragraphs: [
       "Username reservation gets its own block. It speaks only to returning Fallen Sword players, the ones who care about keeping their old name, so it sits apart and talks to them directly.",
@@ -58,7 +58,7 @@ const WALKTHROUGH = [
   },
   {
     n: "04",
-    src: "/media/fs2-4.webp",
+    src: "/media/fs2-bottom.webp",
     title: "The bottom of the page",
     paragraphs: [
       "Media carousel, a second wishlist callback, community and newsletter, then the footer. The page is one long scroll, so the closing stretch repeats the main action for anyone who read all the way down before deciding.",
@@ -86,7 +86,7 @@ export default function Fs2CaseStudy() {
       <PvSectionBleed eyebrow="Overview" heading="The page as it shipped">
         <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
           <PvFigure
-            src="/media/fs2-cover.webp"
+            src="/media/fs2-hero.webp"
             caption="The Fallen Sword II landing page."
             natural
             onZoom={setZoom}

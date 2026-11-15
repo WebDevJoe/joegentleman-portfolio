@@ -1,8 +1,22 @@
 // Every screenshot on the site is held back until better exports exist. While
-// HOLD_IMAGES is true, each image slot shows this wireframe template instead:
+// HOLD_IMAGES is true, each image slot not listed in READY shows this wireframe template instead:
 // a frame crossed corner to corner with a picture glyph in the middle. Flip it
 // to false and the real images come back exactly where they were.
 export const HOLD_IMAGES = true;
+
+// Images re-exported at full quality, which show even while the rest are held.
+const READY = new Set([
+  "/media/fs2-hero.webp",
+  "/media/fs2-about.webp",
+  "/media/fs2-secure.webp",
+  "/media/fs2-bottom.webp",
+  "/media/fs2-full.webp",
+]);
+
+/** Whether this image should show as a template rather than itself. */
+export function isHeld(src: string) {
+  return HOLD_IMAGES && !READY.has(src);
+}
 
 const GLYPH = (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden className="size-[45%]">

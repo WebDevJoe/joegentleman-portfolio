@@ -3,10 +3,10 @@
 // client component, and the hero is rendered on the server.
 //
 // Placeholder dogs until sharper exports of the real covers exist: one-5,
-// fs2-cover, bp-hero and worksheets-dashboard, in that order.
+// bp-hero and worksheets-dashboard. FS2 has its full quality export.
 export const COVERS = {
   growthFund: "/media/dog-1.webp",
-  fs2: "/media/dog-2.webp",
+  fs2: "/media/fs2-hero.webp",
   battlePass: "/media/dog-3.webp",
   worksheets: "/media/dog-4.webp",
 } as const;

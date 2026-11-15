@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { COVERS } from "@/lib/work-covers";
-import { HOLD_IMAGES, PvImageDot } from "./PvImageTemplate";
+import { isHeld, PvImageDot } from "./PvImageTemplate";
 
 // Centred launch-style hero: a "new" badge, a two line headline, one line of
 // who and where, two actions, and a stack of the project covers as proof.
@@ -120,7 +120,7 @@ export function PvHero() {
       <div className="pv-rise pv-rise-3 relative mt-14 flex flex-col items-center gap-3 lg:mt-16">
         <div className="flex -space-x-2.5">
           {PROOF.map((p) => (
-            HOLD_IMAGES ? (
+            isHeld(p.src) ? (
               <PvImageDot key={p.src} className="size-[36px] ring-2 ring-pv-bg" />
             ) : (
               <span key={p.src} className="relative size-[36px] overflow-hidden rounded-full ring-2 ring-pv-bg">
