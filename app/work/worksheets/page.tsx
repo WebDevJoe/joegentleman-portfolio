@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { PvShell } from "@/components/site/PvShell";
 import { PvCaseHero } from "@/components/site/PvCaseHero";
@@ -9,9 +10,7 @@ import { PvFooter } from "@/components/site/PvFooter";
 import {
   PvBody,
   PvFigure,
-  PvFigureSlot,
   PvP,
-  PvPainPoints,
   PvPInset,
   PvQuote,
   PvSection,
@@ -19,107 +18,176 @@ import {
   PvSteps,
 } from "@/components/site/PvProse";
 import { PvLightbox, type LightboxImage } from "@/components/site/PvLightbox";
+import { MEDIA_DIMS } from "@/lib/media-dims";
 
 const NEXT_HEADING_GRADIENT =
   "linear-gradient(180.10035450598858deg, rgb(255,255,255) 0.81508%, rgb(153,153,153) 111.98%)";
+const ACCENT_GRADIENT = "linear-gradient(180deg, #f1fa38 0%, #faff93 100%)";
 
-const PROCESS = [
-  {
-    n: "01",
-    title: "Learned how the work actually runs",
-    body: "Cleaning staff move between client sites all day. Hours went in on a paper sheet at the end of the week, or by text when someone forgot. Before designing anything I needed to understand why that persisted, and what a replacement would have to beat.",
-  },
-  {
-    n: "02",
-    title: "Built three personas and their journeys",
-    body: "The owner, the payroll manager and the cleaning operative want different things from the same data. I wrote each one up with their goals, frustrations and emotional arc from first hearing about the app through to relying on it, so I could design for the person rather than the screen.",
-  },
-  {
-    n: "03",
-    title: "Designed the employee side first",
-    body: "The whole system fails if staff do not fill it in, so the hardest constraint set the starting point: seconds to complete, no training, and no way to lose your hours by pressing the wrong thing.",
-  },
-  {
-    n: "04",
-    title: "Designed and built it",
-    body: "I designed the product and built it as a working application using Claude. Designing and implementing the same thing meant edge cases surfaced while there was still time to change the design rather than work around it.",
-  },
-];
+// Every screen on this page is a capture of the working app running on its
+// demo data (invented staff and sites), at 3x for the phone and 2x for the
+// dashboard.
+
+type Zoom = (img: LightboxImage) => void;
 
 const PERSONAS = [
   {
-    n: "01",
-    name: "Andrew Clark, Business Owner",
-    body: "Founded the company twelve years ago and runs 40 cleaning staff across client sites. Still does payroll admin himself late at night on a spreadsheet he has patched together for years. He was once caught out by a missed timesheet correction that cost him money, so he is cautious about handing over control without visibility.",
-    quote: "I need to trust the numbers without double-checking everything myself.",
-    src: "/media/ws-persona-andrew.webp",
-  },
-  {
-    n: "02",
-    name: "Caroline Jones, Payroll Manager",
-    body: "Runs payroll for six small businesses as a contractor. She has seen every possible way a business can track time badly, and is sceptical of any new system until it proves it will not create more work for her. Her constraint is the sharpest in the project: the export has to be clean enough to need no manual reformatting.",
-    quote: "Give me clean numbers on time.",
-    src: "/media/ws-persona-caroline.webp",
-  },
-  {
-    n: "03",
-    name: "Caitlin Banks, Cleaning Operative",
-    body: "Six years with the company, across many different sites, and has never used a work app. Hours have always gone on a paper sheet or a text to her boss. She is not bad with phones, but she has no patience for anything that feels built for someone else. Her fear is pressing the wrong thing and losing her hours with no way to fix it.",
+    name: "Caitlin",
+    role: "Cleaning operative",
+    body: "Six years with the company, working across lots of different sites. Hours have always gone on paper or in a text to her boss, and she has never used a work app. She is fine with her phone, but has no patience for anything that feels built for someone else.",
+    fear: "Pressing the wrong thing and losing her hours with no way to fix it.",
     quote: "If it takes longer than writing it on paper, what is the point?",
-    src: "/media/ws-persona-caitlin.webp",
+  },
+  {
+    name: "Andrew",
+    role: "Business owner",
+    body: "Founded the company and runs the team across client sites. Still does the payroll admin himself, late at night, in a spreadsheet he has patched together for years. A missed correction has cost him money before.",
+    fear: "A mistake he will not spot until it is already a problem.",
+    quote: "I need to trust the numbers without double checking everything myself.",
+  },
+  {
+    name: "Caroline",
+    role: "Payroll manager",
+    body: "Runs payroll for six small businesses as a contractor, and every one of them sends her something different. She is sceptical of any new system until it proves it will not make more work for her.",
+    fear: "Reformatting by hand, and corrections landing after she has started the run.",
+    quote: "Give me clean numbers on time.",
   },
 ];
 
-const JOURNEYS = [
+const PROCESS = [
   {
-    src: "/media/ws-journey-caitlin.webp",
-    caption:
-      "Caitlin's journey, from sceptical at the team briefing through to logging every shift without thinking about it.",
+    n: "learn",
+    title: "Learned how the work actually runs",
+    body: "Cleaners move between client sites all day, some of them in basements and plant rooms with no signal. Before designing anything I needed to know why paper had lasted so long, because that is what the app had to beat.",
   },
   {
-    src: "/media/ws-journey-andrew.webp",
-    caption:
-      "Andrew's journey, from a spreadsheet that stopped scaling to trusting the numbers without a backup copy.",
+    n: "personas",
+    title: "Three personas, three journeys",
+    body: "I wrote up the cleaner, the owner and the payroll manager, and mapped each of them from first hearing about the app to relying on it. All three start sceptical, and each needs something different before they change their mind.",
   },
   {
-    src: "/media/ws-journey-caroline.webp",
-    caption:
-      "Caroline's journey, from another format to learn to her easiest client of the six.",
+    n: "first",
+    title: "Caitlin's side first",
+    body: "If the cleaners do not fill it in, Andrew has nothing to approve and Caroline has nothing to pay. The person with the least reason to care sets the bar for everything else, so her side came first.",
+  },
+  {
+    n: "build",
+    title: "Designed it by building it",
+    body: "I designed the product and built it as a working app with Claude. Building it meant the awkward cases showed up while the design could still change, such as approved holiday appearing on the timesheet, or a day split across two sites. I could fix the model rather than paper over it in the interface.",
   },
 ];
 
-const DECISIONS = [
+const PRINCIPLES = [
   {
-    n: "01",
-    title: "Timesheets, not clock in and clock out",
-    body: "Caitlin's journey pointed the other way. She clocks in with one tap and clocks out at the end, and on her side of it that is plainly the better experience. It is what I mapped, because it is what she would choose. I made the call to keep timesheets anyway. Staff are at different sites all day and some have no signal when they arrive, so a clock puts the one moment that must not fail on the one thing that is not reliable. Every failure becomes an edit request, and fewer edit requests was exactly what the business had asked for. Her own journey predicts the failure: a missed clock out at the end of a long shift, and Andrew chasing it in his. It made the employee side harder and I accepted that. Copy last week and saved templates are how I paid it back, so the usual week is still close to one action, with no clock to miss.",
+    n: "install",
+    title: "Nothing to install, nothing to remember",
+    body: "It is a web app opened from an invite link, so there is no app store and no update. Staff sign in with a username and a six digit PIN, not a password they will forget by the next shift.",
   },
   {
-    n: "02",
-    title: "A PIN to log in, not a password",
-    body: "Caitlin opens the app between jobs, standing up, often in a hurry. A password is a barrier at exactly the wrong moment. A PIN gets her in fast enough that logging hours stays a seconds-long task rather than a chore she puts off until the end of the week.",
+    n: "places",
+    title: "Three places, all named",
+    body: "Home, Timesheets and Leave. Every tab has a word under its icon, and an empty day says Add hours instead of showing a blank space.",
   },
   {
-    n: "03",
-    title: "Copy last week, and save a template",
-    body: "The hardest part of the employee side was catering for everyone at once. Most staff work broadly the same shifts week to week, and retyping them is the fastest way to make someone give up. Copying a week turns the common case into one action, and a saved template covers anyone on a repeating pattern that is not simply last week. Both stay fully editable for the weeks that do not match.",
+    n: "fingers",
+    title: "Built for thumbs",
+    body: "Full width buttons, one field height everywhere, and no native date or time pickers, because on an iPhone those open a different control from the rest of the app. Times step in quarter hours: twelve rows of minutes nobody uses became four.",
   },
   {
-    n: "04",
-    title: "A day is a day, even across two jobs",
-    body: "Someone cleaning two sites in one day has worked one day, not two. The obvious way to count gets that wrong, and it would quietly misreport working days on a payroll export that Caroline has to trust. Getting this right mattered more than anything on screen.",
-  },
-  {
-    n: "05",
-    title: "The export matches the spreadsheet they already use",
-    body: "The obvious move is to define your own export format and let payroll adapt to it. Caroline works across six clients and every one of them hands her something different, so a new format would just be one more thing to reformat by hand. The export writes into the Excel layout this business already uses, which means it drops straight into the payroll run with nothing re-keyed. The manual entry that used to start every week is removed rather than moved somewhere else.",
-  },
-  {
-    n: "06",
-    title: "Closing a pay period asks, it does not tell",
-    body: "Closing a period over unapproved sheets is the one action that cannot be undone. It confirms in a modal rather than a toast. Friction is usually the enemy, but here it is the point: this is the moment where being slowed down is worth more than being fast.",
+    n: "saved",
+    title: "Saved means saved",
+    body: "It works offline, so a shift logged in a basement is not lost. Every timesheet has a clear status, and nothing gets deleted without asking first. That is Caitlin's fear of losing her hours, answered directly.",
   },
 ];
+
+const SMALLER = [
+  {
+    n: "reason",
+    title: "A rejection always has a reason",
+    body: "If Andrew sends something back he has to say why, and Caitlin sees it. Without that, her only way to find out is to ring the office, which is the phone call the app is meant to remove.",
+  },
+  {
+    n: "behalf",
+    title: "Honest when the office fills it in",
+    body: "If someone's phone is broken, the office can enter their hours so payroll still runs on Friday. Each shift records who entered it, and the employee is told, because an admin cannot truthfully sign off someone else's week.",
+  },
+  {
+    n: "rates",
+    title: "No pay rates in the app, yet",
+    body: "Holding pay rates is lawful, but until the data has proper access control and encryption, a rate is the one thing that does real harm if it leaks. Caroline enters rates in her own sheet for now.",
+  },
+];
+
+const RESULTS = [
+  { who: "Caitlin", label: "Time to log a full week", before: "Paper" },
+  { who: "Andrew", label: "Time to collect and type up the week", before: "Photos and a spreadsheet" },
+  { who: "Caroline", label: "Time to get payroll ready", before: "Reformatted by hand" },
+  { who: "Andrew", label: "Corrections after submitting", before: "Chased by phone" },
+];
+
+/** A row of phone screens on a dark panel, each one opens in the lightbox. */
+function Phones({ shots, onZoom }: { shots: { src: string; alt: string }[]; onZoom: Zoom }) {
+  return (
+    <div className="flex w-full shrink-0 items-start justify-center gap-3 border-y border-pv-border bg-[#141414] px-4 py-8 sm:gap-6 lg:gap-12 lg:py-14">
+      {shots.map((s) => {
+        const [w, h] = MEDIA_DIMS[s.src] ?? [1179, 1977];
+        return (
+          <button
+            key={s.src}
+            type="button"
+            onClick={() => onZoom({ src: s.src, alt: s.alt })}
+            aria-label={`Preview: ${s.alt}`}
+            className="w-full max-w-[300px] min-w-0 cursor-zoom-in overflow-hidden rounded-[18px] border border-white/10 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.8)] transition-transform duration-300 ease-smooth hover:-translate-y-1 lg:rounded-[24px]"
+          >
+            <Image
+              src={s.src}
+              alt={s.alt}
+              width={w}
+              height={h}
+              quality={90}
+              sizes="(min-width: 640px) 300px, 45vw"
+              className="block h-auto w-full"
+            />
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/** A decision: who it is for and the call on the left, the reasoning on the
+    right from lg, then the screens that show it. */
+function Decision({
+  who,
+  title,
+  children,
+  visual,
+}: {
+  who: string;
+  title: string;
+  children: ReactNode;
+  visual?: ReactNode;
+}) {
+  return (
+    <div className="flex w-full shrink-0 flex-col items-start gap-6 lg:gap-8">
+      <div className="grid w-full grid-cols-1 gap-3 px-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-x-16 lg:px-16">
+        <div className="flex flex-col items-start gap-2">
+          <p
+            className="bg-clip-text text-[12px] font-medium leading-[16px] text-transparent"
+            style={{ backgroundImage: ACCENT_GRADIENT }}
+          >
+            {who}
+          </p>
+          <h3 className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[24px] lg:leading-[32px]">{title}</h3>
+        </div>
+        <div className="flex w-full max-w-[720px] flex-col gap-4 text-[16px] font-normal leading-[24px] text-pv-muted lg:text-[18px] lg:leading-[30px]">
+          {children}
+        </div>
+      </div>
+      {visual}
+    </div>
+  );
+}
 
 export default function WorksheetsCaseStudy() {
   const [zoom, setZoom] = useState<LightboxImage>(null);
@@ -127,19 +195,36 @@ export default function WorksheetsCaseStudy() {
   return (
     <PvShell>
       <PvCaseHero
-        title="A time and attendance product for a cleaning contractor in Moray"
-        intro="40 cleaning staff across client sites, with hours arriving every week as photos of paper timesheets. The owner was still gathering them and typing them up himself late at night. I designed the product around the three people who touch it, then built it."
-        role="UX designer"
-        status="In user testing"
+        title="Worksheets: timesheets a cleaning team will actually fill in"
+        intro="Over 40 cleaners across client sites were sending in their hours as photos of paper timesheets, and the owner was typing them up late at night. I designed and built the replacement: a phone app simple enough for people who have never used a work app, and a dashboard that gives payroll a finished spreadsheet."
+        meta={[
+          { label: "Role", value: "Sole designer, and I built it" },
+          { label: "Users", value: "Cleaners, the owner and payroll" },
+          { label: "Platform", value: "Phone web app and desktop dashboard" },
+          { label: "Status", value: "In user testing" },
+        ]}
       />
 
       <PvBand />
 
-      <PvSectionBleed eyebrow="Overview" heading="One product, three very different people">
-        <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
+      <PvSectionBleed eyebrow="Overview" heading="One set of hours, two very different screens">
+        <div className="flex w-full shrink-0 flex-col items-start gap-6 pt-2 lg:gap-8">
+          <PvPInset>
+            The cleaners get a phone app with one job: get the week&apos;s hours in. The office gets
+            a desktop dashboard to approve them, manage leave and export payroll. Both sides read
+            from the same hours, so nothing is typed twice.
+          </PvPInset>
+          <Phones
+            onZoom={setZoom}
+            shots={[
+              { src: "/media/ws-app-signin.webp", alt: "Signing in with a username and a six digit PIN." },
+              { src: "/media/ws-app-log.webp", alt: "Adding a shift, starting from the jobs she usually does." },
+              { src: "/media/ws-app-leave.webp", alt: "Leave: holiday hours left and a one tap request." },
+            ]}
+          />
           <PvFigure
-            src="/media/worksheets-dashboard.webp"
-            caption="The owner's dashboard: the pay period at a glance, what is still to come in, and where the hours went by site."
+            src="/media/ws-dash-overview.webp"
+            caption="The owner's dashboard: how many timesheets are in, what needs approving, hours by week and by site, and who still has to send theirs."
             natural
             onZoom={setZoom}
           />
@@ -148,212 +233,322 @@ export default function WorksheetsCaseStudy() {
 
       <PvBand />
 
-      <PvSection
-        eyebrow="The brief"
-        heading="The spreadsheet worked, right up until it did not"
-      >
+      <PvSection eyebrow="The problem" heading="Paper, photos and a spreadsheet nobody trusted">
         <PvBody>
           <PvP>
-            The company had grown to 40 cleaning staff across multiple client sites, and the admin
-            had not grown with it. Staff filled in a paper timesheet and sent a photo of it. Every
-            week started with chasing down images from 40 people, working out who had not sent
-            theirs, then typing all of it in by hand. Holiday entitlement was worked out in a
-            spreadsheet the owner was not confident in, and a single missed correction had already
-            cost him money once.
+            The company had grown to over 40 cleaning staff, but the admin had not grown with it.
+            Every week started with chasing photos of paper timesheets, working out who had not
+            sent theirs, and typing everything in by hand. Holiday was worked out in a spreadsheet
+            the owner did not fully trust, and one missed correction had already cost him money.
           </PvP>
           <PvP>
-            The goal was to streamline the whole cycle: strip the gathering and the retyping out of
-            the owner's week, and hand the payroll manager a file she does not have to touch. The
-            catch is that all of that depends on the people least served by it. The product had to
-            save the business hours without costing a cleaner more than seconds.
+            The aim was to take the chasing and the retyping out of the owner&apos;s week, and give
+            the payroll manager a file she does not have to touch. But all of that depends on the
+            people who gain the least from it. If logging hours took a cleaner longer than paper,
+            they would go back to paper.
           </PvP>
-          <PvQuote>
-            Hours of admin off the business. Seconds of effort for the people on site.
-          </PvQuote>
+          <PvQuote>Hours of admin off the business. Seconds of effort for the people on site.</PvQuote>
         </PvBody>
       </PvSection>
 
       <PvBand />
 
-      <PvSectionBleed eyebrow="Research" heading="Who I was designing for">
-        <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
+      <PvSectionBleed eyebrow="Research" heading="Three people, one set of hours">
+        <div className="flex w-full shrink-0 flex-col items-start gap-6 pt-2 lg:gap-8">
           <PvPInset>
-            I wrote up three personas and mapped each one from first hearing about the app through
-            to relying on it. Putting their emotional state on the same axis made the real problem
-            obvious: all three start sceptical, and each one needs a different thing to move.
+            I mapped all three from first hearing about the app to relying on it. Each one starts
+            sceptical for a different reason, and each decision below names the person it is for.
           </PvPInset>
-
-          {PERSONAS.map((p) => (
-            <div key={p.n} className="mt-8 flex w-full shrink-0 flex-col items-start gap-4 lg:mt-14">
-              <div className="flex w-full flex-col items-start gap-1.5 px-4 lg:px-16">
-                <p className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[24px] lg:leading-[32px]">{p.name}</p>
+          <div className="grid w-full grid-cols-1 border-y border-pv-border lg:grid-cols-3">
+            {PERSONAS.map((p, i) => (
+              <div
+                key={p.name}
+                className={`flex flex-col items-start gap-4 border-pv-border px-4 py-8 lg:px-10 lg:py-10 ${
+                  i > 0 ? "border-t lg:border-l lg:border-t-0" : ""
+                }`}
+              >
+                <div className="flex flex-col items-start gap-1">
+                  <p className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[22px] lg:leading-[30px]">{p.name}</p>
+                  <p className="text-[14px] font-medium leading-[20px] text-pv-muted">{p.role}</p>
+                </div>
+                <p className="text-[16px] leading-[24px] text-pv-muted">{p.body}</p>
+                <div className="flex flex-col items-start gap-1">
+                  <p className="text-[12px] font-medium leading-[16px] text-pv-muted">Biggest worry</p>
+                  <p className="text-[16px] leading-[24px] text-pv-fg">{p.fear}</p>
+                </div>
+                <p
+                  className="mt-auto bg-clip-text pt-2 text-[18px] font-medium leading-[28px] text-transparent"
+                  style={{ backgroundImage: ACCENT_GRADIENT }}
+                >
+                  &ldquo;{p.quote}&rdquo;
+                </p>
               </div>
-              <PvPInset>{p.body}</PvPInset>
-              <div className="w-full px-4">
-                <PvQuote>{p.quote}</PvQuote>
-              </div>
-              <PvFigure src={p.src} caption={`${p.name} persona.`} natural onZoom={setZoom} />
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </PvSectionBleed>
 
       <PvBand />
 
-      <PvSectionBleed eyebrow="Research" heading="Mapping each journey end to end">
-        <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
-          <PvPInset>
-            Five stages each, from awareness through to retention, with what they do, what they
-            think, where it hurts and what the opportunity is. The pain points are what the design
-            had to answer.
-          </PvPInset>
-          <PvPInset>
-            One of them the product deliberately does not answer. Caitlin&apos;s journey has her
-            clocking in and out, because that is what she would choose. The business could not
-            carry it. That trade off is the first of the decisions below.
-          </PvPInset>
-          {JOURNEYS.map((j) => (
-            <PvFigure key={j.src} src={j.src} caption={j.caption} natural onZoom={setZoom} />
-          ))}
-        </div>
-      </PvSectionBleed>
-
-      <PvBand />
-
-      <PvSectionBleed eyebrow="Research into design" heading="Every pain point, and what answers it">
-        <div className="flex w-full shrink-0 flex-col items-start gap-8 pt-2">
-          <PvPInset>
-            The personas and journeys were only worth making if they changed the product. These are
-            the frustrations each of the three named, and the thing in the build that answers each
-            one.
-          </PvPInset>
-
-          <PvPainPoints
-            who="Caitlin, cleaning operative"
-            rows={[
-              {
-                pain: "Anything buried under menus or multiple taps to do one simple thing.",
-                fix: "A PIN gets her in, and the current week is the first thing on screen. Copy last week, or a saved template, turns the usual week into a single action.",
-              },
-              {
-                pain: "Small text, unclear icons, anything she has to squint at.",
-                fix: "One field height across the whole product and full width controls sized for a thumb rather than a cursor.",
-              },
-              {
-                pain: "Fear of pressing the wrong thing and losing her hours with no way to fix it.",
-                fix: "Nothing destructive happens without confirming first, and a submitted sheet can be queried rather than quietly disappearing.",
-              },
-              {
-                pain: "No clear confirmation her hours were saved, the exact fear she started with.",
-                fix: "Submitting moves the sheet into an explicit state she can see, so saved is something shown rather than assumed.",
-              },
-            ]}
-          />
-
-          <PvPainPoints
-            who="Andrew, business owner"
-            rows={[
-              {
-                pain: "Chasing staff for missing or late timesheets.",
-                fix: "The dashboard opens on who has still to send theirs, counted against the deadline, so chasing is a glance instead of a job.",
-              },
-              {
-                pain: "Manually calculating holiday entitlement in a spreadsheet he is not confident in.",
-                fix: "Leave balances are worked out by the system and shown next to the request they belong to, so the maths is not his to redo.",
-              },
-              {
-                pain: "Worrying about a compliance mistake he will not spot until it is a problem.",
-                fix: "Every sheet carries an explicit state, and closing a pay period over unapproved sheets stops to confirm rather than letting it through.",
-              },
-              {
-                pain: "Worried switching systems will just create more admin in the short term.",
-                fix: "Mobile web and an invite link, so there is nothing for 40 people to install and onboarding is not a rollout.",
-              },
-            ]}
-          />
-
-          <PvPainPoints
-            who="Caroline, payroll manager"
-            rows={[
-              {
-                pain: "Inconsistent formats between clients, forcing her to reformat data by hand.",
-                fix: "The export writes into the Excel format this business already uses, so there is nothing to reformat and nothing to re-key.",
-              },
-              {
-                pain: "Last minute corrections landing after she has already started a run.",
-                fix: "Closing the period locks it, so the numbers she starts with are the numbers she finishes with.",
-              },
-              {
-                pain: "Unclear overtime and holiday calculations she has to double check herself.",
-                fix: "Hours break down by site and by kind, worked against holiday, so a total can be traced rather than taken on trust.",
-              },
-            ]}
-          />
-        </div>
-      </PvSectionBleed>
-
-      <PvBand />
-
-      <PvSectionBleed eyebrow="The Process" heading="How I worked">
+      <PvSectionBleed eyebrow="The process" heading="How I worked">
         <PvSteps steps={PROCESS} />
       </PvSectionBleed>
 
       <PvBand />
 
-      <PvSectionBleed eyebrow="Key Decisions" heading="Six calls that shaped it">
-        <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
-          {DECISIONS.map((d) => (
-            <div key={d.n} className="mt-8 flex w-full shrink-0 flex-col items-start gap-4 lg:mt-14">
-              <div className="flex w-full flex-col items-start gap-1.5 px-4 lg:px-16">
-                <p className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[24px] lg:leading-[32px]">{d.title}</p>
-              </div>
-              <PvPInset>{d.body}</PvPInset>
-            </div>
-          ))}
-        </div>
-      </PvSectionBleed>
-
-      <PvBand />
-
-      <PvSectionBleed eyebrow="The design" heading="What it looks like">
+      <PvSectionBleed eyebrow="Designing for Caitlin" heading="Simple enough for someone who has never used a work app">
         <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
           <PvPInset>
-            The employee side runs on mobile web, so there is nothing to install and nothing to
-            update. The owner and the payroll manager work on desktop, where the density is
-            useful rather than punishing.
+            Most of the team are not confident with technology, and nobody would be trained. These
+            four rules applied to every screen on the employee side.
           </PvPInset>
-
-          <PvFigureSlot label="PIN login" height={300} />
-          <PvFigureSlot label="Logging hours for the week" height={300} />
-          <PvFigureSlot label="Copy last week" height={300} />
-          <PvFigureSlot label="Booking a day off and the holiday balance" height={300} />
-          <PvFigureSlot label="Approvals: timesheets, leave and shift changes" height={240} />
-          <PvFigureSlot label="Closing a pay period and the payroll export" height={240} />
+          <PvSteps steps={PRINCIPLES} />
         </div>
       </PvSectionBleed>
 
       <PvBand />
 
-      <PvSection eyebrow="Outcome" heading="Where it stands">
+      <PvSectionBleed eyebrow="Key decisions: the employee app" heading="Five calls that make it quicker than paper">
+        <div className="flex w-full shrink-0 flex-col items-start gap-14 pt-2 lg:gap-20">
+          <Decision who="For Caitlin and Andrew" title="No clock in, no clock out">
+            <p>
+              Clocking in is what most time apps do, and in her journey map it is what Caitlin
+              would pick. I still left it out. She moves between sites all day, some with no
+              signal, and a clock uses her mobile data. Worst of all, the end of a long shift is
+              exactly when people forget to clock out.
+            </p>
+            <p>
+              Every missed clock out becomes a correction that Andrew has to chase. That is the same
+              admin the app exists to remove, just moved to a new place. So staff log their week
+              instead. The decisions below are how I made that faster than clocking in, not
+              slower.
+            </p>
+          </Decision>
+
+          <Decision
+            who="For Caitlin"
+            title="The week is the home screen"
+            visual={
+              <Phones
+                onZoom={setZoom}
+                shots={[
+                  { src: "/media/ws-app-week.webp", alt: "This week: every day listed, the total, the confirmation and the submit button." },
+                ]}
+              />
+            }
+          >
+            <p>
+              Open the app and you are looking at this week: every day from Monday to Sunday,
+              including the empty ones. A day she forgot does not disappear. It sits in the list
+              saying Add hours, so it is hard to miss.
+            </p>
+            <p>
+              One number leads, the week total, with holiday shown separately. The deadline and a
+              countdown sit at the top. She ticks to confirm the hours are right, then submits, all
+              on the same screen. It took six rounds to get here, starting from cards for every
+              shift, which were too heavy to scan on a phone.
+            </p>
+          </Decision>
+
+          <Decision
+            who="For Caitlin"
+            title="Reuse last week, but never blindly"
+            visual={
+              <Phones
+                onZoom={setZoom}
+                shots={[
+                  { src: "/media/ws-app-reuse.webp", alt: "A new week opens with her standard week and recent weeks to start from." },
+                  { src: "/media/ws-app-saved.webp", alt: "Past timesheets, with the standard week she saved." },
+                ]}
+              />
+            }
+          >
+            <p>
+              Most of the team work much the same shifts every week, and typing them in again is
+              the quickest way to make someone give up. A new week opens by offering her standard
+              week, or a recent one, with its hours shown.
+            </p>
+            <p>
+              It never copies anything silently, because a holiday week copied forward would end up
+              in someone&apos;s pay. She can open a week before using it, and the full week is
+              always in front of her before she confirms it. Seeing the hours is what makes the
+              confirmation mean something. Typing them again added nothing. &ldquo;Save as your
+              usual week&rdquo; is offered after she submits a real week, not as setup on day one.
+            </p>
+          </Decision>
+
+          <Decision
+            who="For Caitlin and Caroline"
+            title="Suggest the job, never guess the hours"
+            visual={
+              <Phones
+                onZoom={setZoom}
+                shots={[{ src: "/media/ws-app-log.webp", alt: "Add a shift: her usual jobs first, then the form." }]}
+              />
+            }
+          >
+            <p>
+              Adding a shift starts with her usual jobs, worked out from her own history and ranked
+              for the day she is logging. One tap adds the job.
+            </p>
+            <p>
+              Times are only filled in when her history shows they never change. If they vary,
+              they stay blank, because a guessed time ends up in someone&apos;s pay and Caroline is
+              the one who has to fix it.
+            </p>
+          </Decision>
+
+          <Decision
+            who="For Caitlin and Andrew"
+            title="Leave in hours, and safe from editing"
+            visual={
+              <Phones
+                onZoom={setZoom}
+                shots={[{ src: "/media/ws-app-leave.webp", alt: "Leave: hours left, request buttons and history with status." }]}
+              />
+            }
+          >
+            <p>
+              Many of the team work part-time rounds, so counting holiday in days gave the wrong
+              answer. Her balance is in hours, the same unit as her timesheet.
+            </p>
+            <p>
+              Approved holiday appears on her week automatically, but she cannot edit it there.
+              Changing it goes through a leave request, so approved leave cannot be quietly
+              rewritten, and Andrew no longer has to work out entitlement himself.
+            </p>
+          </Decision>
+        </div>
+      </PvSectionBleed>
+
+      <PvBand />
+
+      <PvSectionBleed eyebrow="Key decisions: the dashboard" heading="Three calls that give the office its evenings back">
+        <div className="flex w-full shrink-0 flex-col items-start gap-14 pt-2 lg:gap-20">
+          <Decision
+            who="For Andrew"
+            title="Show what needs a person, not everything"
+            visual={
+              <PvFigure
+                src="/media/ws-dash-approvals.webp"
+                caption="Approvals: leave and shift changes in one list, approved or rejected in a click."
+                natural
+                onZoom={setZoom}
+              />
+            }
+          >
+            <p>
+              Nobody reads nearly 50 timesheets carefully on a Monday evening. They skim and approve them
+              all. So the dashboard opens on what is still missing, counted against the deadline,
+              and chasing becomes a quick look rather than a job.
+            </p>
+            <p>
+              Anything unusual gets flagged for him: a shift over twelve hours, overlapping
+              shifts, work logged on a day booked off, or hours well outside that person&apos;s
+              normal. That points his attention at the few sheets that need it, which is what he
+              meant by trusting the numbers without checking everything himself.
+            </p>
+          </Decision>
+
+          <Decision
+            who="For Andrew"
+            title="Who is off, and do I still have cover"
+            visual={
+              <PvFigure
+                src="/media/ws-dash-leave.webp"
+                caption="The team leave calendar: one row per person off, and how many are off each day."
+                natural
+                onZoom={setZoom}
+              />
+            }
+          >
+            <p>
+              A normal month calendar hides the question a manager is actually asking. The leave
+              view gives one row to each person who is off, with a count for each day across the
+              top, so a clash is visible before he approves it.
+            </p>
+            <p>
+              Only people with leave that month get a row. With nearly 50 staff, a row for everyone
+              would mean scrolling past 40 rows of nothing.
+            </p>
+          </Decision>
+
+          <Decision
+            who="For Caroline"
+            title="Her spreadsheet, not a new format"
+            visual={
+              <PvFigure
+                src="/media/ws-dash-export.webp"
+                caption="Export: pick the pay week, approved timesheets only, and every person's hours ready for the payroll sheet."
+                natural
+                onZoom={setZoom}
+              />
+            }
+          >
+            <p>
+              The easy option was to invent an export and let payroll adapt to it. Caroline gets a
+              different format from each of her six clients, and a new one would just be one more
+              to fix by hand. So the export writes her columns, in her order, in the date format
+              she already uses.
+            </p>
+            <p>
+              The money columns are live Excel formulas, so she enters a rate once and the totals
+              work themselves out. Every member of staff is on the sheet, including anyone with
+              zero hours, because a zero row is how she proves nobody was missed. Closing a pay
+              period locks it, so the numbers she starts with are the numbers she finishes with.
+            </p>
+          </Decision>
+        </div>
+      </PvSectionBleed>
+
+      <PvBand />
+
+      <PvSectionBleed eyebrow="Smaller calls" heading="Details that build trust">
+        <PvSteps steps={SMALLER} />
+      </PvSectionBleed>
+
+      <PvBand />
+
+      <PvSection eyebrow="Testing" heading="Putting it in front of a new starter">
         <PvBody>
           <PvP>
-            The product is complete and about to go into user testing with the team it was built
-            for. That is the honest status: the decisions here are backed by research and by
-            understanding the domain, not yet by usage.
+            The first test was set up the way a brand new employee would see it: an empty week, no
+            history, nothing to copy. In ten minutes it found four real problems.
           </PvP>
           <PvP>
-            Once it is in daily use I am going to measure the thing that actually matters, which is
-            how much time it gives the payroll manager back against the spreadsheet it replaced.
-            That is the number worth having, and it is the one I did not have when I made these
-            decisions.
-          </PvP>
-          <PvP>
-            Designing and building it was the difference. Edge cases like counting a day worked
-            across two sites only surface once you have to implement them, and finding them while
-            the design was still moving meant fixing the model rather than patching the interface.
+            That is why the next step is more testing, not more features. Timed tasks with the team
+            are under way to measure how much time it saves against paper.
           </PvP>
         </PvBody>
       </PvSection>
+
+      <PvBand />
+
+      <PvSectionBleed eyebrow="Results" heading="What it saves">
+        <div className="flex w-full shrink-0 flex-col items-start gap-6 pt-2 lg:gap-8">
+          <PvPInset>Timed tasks are in progress. These figures will be filled in once they are measured.</PvPInset>
+          <div className="grid w-full grid-cols-1 border-y border-pv-border sm:grid-cols-2 lg:grid-cols-4">
+            {RESULTS.map((r, i) => (
+              <div
+                key={r.label}
+                className={`flex flex-col items-start gap-3 border-pv-border px-4 py-6 lg:px-8 lg:py-8 ${
+                  i > 0 ? "border-t sm:border-t-0" : ""
+                } ${i % 2 === 1 ? "sm:border-l" : ""} ${i >= 2 ? "sm:border-t lg:border-t-0" : ""} ${i === 2 ? "lg:border-l" : ""}`}
+              >
+                <p className="text-[12px] font-medium leading-[16px] text-pv-muted">For {r.who}</p>
+                <p className="text-[16px] font-medium leading-[24px] text-pv-fg lg:min-h-[48px]">{r.label}</p>
+                <p
+                  className="bg-clip-text text-[40px] font-medium leading-[44px] text-transparent lg:text-[48px] lg:leading-[52px]"
+                  style={{ backgroundImage: ACCENT_GRADIENT }}
+                >
+                  TBC
+                </p>
+                <p className="text-[14px] leading-[20px] text-pv-muted">Before: {r.before}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </PvSectionBleed>
 
       <PvBand />
 

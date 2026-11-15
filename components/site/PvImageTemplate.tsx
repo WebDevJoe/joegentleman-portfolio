@@ -11,6 +11,16 @@ const READY = new Set([
   "/media/fs2-community.webp",
   "/media/fs2-about-pair.webp",
   "/media/fs2-wishlist.webp",
+  "/media/ws-app-signin.webp",
+  "/media/ws-app-week.webp",
+  "/media/ws-app-reuse.webp",
+  "/media/ws-app-saved.webp",
+  "/media/ws-app-log.webp",
+  "/media/ws-app-leave.webp",
+  "/media/ws-dash-overview.webp",
+  "/media/ws-dash-approvals.webp",
+  "/media/ws-dash-leave.webp",
+  "/media/ws-dash-export.webp",
 ]);
 
 /** Whether this image should show as a template rather than itself. */

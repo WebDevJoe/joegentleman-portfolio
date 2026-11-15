@@ -26,6 +26,8 @@ type Card = {
   ratio: string;
   title: string;
   body: string;
+  /** object-position for the cover, when the centre crop loses its top. */
+  pos?: string;
 };
 
 const CARDS: Card[] = [
@@ -58,6 +60,7 @@ const CARDS: Card[] = [
     href: "/work/worksheets",
     image: COVERS.worksheets,
     ratio: "aspect-[361/329]",
+    pos: "object-top",
     title: "Worksheets",
     body: "Time and attendance for a cleaning contractor in Moray. Timesheets a team will actually fill in.",
   },
@@ -100,7 +103,7 @@ function WorkCard({
             // variant and the browser scaling it up by half.
             sizes="(min-width: 1024px) 46vw, (min-width: 768px) calc(100vw - 128px), (min-width: 640px) calc(100vw - 64px), 100vw"
             quality={90}
-            className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-[1.03]"
+            className={`object-cover ${card.pos ?? ""} transition-transform duration-500 ease-smooth group-hover:scale-[1.03]`}
           />
           <span
             aria-hidden
