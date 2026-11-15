@@ -1,13 +1,14 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import { MEDIA_DIMS } from "@/lib/media-dims";
+import { HOLD_IMAGES, PvImageTemplate } from "./PvImageTemplate";
 
 // Section shell shared by the case study body blocks. Figma: py-40, an inner
 // container at w-361 max-w-880 px-16 gap-16, header block gap-8, body pt-8.
 const H2_GRADIENT =
   "linear-gradient(180.1970480898805deg, rgb(255,255,255) 0.81508%, rgb(153,153,153) 111.98%)";
 
-export const PV_INSET = "w-full max-w-[820px] px-4 lg:px-16";
+export const PV_INSET = "w-full px-4 lg:px-16";
 
 export function PvSection({
   eyebrow,
@@ -22,7 +23,7 @@ export function PvSection({
 }) {
   return (
     <section className="flex w-full flex-col items-start justify-center border-b border-pv-border py-10 lg:py-16">
-      <div className={`flex w-full max-w-[820px] shrink-0 flex-col items-start ${gap} px-4 lg:px-16`}>
+      <div className={`flex w-full shrink-0 flex-col items-start ${gap} px-4 lg:px-16`}>
         <div className="flex w-full shrink-0 flex-col items-start gap-2">
           <p className="whitespace-nowrap text-[12px] font-medium leading-[16px] text-pv-muted">
             {eyebrow}
@@ -88,7 +89,6 @@ export function PvSectionBleed({
   );
 }
 
-const ACCENT_GRADIENT = "linear-gradient(180deg, #f1fa38 0%, #faff93 100%)";
 
 /** Figma 1189:34491: hairline separated rows. The rows run the full width
     of the column. From lg each one splits in two, number and title on the
@@ -109,15 +109,9 @@ export function PvSteps({
           }`}
         >
           <div className="flex flex-col items-start gap-1.5">
-            <p
-              className="whitespace-nowrap bg-clip-text text-[14px] font-medium leading-[20px] text-transparent"
-              style={{ backgroundImage: ACCENT_GRADIENT }}
-            >
-              {s.n}
-            </p>
             <p className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[22px] lg:leading-[30px]">{s.title}</p>
           </div>
-          <p className="w-full max-w-[720px] text-[16px] font-normal leading-[24px] text-pv-muted lg:pt-[26px] lg:text-[18px] lg:leading-[30px]">
+          <p className="w-full max-w-[720px] text-[16px] font-normal leading-[24px] text-pv-muted lg:text-[18px] lg:leading-[30px]">
             {s.body}
           </p>
         </div>
@@ -148,15 +142,31 @@ export function PvFigure({
   src,
   caption,
   natural = false,
+  placeholder = HOLD_IMAGES,
   onZoom,
 }: {
   src: string;
   caption: string;
   natural?: boolean;
+  /** Show an image-shaped template instead of the image itself, for screens
+      that are held back until a better export exists. */
+  placeholder?: boolean;
   onZoom?: (img: { src: string; alt: string }) => void;
 }) {
   const [w, h] = MEDIA_DIMS[src] ?? [1600, 900];
   const portrait = h > w;
+  if (placeholder) {
+    return (
+      <figure className="flex w-full shrink-0 flex-col items-start gap-4">
+        <div className="relative aspect-[4/3] w-full shrink-0 border-y border-pv-border sm:aspect-video">
+          <PvImageTemplate />
+        </div>
+        <figcaption className={`text-[14px] font-normal leading-[20px] text-pv-muted lg:text-[15px] ${PV_INSET}`}>
+          {caption}
+        </figcaption>
+      </figure>
+    );
+  }
   const img = natural ? (
     <div className="flex w-full shrink-0 justify-center overflow-hidden border-y border-pv-border">
       <Image
@@ -236,7 +246,7 @@ export function PvPainPoints({
   rows: { pain: string; fix: string }[];
 }) {
   return (
-    <div className="flex w-full max-w-[820px] shrink-0 flex-col items-start">
+    <div className="flex w-full shrink-0 flex-col items-start">
       <p className="w-full px-4 pb-3 lg:px-16 text-[14px] font-medium leading-[20px] text-pv-fg">{who}</p>
       {rows.map((r, i) => (
         <div

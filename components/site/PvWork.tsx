@@ -7,6 +7,7 @@ import { IconChevronRight } from "./PvIcons";
 import { PvLightbox, type LightboxImage } from "./PvLightbox";
 import { PvGutter } from "./PvHatch";
 import { COVERS } from "@/lib/work-covers";
+import { HOLD_IMAGES, PvImageTemplate } from "./PvImageTemplate";
 
 // Figma nodes 1175:271 (section), 1175:272 (header), then four cards.
 // The white to grey gradient is shared with the hero headline.
@@ -78,27 +79,35 @@ function WorkCard({
       data-node-id={card.node}
       className={`group flex w-full flex-col items-center gap-6 lg:min-w-0 lg:gap-0 ${className}`}
     >
-      <button
-        type="button"
-        onClick={() => onZoom({ src: card.image, alt: card.title })}
-        aria-label={`Preview ${card.title}`}
-        className={`relative w-full shrink-0 cursor-zoom-in overflow-hidden border-y border-pv-border ${card.ratio} lg:aspect-[4/3] lg:border-t-0`}
-      >
-        <Image
-          src={card.image}
-          alt={card.title}
-          fill
-          // The column is 1152 at xl, so a flat 361 had Next serving the 750w
-          // variant and the browser scaling it up by half.
-          sizes="(min-width: 1024px) 46vw, (min-width: 768px) calc(100vw - 128px), (min-width: 640px) calc(100vw - 64px), 100vw"
-          quality={90}
-          className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-[1.03]"
-        />
-        <span
-          aria-hidden
-          className="absolute inset-0 bg-pv-bg/0 transition-colors duration-300 ease-smooth group-hover:bg-pv-bg/10"
-        />
-      </button>
+      {HOLD_IMAGES ? (
+        <div
+          className={`relative w-full shrink-0 overflow-hidden border-y border-pv-border ${card.ratio} lg:aspect-[4/3] lg:border-t-0`}
+        >
+          <PvImageTemplate />
+        </div>
+      ) : (
+        <button
+          type="button"
+          onClick={() => onZoom({ src: card.image, alt: card.title })}
+          aria-label={`Preview ${card.title}`}
+          className={`relative w-full shrink-0 cursor-zoom-in overflow-hidden border-y border-pv-border ${card.ratio} lg:aspect-[4/3] lg:border-t-0`}
+        >
+          <Image
+            src={card.image}
+            alt={card.title}
+            fill
+            // The column is 1152 at xl, so a flat 361 had Next serving the 750w
+            // variant and the browser scaling it up by half.
+            sizes="(min-width: 1024px) 46vw, (min-width: 768px) calc(100vw - 128px), (min-width: 640px) calc(100vw - 64px), 100vw"
+            quality={90}
+            className="object-cover transition-transform duration-500 ease-smooth group-hover:scale-[1.03]"
+          />
+          <span
+            aria-hidden
+            className="absolute inset-0 bg-pv-bg/0 transition-colors duration-300 ease-smooth group-hover:bg-pv-bg/10"
+          />
+        </button>
+      )}
 
       <div className="mx-auto flex w-full max-w-[760px] shrink-0 flex-col items-start gap-3 px-4 lg:p-8">
         <div className="flex w-full flex-col items-start gap-1">

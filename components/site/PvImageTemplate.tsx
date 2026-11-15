@@ -1,0 +1,36 @@
+// Every screenshot on the site is held back until better exports exist. While
+// HOLD_IMAGES is true, each image slot shows this wireframe template instead:
+// a frame crossed corner to corner with a picture glyph in the middle. Flip it
+// to false and the real images come back exactly where they were.
+export const HOLD_IMAGES = true;
+
+const GLYPH = (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden className="size-[45%]">
+    <rect x="3" y="4" width="18" height="16" rx="2.5" stroke="currentColor" strokeWidth="1.5" />
+    <circle cx="9" cy="9.5" r="1.75" stroke="currentColor" strokeWidth="1.5" />
+    <path d="m3.5 17 5-5 4 4 3-3 5 5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" />
+  </svg>
+);
+
+/** Fills its parent (which must be positioned) with the template. */
+export function PvImageTemplate({ className = "" }: { className?: string }) {
+  return (
+    <div aria-hidden className={`absolute inset-0 flex items-center justify-center overflow-hidden bg-white/[0.02] ${className}`}>
+      <svg className="absolute inset-0 size-full" preserveAspectRatio="none" viewBox="0 0 100 100" fill="none">
+        <path d="M0 0 100 100M100 0 0 100" stroke="rgba(255,255,255,0.06)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+      </svg>
+      <span className="relative flex size-14 items-center justify-center rounded-[12px] border border-pv-border bg-pv-card text-pv-muted lg:size-16">
+        {GLYPH}
+      </span>
+    </div>
+  );
+}
+
+/** A small round template, for avatar-sized image slots. */
+export function PvImageDot({ className = "" }: { className?: string }) {
+  return (
+    <span aria-hidden className={`flex items-center justify-center rounded-full border border-pv-border bg-pv-card text-pv-muted ${className}`}>
+      <span className="flex size-full items-center justify-center p-[22%] [&>svg]:size-full">{GLYPH}</span>
+    </span>
+  );
+}

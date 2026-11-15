@@ -144,14 +144,8 @@ export default function BattlePassCaseStudy() {
       <PvSectionBleed eyebrow="Key Decisions" heading="Five changes that made room">
         <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
           {DECISIONS.map((d) => (
-            <div key={d.n} className="flex w-full shrink-0 flex-col items-start gap-4">
-              <div className="flex w-full max-w-[820px] flex-col items-start gap-1.5 px-4 lg:px-16">
-                <p
-                  className="whitespace-nowrap bg-clip-text text-[14px] font-medium leading-[20px] text-transparent"
-                  style={{ backgroundImage: "linear-gradient(180deg, #f1fa38 0%, #faff93 100%)" }}
-                >
-                  {d.n}
-                </p>
+            <div key={d.n} className="mt-8 flex w-full shrink-0 flex-col items-start gap-4 lg:mt-14">
+              <div className="flex w-full flex-col items-start gap-1.5 px-4 lg:px-16">
                 <p className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[24px] lg:leading-[32px]">{d.title}</p>
               </div>
               <PvPInset>{d.body}</PvPInset>

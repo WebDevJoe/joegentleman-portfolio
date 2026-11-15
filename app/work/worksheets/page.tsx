@@ -22,7 +22,6 @@ import { PvLightbox, type LightboxImage } from "@/components/site/PvLightbox";
 
 const NEXT_HEADING_GRADIENT =
   "linear-gradient(180.10035450598858deg, rgb(255,255,255) 0.81508%, rgb(153,153,153) 111.98%)";
-const ACCENT_GRADIENT = "linear-gradient(180deg, #f1fa38 0%, #faff93 100%)";
 
 const PROCESS = [
   {
@@ -185,14 +184,8 @@ export default function WorksheetsCaseStudy() {
           </PvPInset>
 
           {PERSONAS.map((p) => (
-            <div key={p.n} className="flex w-full shrink-0 flex-col items-start gap-4">
-              <div className="flex w-full max-w-[820px] flex-col items-start gap-1.5 px-4 lg:px-16">
-                <p
-                  className="whitespace-nowrap bg-clip-text text-[14px] font-medium leading-[20px] text-transparent"
-                  style={{ backgroundImage: ACCENT_GRADIENT }}
-                >
-                  {p.n}
-                </p>
+            <div key={p.n} className="mt-8 flex w-full shrink-0 flex-col items-start gap-4 lg:mt-14">
+              <div className="flex w-full flex-col items-start gap-1.5 px-4 lg:px-16">
                 <p className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[24px] lg:leading-[32px]">{p.name}</p>
               </div>
               <PvPInset>{p.body}</PvPInset>
@@ -310,14 +303,8 @@ export default function WorksheetsCaseStudy() {
       <PvSectionBleed eyebrow="Key Decisions" heading="Six calls that shaped it">
         <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
           {DECISIONS.map((d) => (
-            <div key={d.n} className="flex w-full shrink-0 flex-col items-start gap-4">
-              <div className="flex w-full max-w-[820px] flex-col items-start gap-1.5 px-4 lg:px-16">
-                <p
-                  className="whitespace-nowrap bg-clip-text text-[14px] font-medium leading-[20px] text-transparent"
-                  style={{ backgroundImage: ACCENT_GRADIENT }}
-                >
-                  {d.n}
-                </p>
+            <div key={d.n} className="mt-8 flex w-full shrink-0 flex-col items-start gap-4 lg:mt-14">
+              <div className="flex w-full flex-col items-start gap-1.5 px-4 lg:px-16">
                 <p className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[24px] lg:leading-[32px]">{d.title}</p>
               </div>
               <PvPInset>{d.body}</PvPInset>
