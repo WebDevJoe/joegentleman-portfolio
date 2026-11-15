@@ -90,7 +90,8 @@ export function PvSectionBleed({
 }
 
 
-/** Figma 1189:34491: hairline separated rows. The rows run the full width
+/** Figma 1189:34491: hairline separated rows, with no rule above the first
+    one: the heading already opens the list. The rows run the full width
     of the column. From lg each one splits in two, number and title on the
     left and the explanation on the right, so the section fills the column
     without the body running to an unreadable line length. */
@@ -101,12 +102,10 @@ export function PvSteps({
 }) {
   return (
     <div className="flex w-full shrink-0 flex-col items-start pt-2">
-      {steps.map((s, i) => (
+      {steps.map((s) => (
         <div
           key={s.n}
-          className={`grid w-full shrink-0 grid-cols-1 gap-1.5 border-pv-border px-4 py-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center lg:gap-x-16 lg:px-16 lg:py-8 ${
-            i === 0 ? "border-t border-b" : "border-b"
-          }`}
+          className="grid w-full shrink-0 grid-cols-1 gap-1.5 border-b border-pv-border px-4 py-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center lg:gap-x-16 lg:px-16 lg:py-8"
         >
           <div className="flex flex-col items-start gap-1.5">
             <p className="text-[20px] font-medium leading-[28px] text-pv-fg lg:text-[22px] lg:leading-[30px]">{s.title}</p>
