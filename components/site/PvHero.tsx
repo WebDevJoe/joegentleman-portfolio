@@ -1,15 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
-import { COVERS } from "@/lib/work-covers";
-import { isHeld, PvImageDot } from "./PvImageTemplate";
 
 // Centred launch-style hero: a "new" badge, a two line headline, one line of
-// who and where, two actions, and a stack of the project covers as proof.
+// who and where, and one action down to the work.
 // Behind it, large grid boxes under a soft light from the top left, both
 // fading out before the edges so nothing ends on a hard line.
 //
 // Desktop sizes are set to the reference at 1440: 72px headline, 20px lede,
-// 56px primary button. The section is as tall as its content plus padding.
+// and the site's standard 44px button. The section is as tall as its content plus padding.
 const HEADLINE_GRADIENT =
   "linear-gradient(180deg, rgb(255,255,255) 0%, rgb(255,255,255) 45%, rgb(170,170,170) 115%)";
 const ACCENT_GRADIENT = "linear-gradient(180deg, rgb(241,250,56) 0%, rgb(250,255,147) 100%)";
@@ -32,21 +29,6 @@ const LIGHT: React.CSSProperties = {
     "radial-gradient(35% 30% at 50% 38%, rgba(241,250,56,0.035), transparent 70%)",
   ].join(","),
 };
-
-const PROOF = [
-  { src: COVERS.growthFund, alt: "Growth Fund Bundles" },
-  { src: COVERS.fs2, alt: "Fallen Sword II landing page" },
-  { src: COVERS.battlePass, alt: "Battle Pass, Chaos & Conquest" },
-  { src: COVERS.worksheets, alt: "Worksheets" },
-];
-
-function Chevron({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden className={className}>
-      <path d="M6 3.5 10.5 8 6 12.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
 
 export function PvHero() {
   return (
@@ -99,40 +81,12 @@ export function PvHero() {
         </span>
       </p>
 
-      <div className="pv-rise pv-rise-3 relative mt-10 flex items-center gap-6 lg:mt-14 lg:gap-8">
-        <a
-          href="#work"
-          className="pv-primary flex h-[52px] items-center gap-1.5 rounded-[12px] pl-6 pr-5 text-[16px] font-medium leading-6 text-pv-bg shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_2px_4px_0_rgba(0,0,0,0.1)] transition-[transform,box-shadow] duration-200 ease-smooth hover:-translate-y-px hover:shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_10px_22px_-8px_rgba(241,250,56,0.45)] active:translate-y-0 lg:h-[56px] lg:pl-7 lg:pr-6 lg:text-[17px]"
-        >
-          My Work
-          <Chevron className="size-4" />
-        </a>
-        <a
-          href="/resume.pdf"
-          className="group flex items-center gap-1.5 text-[16px] font-medium leading-6 text-pv-fg transition-colors hover:text-pv-accent-soft lg:text-[17px]"
-        >
-          Resume
-          <Chevron className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-        </a>
-      </div>
-
-      {/* Proof: the four covers, stacked like avatars. */}
-      <div className="pv-rise pv-rise-3 relative mt-14 flex flex-col items-center gap-3 lg:mt-16">
-        <div className="flex -space-x-2.5">
-          {PROOF.map((p) => (
-            isHeld(p.src) ? (
-              <PvImageDot key={p.src} className="size-[36px] ring-2 ring-pv-bg" />
-            ) : (
-              <span key={p.src} className="relative size-[36px] overflow-hidden rounded-full ring-2 ring-pv-bg">
-                <Image src={p.src} alt={p.alt} fill sizes="36px" className="object-cover" />
-              </span>
-            )
-          ))}
-        </div>
-        <p className="text-[14px] leading-5 text-pv-muted lg:text-[15px]">
-          <span className="text-pv-fg">4 case studies</span> across game UI, product and web
-        </p>
-      </div>
+      <a
+        href="#work"
+        className="pv-rise pv-rise-3 pv-primary pv-stroke pv-stroke-btn relative mt-8 flex h-[44px] w-[156px] shrink-0 items-center justify-center rounded-[10px] text-[16px] font-medium leading-[24px] text-pv-bg shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_2px_4px_0_rgba(0,0,0,0.1)] transition-[transform,box-shadow,background-image] duration-200 ease-smooth hover:-translate-y-px hover:shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_10px_22px_-8px_rgba(241,250,56,0.45)] active:translate-y-0 active:duration-75 lg:mt-10"
+      >
+        My Work
+      </a>
     </section>
   );
 }
