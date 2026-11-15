@@ -193,7 +193,7 @@ export default function BattlePassCaseStudy() {
                 Growth Fund and Store Bundles
               </p>
               <p className="w-full max-w-[297px] text-center text-[14px] font-normal leading-[17.5px] text-[#666] lg:max-w-[520px] lg:text-[16px] lg:leading-[24px]">
-                A growth fund monetisation feature, shipped inside two live App Store games.
+                A growth fund monetisation feature, shipped inside three live mobile games.
               </p>
             </div>
           </div>

@@ -17,6 +17,7 @@ import {
   PvSteps,
 } from "@/components/site/PvProse";
 import { PvLightbox, type LightboxImage } from "@/components/site/PvLightbox";
+import { PvPhones } from "@/components/site/PvPhones";
 
 const NEXT_HEADING_GRADIENT =
   "linear-gradient(180.10035450598858deg, rgb(255,255,255) 0.81508%, rgb(153,153,153) 111.98%)";
@@ -29,7 +30,7 @@ export default function GrowthFundCaseStudy() {
     <PvShell>
       <PvCaseHero
         title="Growth Funds shipped across 3 live games"
-        intro="A growth fund is a paid progression track: players upgrade naturally, hit milestones, and claim rewards along the way. I designed one for three live App Store games, Godzilla x Kong: Titan Chasers and Operation New Earth, working inside the store and design system each game already had."
+        intro="A growth fund is a paid progression track: players upgrade naturally, hit milestones, and claim rewards along the way. I designed one for three live mobile games, Godzilla x Kong: Titan Chasers, Operation New Earth and Warhammer: Chaos & Conquest, working inside the store and design system each game already had."
         role="UI/UX designer"
         status="Shipped"
       />
@@ -50,11 +51,11 @@ export default function GrowthFundCaseStudy() {
       <PvBand />
 
       {/* 1189:34378 */}
-      <PvSection eyebrow="The Brief" heading="Two live games, two design systems, one feature to add">
+      <PvSection eyebrow="The Brief" heading="Three live games, three design systems, one feature to add">
         <PvBody>
           <PvP>
             The growth fund mechanic was defined. What was not defined was how it would live inside
-            each game. Both titles were already shipped, each with its own store, its own
+            each game. All three were already live, each with its own store, its own
             components, and its own art direction. The job was fitting a new monetisation feature
             into interfaces that players already knew, without it looking out of place.
           </PvP>
@@ -64,7 +65,7 @@ export default function GrowthFundCaseStudy() {
             scrolling tabs or a rethink of what earned its space.
           </PvP>
           <PvQuote>
-            Same feature, two games, each with its own store and design system to build inside.
+            Same feature, three games, each with its own store and design system to build inside.
           </PvQuote>
         </PvBody>
       </PvSection>
@@ -78,7 +79,7 @@ export default function GrowthFundCaseStudy() {
             {
               n: "01",
               title: "Mapped the states",
-              body: "Laid out every state the growth fund needed: locked, near unlock, ready to claim, claimed, and maxed. Knowing the states up front kept the design consistent across both games.",
+              body: "Laid out every state the growth fund needed: locked, near unlock, ready to claim, claimed, and maxed. Knowing the states up front kept the design consistent across all three games.",
             },
             {
               n: "02",
@@ -201,13 +202,48 @@ export default function GrowthFundCaseStudy() {
 
       <PvBand />
 
+      {/* Figma 877:49514 */}
+      <PvSectionBleed eyebrow="Warhammer: Chaos & Conquest" heading="The same structure, in portrait and gold">
+        <div className="flex w-full shrink-0 flex-col items-start gap-4 pt-2">
+          <PvPInset>
+            Chaos &amp; Conquest is played in portrait, with heavy gold frames and dark textures. The
+            growth fund became its own tab in Offers, built from the game&apos;s own panels and
+            buttons: a header with the price, then a reward for every Fortress level.
+          </PvPInset>
+
+          <PvPhones
+            onZoom={setZoom}
+            shots={[
+              { src: "/media/wh-base.webp", alt: "The game's base view, where players reach Offers." },
+              { src: "/media/wh-offer.webp", alt: "The growth fund before purchase: up to 320k Warpstone, one price." },
+              { src: "/media/wh-active.webp", alt: "After purchase: claimed rewards, the next claim, and Go to Fortress." },
+            ]}
+          />
+
+          <PvPInset>
+            Once bought, the price becomes Go to Fortress, so the next step is always upgrading.
+            Each reward moves from locked to claim to claimed, and a how it works panel explains the
+            fund before anyone pays.
+          </PvPInset>
+
+          <PvPhones
+            onZoom={setZoom}
+            itemClassName="max-w-[460px] rounded-[6px]"
+            sizes="(min-width: 640px) 460px, calc(100vw - 32px)"
+            shots={[{ src: "/media/wh-popup.webp", alt: "How it works: the growth fund explained in two lines, with the price." }]}
+          />
+        </div>
+      </PvSectionBleed>
+
+      <PvBand />
+
       {/* 1192:34723 */}
       <PvSection eyebrow="Outcome" heading="What I learned">
         <PvBody>
-          <PvP>Both growth funds shipped and are live on the App Store.</PvP>
+          <PvP>All three growth funds shipped and are live.</PvP>
           <PvP>
-            This was a fast turnaround across two live games, and the main thing I took from it was
-            how to extend an existing design system without breaking its rules. Working inside two
+            This was a fast turnaround across three live games, and the main thing I took from it was
+            how to extend an existing design system without breaking its rules. Working inside three
             different visual languages at once made the principles behind each one easier to see.
           </PvP>
           <PvP>
