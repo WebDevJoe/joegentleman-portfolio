@@ -34,19 +34,19 @@ const PERSONAS = [
   {
     name: "Caitlin",
     role: "Cleaning operative",
-    body: "Works across several sites and has never used a work app. Her worry is pressing the wrong thing and losing her hours.",
+    body: "Moves between sites and has never used a work app. Afraid of losing her hours.",
     quote: "If it takes longer than writing it on paper, what is the point?",
   },
   {
     name: "Andrew",
     role: "Business owner",
-    body: "Types up everyone's hours late at night. A missed correction has cost him money before.",
+    body: "Types up everyone's hours at night. A missed correction has cost him money.",
     quote: "I need to trust the numbers without double checking everything myself.",
   },
   {
     name: "Caroline",
     role: "Payroll manager",
-    body: "Runs payroll for six businesses, and each sends her a different format.",
+    body: "Runs payroll for six businesses, each in a different format.",
     quote: "Give me clean numbers on time.",
   },
 ];
@@ -55,17 +55,17 @@ const APPROACH = [
   {
     n: "first",
     title: "Caitlin first",
-    body: "If the cleaners don't fill it in, Andrew has nothing to approve and Caroline has nothing to pay. So her side came first.",
+    body: "If cleaners don't fill it in, nothing else works.",
   },
   {
     n: "simple",
     title: "Simpler than paper",
-    body: "No app to install, a PIN instead of a password, three labelled tabs and big buttons. Nobody would be trained, so nothing could need it.",
+    body: "No install, a PIN not a password, three labelled tabs. No training needed.",
   },
   {
     n: "build",
     title: "Designed by building it",
-    body: "I built it as a working app, so awkward cases surfaced while the design could still change.",
+    body: "Edge cases surfaced while the design could still change.",
   },
 ];
 
@@ -202,7 +202,7 @@ export default function WorksheetsCaseStudy() {
     <PvShell>
       <PvCaseHero
         title="Worksheets: timesheets a cleaning team will actually fill in"
-        intro="Over 40 cleaners were sending their hours as photos of paper timesheets, and the owner typed them up at night. I designed and built the replacement: a phone app for the team and a dashboard for the office."
+        intro="Over 40 cleaners sent their hours as photos of paper timesheets, and the owner typed them up at night. I designed and built the app that replaced both."
         meta={[
           { label: "Role", value: "Sole designer, and I built it" },
           { label: "Users", value: "Cleaners, the owner and payroll" },
@@ -234,12 +234,11 @@ export default function WorksheetsCaseStudy() {
 
       <PvBand />
 
-      <PvSection eyebrow="The problem" heading="Paper, photos and a late night spreadsheet">
+      <PvSection eyebrow="The problem" heading="If it's slower than paper, they'll use paper">
         <PvBody>
           <PvP>
-            Every week started with chasing photos of paper timesheets, then typing them all in.
-            The catch: it only works if the cleaners use it, and they gain the least from it. If
-            it took longer than paper, they would go back to paper.
+            Every week began with chasing photos of timesheets and typing them in. The fix only
+            works if the cleaners use it, and they gain the least from it.
           </PvP>
           <PvQuote>Hours of admin off the business. Seconds of effort for the people on site.</PvQuote>
         </PvBody>
@@ -284,9 +283,8 @@ export default function WorksheetsCaseStudy() {
         <div className="flex w-full shrink-0 flex-col items-start gap-14 pt-2 lg:gap-20">
           <Decision who="For Caitlin and Andrew" title="No clock in, no clock out">
             <p>
-              Cleaners move between sites, some with no signal, and the end of a long shift is
-              when people forget to clock out. Every missed punch becomes a correction for Andrew
-              to chase. So staff log the week instead, and I made that the fast option.
+              People forget to clock out, and some sites have no signal. Every missed punch is a
+              correction for Andrew to chase, so staff log the week instead.
             </p>
           </Decision>
 
@@ -302,8 +300,8 @@ export default function WorksheetsCaseStudy() {
               ]}
             >
               <p>
-                Every day is listed, even empty ones, so a forgotten day says Add hours instead of
-                disappearing. Total, confirm and submit sit on the same screen.
+                Every day is listed, even empty ones, so nothing is forgotten. Total, confirm and
+                submit on one screen.
               </p>
             </Decision>
 
@@ -318,9 +316,8 @@ export default function WorksheetsCaseStudy() {
               ]}
             >
               <p>
-                Most weeks look the same, so a new week offers her usual one in a tap. Nothing is
-                copied silently: she sees the hours before she confirms, so a holiday week never
-                carries forward into her pay.
+                Her usual week in one tap. She always sees the hours before confirming, so a
+                holiday week never slips into her pay.
               </p>
             </Decision>
 
@@ -332,8 +329,8 @@ export default function WorksheetsCaseStudy() {
               phones={[{ src: "/media/ws-app-log.webp", alt: "Add a shift: her usual jobs first, then the form." }]}
             >
               <p>
-                Adding a shift starts with her usual jobs. Times only fill in when her history shows
-                they never change, because a guessed time ends up in someone&apos;s pay.
+                Her usual jobs come first. Times only fill in when they never change, because a
+                guess ends up in someone&apos;s pay.
               </p>
             </Decision>
 
@@ -345,9 +342,8 @@ export default function WorksheetsCaseStudy() {
               phones={[{ src: "/media/ws-app-leave.webp", alt: "Leave: hours left, request buttons and history with status." }]}
             >
               <p>
-                Part-time rounds make days meaningless, so leave is counted in hours. Approved
-                holiday shows on her week but can only change through a request, and Andrew no
-                longer works out entitlement by hand.
+                Part-time rounds make days meaningless. Approved holiday shows on her week but
+                can&apos;t be edited there, and Andrew stops doing the maths.
               </p>
             </Decision>
           </div>
@@ -371,9 +367,8 @@ export default function WorksheetsCaseStudy() {
             }
           >
             <p>
-              Nobody reads 50 timesheets carefully on a Monday night. The dashboard leads with
-              who is still missing and flags anything unusual, so his attention goes where it is
-              needed.
+              Nobody reads 50 timesheets properly on a Monday night. The dashboard shows who is
+              missing and flags anything unusual.
             </p>
           </Decision>
 
@@ -390,8 +385,8 @@ export default function WorksheetsCaseStudy() {
             }
           >
             <p>
-              One row per person on leave, with a daily count across the top, so a clash shows
-              before he approves it.
+              One row per person off, with a daily count, so a clash shows before he approves
+              it.
             </p>
           </Decision>
 
@@ -408,9 +403,8 @@ export default function WorksheetsCaseStudy() {
             }
           >
             <p>
-              The export matches the sheet she already keeps, column for column, so nothing is
-              reformatted. Closing a pay period locks it, so the numbers can&apos;t change under
-              her.
+              The export matches the sheet she already keeps, column for column. Nothing to
+              reformat, and a closed period is locked.
             </p>
           </Decision>
         </div>
@@ -421,8 +415,8 @@ export default function WorksheetsCaseStudy() {
       <PvSectionBleed eyebrow="Results" heading="What it saves">
         <div className="flex w-full shrink-0 flex-col items-start gap-6 pt-2 lg:gap-8">
           <PvPInset>
-            The first test with a new starter found four problems in ten minutes. Timed tasks with
-            the team are now under way, and the figures will land here.
+            The first test with a new starter found four problems in ten minutes. Timed tasks are
+            under way.
           </PvPInset>
           <div className="grid w-full grid-cols-1 border-y border-pv-border sm:grid-cols-2 lg:grid-cols-4">
             {RESULTS.map((r, i) => (
