@@ -1,102 +1,133 @@
 import Image from "next/image";
-import { PvPulseField } from "./PvPulseField";
+import Link from "next/link";
+import { COVERS } from "@/lib/work-covers";
 
-// Figma node 1175:268. Mobile frame is 393 wide with 16px hatch rails, so the
-// hero content column is 361. The height is fixed because the portrait is
-// absolutely positioned and would otherwise collapse the section. 656 is the
-// value that puts the top of the head about 32px under the resume button.
+// Centred launch-style hero: a "new" badge, a two line headline, one line of
+// who and where, two actions, and a stack of the project covers as proof.
+// Behind it, large grid boxes under a soft light from the top left, both
+// fading out before the edges so nothing ends on a hard line.
 //
-// Larger screens keep the same arrangement, everything anchored to the bottom,
-// and scale the three pieces together: taller section, taller portrait capped
-// to a width so it does not stretch across the whole frame, larger headline.
+// Desktop sizes are set to the reference at 1440: 72px headline, 20px lede,
+// 56px primary button. The section is as tall as its content plus padding.
 const HEADLINE_GRADIENT =
-  "linear-gradient(180.29557067819997deg, rgb(255,255,255) 0.81508%, rgb(153,153,153) 111.98%)";
-const ACCENT_GRADIENT =
-  "linear-gradient(180deg, rgb(241,250,56) 0%, rgb(250,255,147) 100%)";
+  "linear-gradient(180deg, rgb(255,255,255) 0%, rgb(255,255,255) 45%, rgb(170,170,170) 115%)";
+const ACCENT_GRADIENT = "linear-gradient(180deg, rgb(241,250,56) 0%, rgb(250,255,147) 100%)";
 
-const MASK = "linear-gradient(to bottom, #000 0%, #000 70%, transparent 96%)";
+const CELL = 112;
+const GRID: React.CSSProperties = {
+  backgroundImage: [
+    "linear-gradient(to right, rgba(255,255,255,0.085) 1px, transparent 1px)",
+    "linear-gradient(to bottom, rgba(255,255,255,0.085) 1px, transparent 1px)",
+  ].join(","),
+  backgroundSize: `${CELL}px ${CELL}px`,
+  // Centred on the column, so the boxes sit symmetrically about the headline.
+  backgroundPosition: "center top",
+  maskImage: "radial-gradient(ellipse 75% 70% at 50% 35%, #000 25%, transparent 80%)",
+  WebkitMaskImage: "radial-gradient(ellipse 75% 70% at 50% 35%, #000 25%, transparent 80%)",
+};
+const LIGHT: React.CSSProperties = {
+  backgroundImage: [
+    "radial-gradient(55% 45% at 8% 30%, rgba(255,255,255,0.09), transparent 70%)",
+    "radial-gradient(35% 30% at 50% 38%, rgba(241,250,56,0.035), transparent 70%)",
+  ].join(","),
+};
+
+const PROOF = [
+  { src: COVERS.growthFund, alt: "Growth Fund Bundles" },
+  { src: COVERS.fs2, alt: "Fallen Sword II landing page" },
+  { src: COVERS.battlePass, alt: "Battle Pass, Chaos & Conquest" },
+  { src: COVERS.worksheets, alt: "Worksheets" },
+];
+
+function Chevron({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden className={className}>
+      <path d="M6 3.5 10.5 8 6 12.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 export function PvHero() {
   return (
-    <section className="relative flex h-[656px] w-full flex-col items-center gap-4 overflow-hidden border-b border-pv-border px-4 py-10 sm:h-[720px] lg:h-[min(calc(100svh_-_97px),760px)] lg:min-h-[640px] lg:justify-center lg:gap-6 lg:px-8 lg:py-16">
-      {/* Portrait, sat right back at 12%. Centred while the frame is narrow,
-          pushed to the right edge from lg. The photo ends on a bright row (the
-          shirt), so the last stretch is faded out rather than cut, and it stops
-          clear of the section stroke. */}
-      <div
-        aria-hidden
-        data-hero-portrait
-        className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-[541px] w-full sm:max-w-[520px] lg:left-auto lg:right-0 lg:mx-0 lg:h-[77%] lg:max-w-[620px]"
-        style={{ maskImage: MASK, WebkitMaskImage: MASK }}
+    <section className="relative flex w-full flex-col items-center overflow-hidden border-b border-pv-border px-4 pb-20 pt-20 sm:pb-24 sm:pt-28 lg:px-8 lg:pb-28 lg:pt-36">
+      <div aria-hidden className="pointer-events-none absolute inset-0" style={GRID} />
+      <div aria-hidden className="pointer-events-none absolute inset-0" style={LIGHT} />
+
+      {/* Badge: the newest case study. */}
+      <Link
+        href="/work/worksheets"
+        className="pv-rise group relative flex h-[34px] items-center gap-2.5 rounded-full border border-[#f1fa38]/30 bg-[#f1fa38]/[0.06] pl-1 pr-3 transition-colors duration-200 hover:border-[#f1fa38]/50 hover:bg-[#f1fa38]/10"
       >
-        <Image
-          src="/media/joe.webp"
-          alt=""
-          fill
-          sizes="(min-width: 1024px) 620px, (min-width: 640px) 520px, 100vw"
-          className="object-cover opacity-[0.12]"
-          priority
-        />
-      </div>
+        <span
+          className="flex h-[26px] items-center rounded-full px-2.5 text-[13px] font-medium leading-none text-pv-bg"
+          style={{ backgroundImage: ACCENT_GRADIENT }}
+        >
+          New
+        </span>
+        <span className="text-[14px] font-medium leading-5 text-pv-accent-soft">Worksheets case study</span>
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden className="size-4 text-pv-accent-soft transition-transform duration-200 group-hover:translate-x-0.5">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </Link>
 
-      <PvPulseField />
-
-      {/* Headline: the whole line is one white to grey gradient, clipped to text.
-          The selection box hugs the word with insets rather than a fixed size,
-          so it tracks the type at every breakpoint. */}
       <h1
-        className="pv-rise relative w-full max-w-[329px] bg-clip-text text-center text-[36px] font-medium leading-[48px] text-transparent sm:max-w-[560px] sm:text-[52px] sm:leading-[64px] lg:max-w-[820px] lg:text-[72px] lg:leading-[88px]"
+        className="pv-rise pv-rise-2 relative mt-6 w-full max-w-[361px] bg-clip-text text-center text-[44px] font-semibold leading-[50px] tracking-[-0.03em] text-transparent sm:max-w-[640px] sm:text-[60px] sm:leading-[66px] lg:max-w-[900px] lg:text-[72px] lg:leading-[80px]"
         style={{ backgroundImage: HEADLINE_GRADIENT }}
       >
-        {/* Hard break: the word sits on its own line on the phone because the
-            measure forces it, and it should keep doing that once the measure
-            is wide enough to fit the whole line. */}
         Design built to
         <br />
-        <span
-          className="relative inline-block bg-clip-text text-transparent"
-          style={{ backgroundImage: HEADLINE_GRADIENT }}
-        >
+        <span className="relative inline-block bg-clip-text text-transparent" style={{ backgroundImage: HEADLINE_GRADIENT }}>
           <span
             aria-hidden
-            className="pv-marquee pointer-events-none absolute -inset-x-[11px] top-1/2 h-[42px] -translate-y-1/2 border border-[#f1fa38] sm:-inset-x-[15px] sm:h-[60px] lg:-inset-x-[20px] lg:h-[82px]"
-            style={{
-              backgroundImage:
-                "linear-gradient(to bottom, rgba(241,250,56,0.12), rgba(250,255,147,0.12))",
-            }}
+            className="pv-marquee pointer-events-none absolute -inset-x-[12px] top-1/2 h-[50px] -translate-y-1/2 border border-[#f1fa38] sm:-inset-x-[16px] sm:h-[66px] lg:-inset-x-[18px] lg:h-[80px]"
+            style={{ backgroundImage: "linear-gradient(to bottom, rgba(241,250,56,0.12), rgba(250,255,147,0.12))" }}
           >
-            <span className="pv-handle absolute -left-[3px] -top-[3px] size-[4px] border border-[#f1fa38] bg-[#161616]" />
-            <span className="pv-handle absolute -right-[3px] -top-[3px] size-[4px] border border-[#f1fa38] bg-[#151515]" />
-            <span className="pv-handle absolute -bottom-[3px] -left-[3px] size-[4px] border border-[#f1fa38] bg-[#161616]" />
-            <span className="pv-handle absolute -bottom-[3px] -right-[3px] size-[4px] border border-[#f1fa38] bg-[#171717]" />
+            <span className="pv-handle absolute -left-[3px] -top-[3px] size-[5px] border border-[#f1fa38] bg-[#161616]" />
+            <span className="pv-handle absolute -right-[3px] -top-[3px] size-[5px] border border-[#f1fa38] bg-[#161616]" />
+            <span className="pv-handle absolute -bottom-[3px] -left-[3px] size-[5px] border border-[#f1fa38] bg-[#161616]" />
+            <span className="pv-handle absolute -bottom-[3px] -right-[3px] size-[5px] border border-[#f1fa38] bg-[#161616]" />
           </span>
-          Solve
+          Solve.
         </span>
       </h1>
 
-      <p className="pv-rise pv-rise-2 relative w-full max-w-[560px] text-balance text-center text-[16px] font-normal leading-[24px] text-pv-muted lg:max-w-[820px] lg:text-[18px] lg:leading-[28px]">
+      <p className="pv-rise pv-rise-2 relative mt-6 w-full max-w-[560px] text-balance text-center text-[17px] leading-[26px] text-pv-muted lg:max-w-[760px] lg:text-[20px] lg:leading-[31px]">
         A UX designer from the north east of Scotland, currently working @{" "}
-        {/* The studio name is one thing, so it never breaks across lines. */}
-        <span
-          className="whitespace-nowrap bg-clip-text text-transparent"
-          style={{ backgroundImage: ACCENT_GRADIENT }}
-        >
+        <span className="whitespace-nowrap bg-clip-text text-transparent" style={{ backgroundImage: ACCENT_GRADIENT }}>
           Hunted Cow Studios
         </span>
       </p>
 
-      {/* The work is a full screen below on desktop with nothing above the fold
-          to say so, and Resume already lives in the nav. So the hero's one
-          action points at the evidence. No icon: the chevron is stroked in the
-          accent gradient, which is invisible on an accent button, and it was
-          still taking its 16px and shoving the label off centre. A real anchor,
-          so it works without JS and the URL is shareable. */}
-      <a
-        href="#work"
-        className="pv-rise pv-rise-3 pv-primary pv-stroke pv-stroke-btn relative flex h-[44px] w-[156px] shrink-0 items-center justify-center gap-2 rounded-[10px] px-[10px] py-2 text-[16px] font-medium leading-[24px] text-pv-bg shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_2px_4px_0_rgba(0,0,0,0.1)] transition-[transform,box-shadow,background-image] duration-200 ease-smooth hover:-translate-y-px hover:shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_10px_22px_-8px_rgba(241,250,56,0.45)] active:translate-y-0 active:duration-75"
-      >
-        My Work
-      </a>
+      <div className="pv-rise pv-rise-3 relative mt-10 flex items-center gap-6 lg:mt-14 lg:gap-8">
+        <a
+          href="#work"
+          className="pv-primary flex h-[52px] items-center gap-1.5 rounded-[12px] pl-6 pr-5 text-[16px] font-medium leading-6 text-pv-bg shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_2px_4px_0_rgba(0,0,0,0.1)] transition-[transform,box-shadow] duration-200 ease-smooth hover:-translate-y-px hover:shadow-[0_0_0_1px_rgba(13,13,13,0.16),0_10px_22px_-8px_rgba(241,250,56,0.45)] active:translate-y-0 lg:h-[56px] lg:pl-7 lg:pr-6 lg:text-[17px]"
+        >
+          My Work
+          <Chevron className="size-4" />
+        </a>
+        <a
+          href="/resume.pdf"
+          className="group flex items-center gap-1.5 text-[16px] font-medium leading-6 text-pv-fg transition-colors hover:text-pv-accent-soft lg:text-[17px]"
+        >
+          Resume
+          <Chevron className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+        </a>
+      </div>
+
+      {/* Proof: the four covers, stacked like avatars. */}
+      <div className="pv-rise pv-rise-3 relative mt-14 flex flex-col items-center gap-3 lg:mt-16">
+        <div className="flex -space-x-2.5">
+          {PROOF.map((p) => (
+            <span key={p.src} className="relative size-[36px] overflow-hidden rounded-full ring-2 ring-pv-bg">
+              <Image src={p.src} alt={p.alt} fill sizes="36px" className="object-cover" />
+            </span>
+          ))}
+        </div>
+        <p className="text-[14px] leading-5 text-pv-muted lg:text-[15px]">
+          <span className="text-pv-fg">4 case studies</span> across game UI, product and web
+        </p>
+      </div>
     </section>
   );
 }

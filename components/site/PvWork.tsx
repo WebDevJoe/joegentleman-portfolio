@@ -6,6 +6,7 @@ import Link from "next/link";
 import { IconChevronRight } from "./PvIcons";
 import { PvLightbox, type LightboxImage } from "./PvLightbox";
 import { PvGutter } from "./PvHatch";
+import { COVERS } from "@/lib/work-covers";
 
 // Figma nodes 1175:271 (section), 1175:272 (header), then four cards.
 // The white to grey gradient is shared with the hero headline.
@@ -26,13 +27,11 @@ type Card = {
   body: string;
 };
 
-// Covers are placeholder dogs until sharper exports of the real ones exist:
-// one-5, fs2-cover, bp-hero and worksheets-dashboard, in that order.
 const CARDS: Card[] = [
   {
     node: "1175:289",
     href: "/work/growth-fund-store",
-    image: "/media/dog-1.webp",
+    image: COVERS.growthFund,
     ratio: "aspect-[722/408]",
     title: "Growth Fund Bundles",
     body: "A paid progression track shipped into two live App Store games, built inside each one's own store and design system.",
@@ -40,7 +39,7 @@ const CARDS: Card[] = [
   {
     node: "1175:294",
     href: "/work/fs2",
-    image: "/media/dog-2.webp",
+    image: COVERS.fs2,
     ratio: "aspect-square",
     title: "Fallen Sword II Landing page",
     body: "A pre-launch landing page built in two weeks to drive wishlists, name reservations and press kit downloads.",
@@ -48,7 +47,7 @@ const CARDS: Card[] = [
   {
     node: "1175:299",
     href: "/work/battle-pass",
-    image: "/media/dog-3.webp",
+    image: COVERS.battlePass,
     ratio: "aspect-[722/388]",
     title: "Battle Pass Chaos & Conquest",
     body: "A battle pass fitted into a five year old mobile RTS HUD without crowding what was already there.",
@@ -56,7 +55,7 @@ const CARDS: Card[] = [
   {
     node: "1175:275",
     href: "/work/worksheets",
-    image: "/media/dog-4.webp",
+    image: COVERS.worksheets,
     ratio: "aspect-[361/329]",
     title: "Worksheets",
     body: "Time and attendance for a cleaning contractor in Moray. Timesheets a team will actually fill in.",
