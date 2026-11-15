@@ -6,20 +6,20 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Growth Fund Bundles",
   description:
-    "A paid progression track shipped into three live App Store games, built inside the store and design system each game already had.",
+    "A paid progression track shipped into two live App Store games, built inside the store and design system each game already had.",
   alternates: { canonical: "https://joegentleman.co.uk/work/growth-fund-store" },
   openGraph: {
     type: "article",
     title: "Growth Fund Bundles | Joe Gentleman",
     description:
-      "A paid progression track shipped into three live App Store games, built inside the store and design system each game already had.",
+      "A paid progression track shipped into two live App Store games, built inside the store and design system each game already had.",
     url: "https://joegentleman.co.uk/work/growth-fund-store",
   },
   twitter: {
     card: "summary_large_image",
     title: "Growth Fund Bundles | Joe Gentleman",
     description:
-      "A paid progression track shipped into three live App Store games, built inside the store and design system each game already had.",
+      "A paid progression track shipped into two live App Store games, built inside the store and design system each game already had.",
   },
 };
 

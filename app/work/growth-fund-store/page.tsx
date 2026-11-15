@@ -28,8 +28,8 @@ export default function GrowthFundCaseStudy() {
   return (
     <PvShell>
       <PvCaseHero
-        title="Growth Funds shipped across 3 live games"
-        intro="A growth fund is a paid progression track: players upgrade naturally, hit milestones, and claim rewards along the way. I designed one for three live App Store games, Godzilla x Kong: Titan Chasers and Operation New Earth, working inside the store and design system each game already had."
+        title="Growth Funds shipped across 2 live games"
+        intro="A growth fund is a paid progression track: players upgrade naturally, hit milestones, and claim rewards along the way. I designed one for two live App Store games, Godzilla x Kong: Titan Chasers and Operation New Earth, working inside the store and design system each game already had."
         role="UI/UX designer"
         status="Shipped"
       />
