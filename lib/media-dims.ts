@@ -17,7 +17,6 @@ export const MEDIA_DIMS: Record<string, [width: number, height: number]> = {
   "/media/fs2-community.webp": [2880, 1876],
   "/media/fs2-hero.webp": [2880, 1744],
   "/media/fs2-overview.webp": [2880, 1670],
-  "/media/fs2-secure.webp": [2880, 876],
   "/media/fs2-wishlist.webp": [2880, 880],
   "/media/gxk-1.webp": [1664, 936],
   "/media/gxk-2.webp": [1664, 936],

@@ -58,12 +58,6 @@ const DECISIONS = [
     alt: "The first two About blocks, Live the Legend and Become a Hero, with the art on alternating sides.",
   },
   {
-    title: "Talk to veterans on their own",
-    body: "Secure It Early only speaks to returning Fallen Sword players. Kept out of the main flow, it can't confuse someone who has no name to protect.",
-    src: "/media/fs2-secure.webp",
-    alt: "Secure It Early: reserve your username, with a Log in button for returning players.",
-  },
-  {
     title: "Ask again at the end",
     body: "Anyone who reads all the way down gets the wishlist a second time, followed by community, the newsletter and the press kit, so nobody reaches the bottom without a next step.",
     src: "/media/fs2-wishlist.webp",
@@ -178,7 +172,7 @@ export default function Fs2CaseStudy() {
 
       <PvBand />
 
-      <PvSectionBleed eyebrow="The decisions" heading="Four calls that shaped the page">
+      <PvSectionBleed eyebrow="The decisions" heading="Three calls that shaped the page">
         <div className="flex w-full shrink-0 flex-col items-start gap-14 pt-2 lg:gap-20">
           {DECISIONS.map((d) => (
             <Decision key={d.title} d={d} onZoom={setZoom} />

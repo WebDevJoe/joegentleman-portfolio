@@ -10,7 +10,6 @@ const READY = new Set([
   "/media/fs2-hero.webp",
   "/media/fs2-community.webp",
   "/media/fs2-about-pair.webp",
-  "/media/fs2-secure.webp",
   "/media/fs2-wishlist.webp",
 ]);
 
